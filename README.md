@@ -4,7 +4,7 @@ Group the files by domain
 for instance
 create a user directory that will house all .js files related to the user domain
 
-```user/
+``` user/
     User.js
     UserActions.js
     UserProfile.js
