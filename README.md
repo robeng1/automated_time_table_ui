@@ -1,14 +1,19 @@
-
 ## Directory Structure
 
 Group the files by domain
-as shown below
-user/
-    User.js            // component & container
+for instance
+create a user directory that will house all .js files related to the user domain
+
+```user/
+    User.js
     UserActions.js
     UserProfile.js
     UserAvatar.js
-    userReducer.js
+    userReducer.js 
+```
+
+Make the components smart 
+### `component & container`
 
 The only practical interest to separate component and container is to facilitate the unit tests of the component (without using Redux at all).
 In 99% of the cases, the component is never used outside of the container
