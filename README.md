@@ -1,3 +1,27 @@
+
+## Directory Structure
+
+Group the files by domain
+as shown below
+user/
+    User.js            // component & container
+    UserActions.js
+    UserProfile.js
+    UserAvatar.js
+    userReducer.js
+
+The only practical interest to separate component and container is to facilitate the unit tests of the component (without using Redux at all).
+In 99% of the cases, the component is never used outside of the container
+
+routes.js should be the parent house for routes in the project
+
+Doing it this way allows each memeber to work separately with separate components.
+It might result in code duplication but it's a trade off between having all components in 
+one directory and having developers modify components here and there to suit their needs
+This isi how we're doing it for now 
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
