@@ -20,10 +20,10 @@ In 99% of the cases, the component is never used outside of the container
 
 routes.js should be the parent house for routes in the project
 
-Doing it this way allows each memeber to work separately with separate components.
+Doing it this way allows each member to work separately with separate components.
 It might result in code duplication but it's a trade off between having all components in 
-one directory and having developers modify components here and there to suit their needs
-This isi how we're doing it for now 
+one directory and having developers modify components here and there to suit their needs. 
+This si how we're doing it for now 
 
 
 
