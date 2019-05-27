@@ -1,40 +1,25 @@
-import React, { Component } from 'react';
-import './App.css';
-import Header from './Header/Header';
-import Showcase from './Showcase/Showcase';
-import Service from './Service/Service';
-import Profile from './Profile/Profile';
-import Mission from './Mission/Mission';
+import React, { Component } from "react";
+import "./App.css";
+import Header from "./Layout/Header/Header";
+import SignUp from "./Cards_Forms/Authentification/SignUp";
+import SignIn from "./Cards_Forms/Authentification/SignIn";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Home from "./Home/Home";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header/>
-        <Showcase />
-        <div id = "services">
-        <h1>Our Services</h1>
-        <Service />
-        <Service />
-        <Service />
-        <Service />
-        <Service />
-        <Service />
-        </div>
-        <div id= "mission">
-          <Mission />
-          <Mission />
-        </div>
-        <div id = "profiles">
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-          <Profile />
-        </div>
+        <Header />
+        <BrowserRouter>
+          <div className="Auth">
+            <Switch>
+              <Route path="/signin" component={SignIn} />
+              <Route exact path="/" component={Home} />
+              <Route path="/signup" component={SignUp} />
+            </Switch>
+          </div>
+        </BrowserRouter>
       </div>
     );
   }

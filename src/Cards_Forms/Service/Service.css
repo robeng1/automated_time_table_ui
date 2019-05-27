@@ -1,0 +1,17 @@
+.service {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  text-align: center;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 25px;
+  background-color: #ffffff;
+}
+.service img {
+  width: 100%;
+}
+
+h6 {
+  font-weight: Bold;
+}
