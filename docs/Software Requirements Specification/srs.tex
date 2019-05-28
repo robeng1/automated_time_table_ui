@@ -16,6 +16,7 @@
 %http://www.se.rit.edu/~emad/teaching/slides/srs_template_sep14.pdf
 %http://karlwiegers.com
 \documentclass{scrreprt}
+\usepackage{graphicx}
 \usepackage{listings}
 \usepackage{underscore}
 \usepackage[bookmarks=true]{hyperref}
@@ -196,7 +197,8 @@ The timetable management system alongside its subsystems shall perform the follo
 \end{itemize}
 
 \begin{comment}
-$<$Summarize the major functions the product must perform or must let the user 
+The main purpose purpose of this software product is to schedule and generate time tables within a few seconds to minutes. This will be relatively faster than the manual processes used to generate time tables which is a herculean task for management like the case of universities where a lot of courses have to be given <bf>time slots within the lecture hours of such institutions  without encountering collisions and ensuring each schedule meets the constraints of management. Some of which include the classroom size must be able to accomadae the number of students allocated to it. It is inappropriate to allocate a small classroom to a large group of students as it doesn't  effective teaching and learning.
+Summarize the major functions the product must perform or must let the user 
 perform. Details will be provided in Section 3, so only a high level summary 
 (such as a bullet list) is needed here. Organize the functions to make them 
 understandable to any reader of the SRS. A picture of the major groups of 
@@ -234,7 +236,8 @@ most important user classes for this product from those who are less important
 to satisfy.$>$
 \end{comment}
 \section{Operating Environment}
-  Our system is cross platform and does not depend on the hardware or architecture of the host system The web component is browser independent. In particular we support the particular operating systems.
+  Our system is cross platform and does not dep
+ on the hardware or architecture of the host system The web component is browser independent. In particular we support the particular operating systems.
   \begin{enumerate}
   \item \textbf{Mobile}\\
   \begin{enumerate}
@@ -249,11 +252,11 @@ to satisfy.$>$
      \item Solaris
   \end{enumerate}
   \end{enumerate}
-\begin{comment}
+ 
 $<$Describe the environment in which the software will operate, including the 
 hardware platform, operating system and versions, and any other software 
 components or applications with which it must peacefully coexist.$>$
-\end{comment}
+ 
 \section{Design and Implementation Constraints}
 $<$Describe any items or issues that will limit the options available to the 
 developers. These might include: corporate or regulatory policies; hardware 
@@ -283,21 +286,9 @@ example, in the vision and scope document or the project plan).$>$
 \chapter{External Interface Requirements}
 
 \section{User Interfaces}
-$<$Describe the logical characteristics of each interface between the software 
-product and the users. This may include sample screen images, any GUI standards 
-or product family style guides that are to be followed, screen layout 
-constraints, standard buttons and functions (e.g., help) that will appear on 
-every screen, keyboard shortcuts, error message display standards, and so on.  
-Define the software components for which a user interface is needed. Details of 
-the user interface design should be documented in a separate user interface 
-specification.$>$
+The product presents to the user a friendly user interface. The GUI provides fields for the user to enter the data He/she wishes to schedule . In our case,the examinations officer can enter data comprising the classrooms,courses,and the names of the lecturers.
 
-\section{Hardware Interfaces}
-$<$Describe the logical and physical characteristics of each interface between 
-the software product and the hardware components of the system. This may include 
-the supported device types, the nature of the data and control interactions 
-between the software and the hardware, and communication protocols to be 
-used.$>$
+ 
 
 \section{Software Interfaces}
 $<$Describe the connections between this product and other specific software 
@@ -321,6 +312,32 @@ transfer rates, and synchronization mechanisms.$>$
 
 
 \chapter{System Features}
+The Software product is made up of a number of UML's ,use case diagrams and a number of object classes.
+\begin{center}
+\includegraphics[scale=0.6]{er.png}
+ER diagram for the System Database Design
+\end{center}
+
+\begin{center}
+\includegraphics[scale=0.6]{lecturer.png}
+Lecturer use case diagram
+\end{center}
+\begin{center}
+\includegraphics[scale=0.6]{department.png}
+Department use case diagram
+\end{center}
+\begin{center}
+\includegraphics[scale=0.6]{admin.png}
+Administrator/Exam officer use case diagram
+\end{center}
+ \begin{center}
+\includegraphics[scale=0.6]{student.png}
+Student use case diagram
+\end{center}
+
+
+
+
 $<$This template illustrates organizing the functional requirements for the 
 product by system features, the major services provided by the product. You may 
 prefer to organize this section by use case, mode of operation, user class, 
@@ -334,7 +351,7 @@ words.$>$
 \subsection{Description and Priority}
 $<$Provide a short description of the feature and indicate whether it is of 
 High, Medium, or Low priority. You could also include specific priority 
-component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+component ratings, such as benefit, penalty, cost, and risk (each rated on
 relative scale from a low of 1 to a high of 9).$>$
 
 \subsection{Stimulus/Response Sequences}
