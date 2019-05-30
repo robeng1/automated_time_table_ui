@@ -37,12 +37,12 @@ export default {
     },
     {
       name: "Drafts",
-      url: "/base/carousels",
+      url: "/base/colleges",
       icon: "icon-doc"
     },
     {
       name: "Trash",
-      url: "/base/carousels",
+      url: "/base/colleges",
       icon: "icon-trash"
     },
     {
@@ -71,7 +71,7 @@ export default {
     /*Courses*/
     {
       name: "Courses",
-      url: "/base/carousels",
+      url: "/base/colleges",
       icon: "icon-layers"
     },
     {
@@ -85,7 +85,7 @@ export default {
       class: "" // optional class names space delimited list for title item ex: "text-center"
     },
     {
-      name: "Colleges",
+      name: "colleges",
       url: "/base",
       icon: "icon-graduation"
     },
