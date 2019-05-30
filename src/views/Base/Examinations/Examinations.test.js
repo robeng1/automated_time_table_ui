@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { mount } from "enzyme";
-import Dropdowns from "./Examination";
+import Examinations from "./Examinations";
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<Dropdowns />, div);
+  ReactDOM.render(<Examinations />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
 it("toggle click without crashing", () => {
-  const wrapper = mount(<Dropdowns />);
+  const wrapper = mount(<Examinations />);
   for (let i = 0; i < 5; i++) {
     let Dropdown = wrapper.find("button.dropdown-toggle").at(i);
     Dropdown.simulate("click");
