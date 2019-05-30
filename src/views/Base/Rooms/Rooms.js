@@ -9,7 +9,7 @@ import {
   Label,
 } from 'reactstrap';
 
-class Tables extends Component {
+class Rooms extends Component {
   render() {
     return (
       <div className="animated fadeIn">
@@ -183,11 +183,7 @@ class Tables extends Component {
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify"></i><strong>Classroom Groups</strong>
-                <div className="card-header-actions">
-                  <a href="https://reactstrap.github.io/components/listgroup/" rel="noreferrer noopener" target="_blank" className="card-header-action">
-                    <small className="text-muted">docs</small>
-                  </a>
-                </div>
+               
               </CardHeader>
               <CardBody>
                 <ListGroup>
@@ -202,38 +198,34 @@ class Tables extends Component {
 
             <Card>
               <CardHeader>
-                <strong>Create New Set of Classrooms</strong>
+              <i className="fa fa-align-justify"></i><strong>Create New Group Of Classrooms</strong>
               </CardHeader>
               <CardBody>
                 <Form action="" method="post">
                   <FormGroup>
-                    <Label htmlFor="nf-email">Email</Label>
-                    <Input type="email" id="nf-email" name="nf-email" placeholder="Enter Email.." autoComplete="email"/>
-                    
+                    <Input type="text"  placeholder="Enter A Name For The Classroom GRoup"/>     
                   </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
+                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Create</Button>
                 <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
               </CardFooter>
             </Card>
             <Card>
               <CardHeader>
-                <strong>Upload From File</strong>
+              <i className="fa fa-align-justify"></i><strong>Upload Data From File</strong>
               </CardHeader>
               <CardBody>
                 <Form action="" method="post">
                   <FormGroup>
-                    <Label htmlFor="nf-email">Email</Label>
-                    <Input type="email" id="nf-email" name="nf-email" placeholder="Enter Email.." autoComplete="email"/>
-                    <FormText className="help-block">Please enter your email</FormText>
+                  <Input type="file" size="60"></Input>
+                    <FormText className="help-block">Accepted formats are .csv and .xlsx</FormText>
                   </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
+              <Button type="submit" size="sm" color="success"><i className="fa fa-upload"></i> Upload</Button>
               </CardFooter>
             </Card>
           </Col>
@@ -247,4 +239,4 @@ class Tables extends Component {
   }
 }
 
-export default Tables;
+export default Rooms;

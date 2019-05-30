@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Tables from './Tables';
+import Rooms from './Rooms';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Tables />, div);
+  ReactDOM.render(<Rooms />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

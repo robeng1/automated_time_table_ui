@@ -1,6 +1,6 @@
 {
-  "name": "Table",
+  "name": "Rooms",
   "version": "0.0.0",
   "private": true,
-  "main": "./Table.js"
+  "main": "./Rooms.js"
 }
