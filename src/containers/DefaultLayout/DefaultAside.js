@@ -104,7 +104,7 @@ class DefaultAside extends Component {
                   </div>
                   <div className="avatar avatar-xs">
                     <img src={'assets/img/avatars/4.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
-                  </div>
+                  </div> 
                   <div className="avatar avatar-xs">
                     <img src={'assets/img/avatars/5.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
                   </div>
