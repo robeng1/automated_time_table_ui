@@ -4,7 +4,7 @@ const Breadcrumbs = React.lazy(() =>
   import("./views/Base/Breadcrumbs/Breadcrumbs")
 );
 const Cards = React.lazy(() => import("./views/Base/Cards"));
-const Carousels = React.lazy(() => import("./views/Base/Carousels"));
+const Colleges = React.lazy(() => import("./views/Base/Colleges/Colleges"));
 const Collapses = React.lazy(() => import("./views/Base/Collapses"));
 const Examinations = React.lazy(() =>
   import("./views/Base/Examinations/Examinations")
@@ -58,7 +58,7 @@ const routes = [
   { path: "/base/Rooms", name: "Rooms", component: Rooms },
   { path: "/base/tabs", name: "Tabs", component: Tabs },
   { path: "/base/breadcrumbs", name: "Breadcrumbs", component: Breadcrumbs },
-  { path: "/base/carousels", name: "Carousel", component: Carousels },
+  { path: "/base/Colleges", name: "Carousel", component: Colleges },
   { path: "/base/collapses", name: "Collapse", component: Collapses },
   { path: "/base/examinations", name: "Examinations", component: Examinations },
   { path: "/base/jumbotrons", name: "Jumbotrons", component: Jumbotrons },

@@ -11,10 +11,6 @@ import {
   CardHeader,
   CardFooter,
   Table,
-  Col,
-  DropdownToggle,
-  Row,
-  UncontrolledDropdown,
   Pagination,
   PaginationItem,
   PaginationLink

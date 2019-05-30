@@ -20,7 +20,7 @@ const items = [
   },
 ];
 
-class Carousels extends Component {
+class Colleges extends Component {
 
   constructor(props) {
     super(props);
@@ -62,4 +62,4 @@ class Carousels extends Component {
   }
 }
 
-export default Carousels;
+export default Colleges;
