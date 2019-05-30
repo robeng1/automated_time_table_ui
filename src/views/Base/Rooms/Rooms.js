@@ -19,9 +19,16 @@ import {
   FormGroup,
   FormText,
   Input,
+<<<<<<< HEAD:src/views/Base/Tables/Tables.js
   Label
 } from "reactstrap";
 class Tables extends Component {
+=======
+  Label,
+} from 'reactstrap';
+
+class Rooms extends Component {
+>>>>>>> 5f2dd6d7f1b57b9a46bb0c7f8f4da94482b75d12:src/views/Base/Rooms/Rooms.js
   render() {
     return (
       <div className="animated fadeIn">
@@ -180,6 +187,7 @@ class Tables extends Component {
           <Col sm="12" xl="3">
             <Card>
               <CardHeader>
+<<<<<<< HEAD:src/views/Base/Tables/Tables.js
                 <i className="fa fa-align-justify" />
                 <strong>Classroom Groups</strong>
                 <div className="card-header-actions">
@@ -192,6 +200,10 @@ class Tables extends Component {
                     <small className="text-muted">docs</small>
                   </a>
                 </div>
+=======
+                <i className="fa fa-align-justify"></i><strong>Classroom Groups</strong>
+               
+>>>>>>> 5f2dd6d7f1b57b9a46bb0c7f8f4da94482b75d12:src/views/Base/Rooms/Rooms.js
               </CardHeader>
               <CardBody>
                 <ListGroup>
@@ -206,11 +218,12 @@ class Tables extends Component {
 
             <Card>
               <CardHeader>
-                <strong>Create New Set of Classrooms</strong>
+              <i className="fa fa-align-justify"></i><strong>Create New Group Of Classrooms</strong>
               </CardHeader>
               <CardBody>
                 <Form action="" method="post">
                   <FormGroup>
+<<<<<<< HEAD:src/views/Base/Tables/Tables.js
                     <Label htmlFor="nf-email">Email</Label>
                     <Input
                       type="email"
@@ -219,25 +232,34 @@ class Tables extends Component {
                       placeholder="Enter Email.."
                       autoComplete="email"
                     />
+=======
+                    <Input type="text"  placeholder="Enter A Name For The Classroom GRoup"/>     
+>>>>>>> 5f2dd6d7f1b57b9a46bb0c7f8f4da94482b75d12:src/views/Base/Rooms/Rooms.js
                   </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter>
+<<<<<<< HEAD:src/views/Base/Tables/Tables.js
                 <Button type="submit" size="sm" color="primary">
                   <i className="fa fa-dot-circle-o" /> Submit
                 </Button>
                 <Button type="reset" size="sm" color="danger">
                   <i className="fa fa-ban" /> Reset
                 </Button>
+=======
+                <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Create</Button>
+                <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
+>>>>>>> 5f2dd6d7f1b57b9a46bb0c7f8f4da94482b75d12:src/views/Base/Rooms/Rooms.js
               </CardFooter>
             </Card>
             <Card>
               <CardHeader>
-                <strong>Upload From File</strong>
+              <i className="fa fa-align-justify"></i><strong>Upload Data From File</strong>
               </CardHeader>
               <CardBody>
                 <Form action="" method="post">
                   <FormGroup>
+<<<<<<< HEAD:src/views/Base/Tables/Tables.js
                     <Label htmlFor="nf-email">Email</Label>
                     <Input
                       type="email"
@@ -249,16 +271,24 @@ class Tables extends Component {
                     <FormText className="help-block">
                       Please enter your email
                     </FormText>
+=======
+                  <Input type="file" size="60"></Input>
+                    <FormText className="help-block">Accepted formats are .csv and .xlsx</FormText>
+>>>>>>> 5f2dd6d7f1b57b9a46bb0c7f8f4da94482b75d12:src/views/Base/Rooms/Rooms.js
                   </FormGroup>
                 </Form>
               </CardBody>
               <CardFooter>
+<<<<<<< HEAD:src/views/Base/Tables/Tables.js
                 <Button type="submit" size="sm" color="primary">
                   <i className="fa fa-dot-circle-o" /> Submit
                 </Button>
                 <Button type="reset" size="sm" color="danger">
                   <i className="fa fa-ban" /> Reset
                 </Button>
+=======
+              <Button type="submit" size="sm" color="success"><i className="fa fa-upload"></i> Upload</Button>
+>>>>>>> 5f2dd6d7f1b57b9a46bb0c7f8f4da94482b75d12:src/views/Base/Rooms/Rooms.js
               </CardFooter>
             </Card>
           </Col>
@@ -268,4 +298,4 @@ class Tables extends Component {
   }
 }
 
-export default Tables;
+export default Rooms;

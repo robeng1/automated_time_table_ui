@@ -13,7 +13,7 @@ import {
   Popovers,
   ProgressBar,
   Switches,
-  Tables,
+  Rooms,
   Tabs,
   Tooltips,
 } from './Base';
@@ -47,7 +47,7 @@ export {
   Buttons,
   Tooltips,
   Tabs,
-  Tables,
+  Rooms,
   Charts,
   Dashboard,
   Widgets,

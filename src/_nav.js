@@ -11,7 +11,7 @@ export default {
     },
     {
       title: true,
-      name: 'Tables',
+      name: 'Rooms',
       wrapper: {            // optional wrapper object
         element: '',        // required valid HTML5 element tag
         attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
@@ -56,7 +56,7 @@ export default {
     /*rOOMS*/
     {
       name: 'Rooms',
-      url: '/base/tables',
+      url: '/base/rooms',
       icon: 'icon-home',
     },
     /*Lecturers*/ 
