@@ -22,8 +22,175 @@ import {
   Label
 } from "reactstrap";
 
+
+const data  = [
+  {
+    group: "Engineering Classrooms",
+    rooms: [{
+      name: "PB 020",
+      capacity: 120,
+      allowance: 20,
+      building: "Petroleum"
+    },
+    {
+      name: "PB 021",
+      capacity: 120,
+      allowance: 20,
+      building: "Petroleum"
+    },
+    {
+      name: "PB 022",
+      capacity: 120,
+      allowance: 20,
+      building: "Petroleum"
+    },
+    {
+      name: "PB 020",
+      capacity: 120,
+      allowance: 20,
+      building: "Petroleum"
+    },
+    {
+      name: "PB 020",
+      capacity: 120,
+      allowance: 20,
+      building: "Petroleum"
+    }]
+  },
+  {
+    group: "College of Science Classrooms",
+    rooms: [{
+      name: "PB 020",
+      capacity: 120,
+      allowance: 20,
+      building: "COS"
+    },
+    {
+      name: "PB 021",
+      capacity: 120,
+      allowance: 20,
+      building: "COS"
+    },
+    {
+      name: "PB 022",
+      capacity: 120,
+      allowance: 20,
+      building: "COS"
+    },
+    {
+      name: "PB 020",
+      capacity: 120,
+      allowance: 20,
+      building: "COS"
+    },
+    {
+      name: "PB 020",
+      capacity: 120,
+      allowance: 20,
+      building: "COS"
+    }]
+  }
+  
+]
+
+
+
+class RoomGroupList extends Component{
+  constructor(props){
+    super(props)
+
+    this.state = {
+      //count: len(props.items.length)
+    }
+    
+  }
+
+  render(){
+    let styles = {
+      margin: '0px',
+      marginLeft: '7px',
+    };
+    
+    let room_groups = this.props.items.map(item => <ListGroupItem key={item.uniqueId}>{item.group}<i className="fa fa-arrow-right" style={styles} /></ListGroupItem>)
+   
+    return (
+      <Card>
+              <CardHeader>
+                <i className="fa fa-align-justify" />
+                <strong>Classroom Groups</strong>
+              </CardHeader>
+              <CardBody>
+                <ListGroup>
+                  {room_groups}
+                </ListGroup>
+              </CardBody>
+              <CardFooter>
+              <Pagination>
+                  <PaginationItem disabled>
+                    <PaginationLink previous tag="button">
+                      Prev
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem active>
+                    <PaginationLink tag="button">1</PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink tag="button">2</PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink next tag="button">
+                      Next
+                    </PaginationLink>
+                  </PaginationItem>
+                  <Button type="submit" size="sm" color="success" style={styles}>
+                  <i className="fa fa-plus" /> New
+                </Button>
+                </Pagination>
+                
+                </CardFooter>
+            </Card>
+
+            
+    )
+  }
+}
 class Rooms extends Component {
+  constructor(props){
+    super(props)
+
+    this.handle_add_room = this.handle_add_room.bind(this)
+
+    let room_components = data[0].rooms.map(item => ( <tr>
+      <td>{item.name}</td>
+      <td>{item.capacity}</td>
+      <td>{item.allowance}</td>
+      <td>{item.building}</td>
+    </tr>))
+
+    this.state = {
+      data: room_components,
+      tab: 1
+    }
+  }
+
+  handle_add_room =  () => {
+    this.setState(prevstate =>{
+      return {
+        data: <div>{prevstate.data}
+         <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        </div>,
+        tab:1
+      };
+    })
+  }
+
   render() {
+   
     return (
       <div className="animated fadeIn">
         <Row>
@@ -33,103 +200,20 @@ class Rooms extends Component {
                 <i className="fa fa-align-justify" /> Classrooms
               </CardHeader>
               <CardBody>
-                <Table responsive striped>
-                  <thead>
+                <Table responsive striped contentEditable='true'>
+                  <thead contentEditable = 'false'>
                     <tr>
-                      <th>Name</th>
+                      <th >Name</th>
                       <th>Capacity</th>
                       <th>Allowance</th>
                       <th>Building</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>PB2001</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB020</td>
-                      <td>125</td>
-                      <td>15</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB212</td>
-                      <td>100</td>
-                      <td>15</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB014</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>A110</td>
-                      <td>115</td>
-                      <td>20</td>
-                      <td>Aeroplane Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB2001</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB020</td>
-                      <td>125</td>
-                      <td>15</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB212</td>
-                      <td>100</td>
-                      <td>15</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB014</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>A110</td>
-                      <td>115</td>
-                      <td>20</td>
-                      <td>Aeroplane Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB014</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>A110</td>
-                      <td>115</td>
-                      <td>20</td>
-                      <td>Aeroplane Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB014</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>A110</td>
-                      <td>115</td>
-                      <td>20</td>
-                      <td>Aeroplane Building</td>
-                    </tr>
+                    {this.state.data}
                   </tbody>
                 </Table>
-
+               
                 <Pagination>
                   <PaginationItem disabled>
                     <PaginationLink previous tag="button">
@@ -153,25 +237,8 @@ class Rooms extends Component {
                       Next
                     </PaginationLink>
                   </PaginationItem>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <Button color="primary" size="sm">
+                
+                  <Button color="primary" size="sm" onClick ={this.handle_add_room}>
                     Add Classroom
                   </Button>
                 </Pagination>
@@ -179,46 +246,8 @@ class Rooms extends Component {
             </Card>
           </Col>
           <Col sm="12" xl="3">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify" />
-                <strong>Classroom Groups</strong>
-              </CardHeader>
-              <CardBody>
-                <ListGroup>
-                  <ListGroupItem>Cras justo odio</ListGroupItem>
-                  <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                  <ListGroupItem>Morbi leo risus</ListGroupItem>
-                  <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-                  <ListGroupItem>Vestibulum at eros</ListGroupItem>
-                </ListGroup>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify" />
-                <strong>Create New Group Of Classrooms</strong>
-              </CardHeader>
-              <CardBody>
-                <Form action="" method="post">
-                  <FormGroup>
-                    <Input
-                      type="text"
-                      placeholder="Enter A Name For The Classroom GRoup"
-                    />
-                  </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter>
-                <Button type="submit" size="sm" color="primary">
-                  <i className="fa fa-dot-circle-o" /> Create
-                </Button>
-                <Button type="reset" size="sm" color="danger">
-                  <i className="fa fa-ban" /> Reset
-                </Button>
-              </CardFooter>
-            </Card>
+          <RoomGroupList items={data}></RoomGroupList>
+         
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
