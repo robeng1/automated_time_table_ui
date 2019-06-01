@@ -1,5 +1,6 @@
 import React, { Component, lazy } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { MDBIcon } from "mdbreact";
 import {
   Card,
   CardBody,
@@ -91,49 +92,53 @@ class Dashboard extends Component {
         <Row>
           <Col xs="12" sm="6" lg="3">
             <Widget02
-              header="Lecture Timetable"
-              mainText="First Semester 2018"
-              icon="icon-book-open"
+              header="Schedules"
+              mainText="50 Schedules"
+              icon="fa fa-hourglass"
+              color="info"
+              footerText="Manage Schedules"
+              footer
+            />
+          </Col>
+          <Col xs="12" sm="6" lg="3">
+            <Widget02
+              header="Classrooms"
+              mainText="10 Available"
+              footerText="Manage Classrooms"
+              icon="fa fa-home"
               color="info"
               footer
             />
           </Col>
           <Col xs="12" sm="6" lg="3">
             <Widget02
-              header="Examinations Timetable"
-              mainText="First Semester 2018"
-              icon="icon-note"
+              header="Lecturers"
+              mainText="50 Lecturers"
+              footerText="Manage Lecturers"
+              icon="fa fa-user"
               color="info"
               footer
             />
           </Col>
           <Col xs="12" sm="6" lg="3">
             <Widget02
-              header="Mid Terms Timetable"
-              mainText="First Semester 2018"
-              icon="icon-pencil"
-              color="info"
-              footer
-            />
-          </Col>
-          <Col xs="12" sm="6" lg="3">
-            <Widget02
-              header="Lecture Timetable"
-              mainText="IDL Second Semester 2018/2019"
+              header="Courses"
+              mainText="80 courses"
+              footerText="Manage Courses"
               icon="icon-book-open"
               color="info"
               footer
             />
           </Col>
         </Row>
-        <Row className="mt-5">
+        <Row className="mt-5 h-100">
           <Col xs="12" sm="6" lg="9">
             <div className="rounded border p-2 bg-white">
               <MyCalendar />
             </div>
           </Col>
 
-          <Col xs="12" sm="6" lg="3" height="10">
+          <Col xs="12" sm="6" lg="3">
             <TodoWidget />
           </Col>
         </Row>
