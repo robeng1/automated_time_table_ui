@@ -22,7 +22,7 @@ export default {
     /*Lecttures*/
     {
       name: "Lectures",
-      url: "/base/forms",
+      url: "/base/lectures",
       icon: "icon-book-open"
     },
     {
@@ -32,18 +32,8 @@ export default {
     },
     {
       name: "Mid Terms",
-      url: "/base/collapses",
+      url: "/base/midterms",
       icon: "icon-pencil"
-    },
-    {
-      name: "Drafts",
-      url: "/base/colleges",
-      icon: "icon-doc"
-    },
-    {
-      name: "Trash",
-      url: "/base/colleges",
-      icon: "icon-trash"
     },
     {
       title: true,
@@ -65,7 +55,7 @@ export default {
 
     {
       name: "Lecturers",
-      url: "/base/cards",
+      url: "/base/lecturers",
       icon: "icon-people"
     },
     /*Courses*/
@@ -91,7 +81,7 @@ export default {
     },
     {
       name: "Faculties",
-      url: "/buttons",
+      url: "/base",
       icon: "icon-notebook"
     },
     {

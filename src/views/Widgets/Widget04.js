@@ -19,7 +19,7 @@ const defaultProps = {
   header: '87.500',
   icon: 'icon-people',
   color: 'info',
-  value: '25',
+  value: '100',
   children: 'Visitors',
   invert: false,
 };

@@ -108,9 +108,9 @@ class RoomGroupList extends Component{
   render(){
     let styles = {
       margin: '0px',
-      marginLeft: '7px',
+      marginLeft: '30%',
     };
-    
+
     let room_groups = this.props.items.map(item => <ListGroupItem key={item.uniqueId}>{item.group}<i className="fa fa-arrow-right" style={styles} /></ListGroupItem>)
    
     return (
