@@ -1,15 +1,20 @@
 body
+  font-family: 'Raleway','Microsoft JhengHei', sans-serif
   margin: 0
   padding: 0
   background: #F0EFE9
 .todoForm
-  margin: 0
+  width: 5%
+  height: auto
+  max-width: 250px
+  min-width: 250px
+  min-height: 200px
   border-radius: 7px
   box-shadow: 0 0 5px #CFD0D5
   background: white
   .title
     text-align: center
-    font-size: 1.9rem
+    font-size: 1rem
     color: #56596A
     font-weight: normal
     text-transform: uppercase
@@ -19,25 +24,29 @@ body
 .done,.undone
   color: #919191
   font-size: 1rem
+  
   span
     padding: 3px
+    width: 80%
+    padding: 6px
     margin-right: 10px
-    border: 1px solid #CFD0D5
+    border: 2px solid #CFD0D5
     border-radius: 3px
-    min-width: 6px
 .done
   opacity: .6
+  text-decoration: line-through
   span
     opacity: 1
 .undone
-  span
-    color: #fff
+  color: #052555
+  font-weight: bold
+    
 
 .form-inline
   .form-control
-    width: 80%
+    width: 65%
     margin: 0 auto 20px
-    @media (min-width: 768px)
+    @media (min-width: 700px)
       display: block
     &:focus
       border-color: #FFBA74
@@ -52,8 +61,8 @@ body
     color: white
     float: right
     position: relative
-    top: -65px
-    right: -25px
+    top: -10px
+    right: 5px
     font-size: 27px
     box-shadow: 3px 2px 6px #CFD0D5
     &:before

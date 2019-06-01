@@ -1,19 +1,6 @@
 import React from "react";
-import "./TodoWidget.sass";
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Col,
-  Row,
-  Collapse,
-  Fade,
-  Pagination,
-  PaginationItem,
-  PaginationLink
-} from "reactstrap";
 
+import "./TodoWidget.sass";
 var todoItems = [];
 todoItems.push({ index: 1, value: "Write my todo list", done: true });
 todoItems.push({ index: 2, value: "learn react", done: false });
@@ -91,15 +78,13 @@ class TodoForm extends React.Component {
   render() {
     return (
       <form ref="form" onSubmit={this.onSubmit} className="form-inline">
-        <div className="d-inline-block">
-          <input
-            type="text"
-            ref="itemName"
-            className="form-control"
-            placeholder="add a new todo..."
-          />
-          <button type="submit" className="btn btn-default" />
-        </div>
+        <input
+          type="text"
+          ref="itemName"
+          className="form-control"
+          placeholder="add a new todo..."
+        />
+        <button type="submit" className="btn btn-default" />
       </form>
     );
   }
@@ -141,19 +126,13 @@ class TodoWidget extends React.Component {
   render() {
     return (
       <div className="todoForm">
-        <Card>
-          <CardHeader>
-            <TodoHeader />
-            <TodoForm addItem={this.addItem} />
-          </CardHeader>
-          <CardBody>
-            <TodoList
-              items={todoItems}
-              removeItem={this.removeItem}
-              markTodoDone={this.markTodoDone}
-            />
-          </CardBody>
-        </Card>
+        <TodoHeader />
+        <TodoForm addItem={this.addItem} />
+        <TodoList
+          items={todoItems}
+          removeItem={this.removeItem}
+          markTodoDone={this.markTodoDone}
+        />
       </div>
     );
   }
