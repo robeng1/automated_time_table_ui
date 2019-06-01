@@ -1,4 +1,5 @@
 import React, { Component, lazy } from "react";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
   Card,
   CardBody,
@@ -23,10 +24,6 @@ import Widget02 from "../Widgets/Widget02";
 import Widget04 from "../Widgets/Widget04";
 import Widgets from "../Widgets/Widgets";
 import TodoWidget from "../Widgets/Todo/TodoWidget";
-import MiniCalendar from "../Widgets/MiniCalendar/MiniCalendar";
-import EventCalendar from "../Widgets/EventCalendar/EventCalendar";
-
-const Widget03 = lazy(() => import("../../views/Widgets/Widget03"));
 
 class Dashboard extends Component {
   constructor(props) {
@@ -85,7 +82,7 @@ class Dashboard extends Component {
           startAccessor="start"
           endAccessor="end"
           step={60}
-          defaultView={(BigCalendar.Views = "week")}
+          style={{ minHeight: 500 }}
         />
       </div>
     );
@@ -93,7 +90,7 @@ class Dashboard extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" sm="6" lg="3">
-            <Widget01
+            <Widget02
               header="Lecture Timetable"
               mainText="First Semester 2018"
               icon="icon-book-open"
@@ -129,9 +126,11 @@ class Dashboard extends Component {
             />
           </Col>
         </Row>
-        <Row>
+        <Row className="mt-5">
           <Col xs="12" sm="6" lg="9">
-            <MyCalendar />
+            <div className="rounded border p-2 bg-white">
+              <MyCalendar />
+            </div>
           </Col>
 
           <Col xs="12" sm="6" lg="3" height="10">
