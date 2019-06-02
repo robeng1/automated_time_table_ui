@@ -118,14 +118,20 @@ class RoomGroupList extends Component {
   render() {
     let styles = {
       margin: "0px",
-      marginLeft: "30%"
+      marginLeft: "30%",
+      float: "right"
     };
 
     let room_groups = this.props.items.map(item => (
-      <ListGroupItem key={item.uniqueId}>
-        {item.group}
-        <i className="fa fa-arrow-right" style={styles} />
-      </ListGroupItem>
+      <li
+        style={{ cursor: "pointer", animation: 0.5 }}
+        className="list-group-item list-group-item-action p-2"
+      >
+        <ListGroupItem key={item.uniqueId} className="list-group-item-info">
+          {item.group}
+          <i className="fa fa-arrow-right" style={styles} />
+        </ListGroupItem>
+      </li>
     ));
 
     return (
@@ -277,8 +283,24 @@ class Rooms extends Component {
               <CardBody>
                 <Form action="" method="post">
                   <FormGroup>
-                    <Input type="file" size="60" />
-                    <FormText className="help-block">
+                    <div className="badge badge-primary badge-info p-2 w-5 d-block badge-action">
+                      <i className="fa fa-upload fa-upload-sm gb-dark pl-10" />
+                      <span> Choose a file...</span>
+                      <input
+                        type="file"
+                        size="25"
+                        id="file1"
+                        style={{
+                          opacity: 0,
+                          cursor: "pointer",
+                          position: "relative",
+                          marginTop: 0,
+                          float: "left"
+                        }}
+                      />
+                    </div>
+
+                    <FormText className="help-block pt-3">
                       Accepted formats are .csv and .xlsx
                     </FormText>
                   </FormGroup>
