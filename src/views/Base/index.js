@@ -1,5 +1,5 @@
 import Breadcrumbs from "./Breadcrumbs/Breadcrumbs";
-import Cards from "./Cards";
+import Cards from "./Lecturers/Lecturers";
 import Carousels from "./Carousels";
 import Collapses from "./Collapses";
 import Examinations from "./Examinations";

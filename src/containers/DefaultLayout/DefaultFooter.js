@@ -7,7 +7,7 @@ const propTypes = {
 
 const defaultProps = {};
 const spanStyle = {
-  fontSize: '15px',
+  fontSize: '20px',
   textAlign: 'center',
 };
 class DefaultFooter extends Component {
@@ -19,7 +19,7 @@ class DefaultFooter extends Component {
     const { children, ...attributes } = this.props;
     return (
       <React.Fragment>
-        <span style = {spanStyle}><a href="">Hex Inc.</a> &copy; 2019.</span>
+        <span style = {spanStyle}><a href="">Hex Group</a> &copy; 2019.</span>
       </React.Fragment>
     );
   }

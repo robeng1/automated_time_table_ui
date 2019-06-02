@@ -3,8 +3,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Col, Row } from "reactstrap";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
-
 import Widget02 from "../Widgets/Widget02";
+
 import TodoWidget from "../Widgets/Todo/TodoWidget";
 
 class Dashboard extends Component {
