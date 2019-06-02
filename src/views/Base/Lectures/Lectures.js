@@ -2,40 +2,43 @@ import React, { Component } from 'react';
 import GeneralTimetable from './Timetables/GeneralTimetable/GeneralTimetable';
 import ClassTimetable from './Timetables/ClassTimetable/ClassTimetable';
 import Widget04 from '../../Widgets/Widget04'
-import {Col, Row } from 'reactstrap';
 import { relative } from 'path';
 import CreateTimetable from './Pages/CreateTimetable'
+import { Card, Button,CardBody, CardFooter,CardHeader, Col, Row, Table } from 'reactstrap';
 
-class OptionsBar extends Component{
+class SelectCard extends Component{
+  constructor(props){
+      super(props)
+  }
   render(){
-    let styles = {
-      position:"absolute",
-      width:"75%",
-      top:"20%",
-      right:"7%"
-    }
-    return (
-    <div style= {styles}>
+      const iStyle = {
+          marginLeft: "30%",
+          marginRight: "30%"
+      }
 
-    <Row >
-          <Col sm="6" md="3">
-            <Widget04 icon="icon-plus" color="success" header="Create" value="100" invert>New Timetable</Widget04>
-          </Col>
-          <Col sm="6" md="3">
-            <Widget04 icon="icon-folder" color="info" header="Open" value="100" invert>Existing Timetable</Widget04>
-          </Col>
-          <Col sm="6" md="3">
-            <Widget04 icon="icon-cloud-upload" color="warning" header="Upload" value="100" invert>Existing Timetable</Widget04>
-          </Col>
-          <Col sm="6" md="3">
-            <Widget04 icon="icon-note" color="primary" header="Quick" value="100" invert>Scheduling Tutorial</Widget04>
-          </Col>
-          
-        </Row>
+      const cardStyle = {
+          width: "75%"
+      }
 
-    </div>)
+      const buttonStyle = {
+         width: "100%"
+      }
+
+      return (
+ 
+              <Card style = {cardStyle}>
+                  <CardBody>
+                  <i className = {this.props.icon} style = {iStyle}></i>
+                  </CardBody>
+                  <CardFooter>
+                  <Button color="primary" size="lg" style={buttonStyle}>{this.props.button}</Button>
+                  </CardFooter>
+              </Card>
+
+      );
   }
 }
+
 class Lectures extends Component {
   constructor(props) {
     super(props);
@@ -60,11 +63,20 @@ class Lectures extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        {/*<OptionsBar/>
-        
-        <GeneralTimetable />
-        <ClassTimetable />*/}
-        <CreateTimetable />
+         <Col sm="6" md="2">
+            <Row>
+                <SelectCard icon = "fa fa-table fa-5x" button="Create New Table"/>
+            </Row>  
+            <Row>
+                <SelectCard icon = "fa fa-file-o fa-5x" button="Open Existing Table"/>
+            </Row>  
+            <Row>
+                <SelectCard icon = "fa fa-upload fa-5x " button="Upload Table"/>
+            </Row>  
+            <Row>
+                <SelectCard icon = "fa fa-book fa-5x" button="Quick Tutorial"/>
+            </Row>  
+        </Col>
       </div>
     );
   }
