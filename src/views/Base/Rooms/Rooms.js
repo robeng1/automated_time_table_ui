@@ -22,9 +22,9 @@ import {
   Label
 } from "reactstrap";
 
-const data = [
-  {
-    group: "Engineering Classrooms",
+const JsonData = {
+  classroomGroup1: {
+    groupName: "Engineering Classrooms",
     rooms: [
       {
         id: 1,
@@ -63,8 +63,8 @@ const data = [
       }
     ]
   },
-  {
-    group: "College of Science Classrooms",
+  classroomGroup2: {
+    groupName: "College of Science Classrooms",
     rooms: [
       {
         id: 1,
@@ -103,7 +103,7 @@ const data = [
       }
     ]
   }
-];
+};
 
 let currentId = 0;
 class RoomGroupList extends Component {
@@ -121,14 +121,13 @@ class RoomGroupList extends Component {
       marginLeft: "30%",
       float: "right"
     };
-
-    let room_groups = this.props.items.map(item => (
+    let room_groups_group_names = this.props.items.map(groupName => (
       <li
         style={{ cursor: "pointer", animation: 0.5 }}
         className="list-group-item list-group-item-action p-2"
       >
-        <ListGroupItem key={item.uniqueId} className="list-group-item-info">
-          {item.group}
+        <ListGroupItem key={groupName} className="list-group-item-info">
+          {groupName}
           <i className="fa fa-arrow-right" style={styles} />
         </ListGroupItem>
       </li>
@@ -141,7 +140,7 @@ class RoomGroupList extends Component {
           <strong>Classroom Groups</strong>
         </CardHeader>
         <CardBody>
-          <ListGroup>{room_groups}</ListGroup>
+          <ListGroup>{room_groups_group_names}</ListGroup>
         </CardBody>
         <CardFooter>
           <Pagination>
@@ -177,8 +176,16 @@ class Rooms extends Component {
 
     this.handle_add_room = this.handle_add_room.bind(this);
 
-    let room_components = data[0].rooms.map(item => (
-      <tr id={(currentId = item.id)}>
+    let classroomGroup1Components = JsonData.classroomGroup1.rooms.map(item => (
+      <tr id={item.id}>
+        <td>{item.name}</td>
+        <td>{item.capacity}</td>
+        <td>{item.allowance}</td>
+        <td>{item.building}</td>
+      </tr>
+    ));
+    let classroomGroup2Components = JsonData.classroomGroup2.rooms.map(item => (
+      <tr id={item.id}>
         <td>{item.name}</td>
         <td>{item.capacity}</td>
         <td>{item.allowance}</td>
@@ -186,11 +193,21 @@ class Rooms extends Component {
       </tr>
     ));
 
+    let room_components = [
+      classroomGroup1Components,
+      classroomGroup2Components
+    ];
+    let groupNames = [
+      JsonData.classroomGroup1.groupName,
+      JsonData.classroomGroup2.groupName
+    ];
+
     this.state = {
       data: room_components,
       tab: 1,
+      groupNames: groupNames,
       addRoomBtnState: true,
-      nextId: 6
+      nextId: currentId + 1
     };
   }
 
@@ -273,7 +290,7 @@ class Rooms extends Component {
           </Col>
 
           <Col sm="12" xl="3">
-            <RoomGroupList items={data} />
+            <RoomGroupList items={this.state.groupNames} />
 
             <Card>
               <CardHeader>

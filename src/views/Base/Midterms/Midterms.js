@@ -1,8 +1,19 @@
-import React, { Component } from 'react';
-import { Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, Collapse, Fade, Row } from 'reactstrap';
+import React, { Component } from "react";
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Col,
+  Collapse,
+  Fade,
+  Row
+} from "reactstrap";
+import OptionsBar from "../../Widgets/OptionsBar/OptionsBar";
 
 class Midterms extends Component {
-
   constructor(props) {
     super(props);
     this.onEntering = this.onEntering.bind(this);
@@ -17,26 +28,26 @@ class Midterms extends Component {
       collapse: false,
       accordion: [true, false, false],
       custom: [true, false],
-      status: 'Closed',
+      status: "Closed",
       fadeIn: true,
-      timeout: 300,
+      timeout: 300
     };
   }
 
   onEntering() {
-    this.setState({ status: 'Opening...' });
+    this.setState({ status: "Opening..." });
   }
 
   onEntered() {
-    this.setState({ status: 'Opened' });
+    this.setState({ status: "Opened" });
   }
 
   onExiting() {
-    this.setState({ status: 'Closing...' });
+    this.setState({ status: "Closing..." });
   }
 
   onExited() {
-    this.setState({ status: 'Closed' });
+    this.setState({ status: "Closed" });
   }
 
   toggle() {
@@ -44,22 +55,20 @@ class Midterms extends Component {
   }
 
   toggleAccordion(tab) {
-
     const prevState = this.state.accordion;
-    const state = prevState.map((x, index) => tab === index ? !x : false);
+    const state = prevState.map((x, index) => (tab === index ? !x : false));
 
     this.setState({
-      accordion: state,
+      accordion: state
     });
   }
 
   toggleCustom(tab) {
-
     const prevState = this.state.custom;
-    const state = prevState.map((x, index) => tab === index ? !x : false);
+    const state = prevState.map((x, index) => (tab === index ? !x : false));
 
     this.setState({
-      custom: state,
+      custom: state
     });
   }
 
@@ -68,9 +77,30 @@ class Midterms extends Component {
   }
 
   render() {
+    let icons = [
+        "icon-folder",
+        "icon-folder",
+        "icon-cloud-upload",
+        "icon-note"
+      ],
+      colors = ["success", "info", "warning", "primary"],
+      values = ["100", "100", "100", "100", "100"],
+      headers = ["Ceate", "Open", "Upload", "Quick"],
+      comments = [
+        "New Timetable",
+        "Existing Timetable",
+        "Existing Timetable",
+        "Scheduling Tutorial"
+      ];
     return (
       <div className="animated fadeIn">
-        
+        <OptionsBar
+          icons={icons}
+          colors={colors}
+          values={values}
+          comments={comments}
+          headers={headers}
+        />
       </div>
     );
   }
