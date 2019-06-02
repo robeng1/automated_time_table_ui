@@ -4,6 +4,7 @@ import ClassTimetable from './Timetables/ClassTimetable/ClassTimetable';
 import Widget04 from '../../Widgets/Widget04'
 import {Col, Row } from 'reactstrap';
 import { relative } from 'path';
+import CreateTimetable from './Pages/CreateTimetable'
 
 class OptionsBar extends Component{
   render(){
@@ -18,10 +19,10 @@ class OptionsBar extends Component{
 
     <Row >
           <Col sm="6" md="3">
-            <Widget04 icon="icon-folder" color="info" header="Open" value="100" invert>Existing Timetable</Widget04>
+            <Widget04 icon="icon-plus" color="success" header="Create" value="100" invert>New Timetable</Widget04>
           </Col>
           <Col sm="6" md="3">
-            <Widget04 icon="icon-plus" color="success" header="Create" value="100" invert>New Timetable</Widget04>
+            <Widget04 icon="icon-folder" color="info" header="Open" value="100" invert>Existing Timetable</Widget04>
           </Col>
           <Col sm="6" md="3">
             <Widget04 icon="icon-cloud-upload" color="warning" header="Upload" value="100" invert>Existing Timetable</Widget04>
@@ -59,9 +60,11 @@ class Lectures extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <OptionsBar/>
-        {/*<GeneralTimetable />
+        {/*<OptionsBar/>
+        
+        <GeneralTimetable />
         <ClassTimetable />*/}
+        <CreateTimetable />
       </div>
     );
   }
