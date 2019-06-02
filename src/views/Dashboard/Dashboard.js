@@ -1,29 +1,10 @@
 import React, { Component, lazy } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { MDBIcon } from "mdbreact";
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  CardText,
-  Button,
-  CardHeader,
-  Col,
-  Row,
-  Collapse,
-  Fade,
-  Pagination,
-  PaginationItem,
-  PaginationLink
-} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 
-import Widget01 from "../Widgets/Widget01";
 import Widget02 from "../Widgets/Widget02";
-import Widget04 from "../Widgets/Widget04";
-import Widgets from "../Widgets/Widgets";
 import TodoWidget from "../Widgets/Todo/TodoWidget";
 
 class Dashboard extends Component {
