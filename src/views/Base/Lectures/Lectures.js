@@ -85,10 +85,18 @@ class Lectures extends Component {
             </Col>
             <Col sm={9}>
               <Tab.Content>
-                <Tab.Pane eventKey="first">1</Tab.Pane>
-                <Tab.Pane eventKey="second">2</Tab.Pane>
-                <Tab.Pane eventKey="third">3</Tab.Pane>
-                <Tab.Pane eventKey="forth">4</Tab.Pane>
+                <Tab.Pane eventKey="first">
+                <GeneralTimetable/>
+                </Tab.Pane>
+                <Tab.Pane eventKey="second">
+                <GeneralTimetable/>
+                </Tab.Pane>
+                <Tab.Pane eventKey="third">
+                <GeneralTimetable/>
+                </Tab.Pane>
+                <Tab.Pane eventKey="forth">
+                <ClassTimetable/>
+                </Tab.Pane>
               </Tab.Content>
             </Col>
           </Row>
