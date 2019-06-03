@@ -1,9 +1,21 @@
 import React, { Component } from "react";
 import GeneralTimetable from "./Timetables/GeneralTimetable/GeneralTimetable";
 import ClassTimetable from "./Timetables/ClassTimetable/ClassTimetable";
+import Widget04 from "../../Widgets/Widget04";
 import { relative } from "path";
 import CreateTimetable from "./Pages/CreateTimetable";
-import OptionsBar from "../../Widgets/OptionsBar/OptionsBar";
+import {
+  Card,
+  Button,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Col,
+  Row,
+  Table
+} from "reactstrap";
+import { Tab, Nav } from "react-bootstrap";
+import SelectCard from "../../Widgets/SelectCard/SelectCard";
 
 class Lectures extends Component {
   constructor(props) {
@@ -29,29 +41,58 @@ class Lectures extends Component {
   }
 
   render() {
-    let icons = ["icon-plus", "icon-folder", "icon-cloud-upload", "icon-note"],
-      colors = ["success", "info", "warning", "primary"],
-      values = ["100", "100", "100", "100", "100"],
-      headers = ["Ceate", "Open", "Upload", "Quick"],
-      comments = [
-        "New Timetable",
-        "Existing Timetable",
-        "Existing Timetable",
-        "Scheduling Tutorial"
-      ];
     return (
       <div className="animated fadeIn">
-        <OptionsBar
-          icons={icons}
-          colors={colors}
-          values={values}
-          comments={comments}
-          headers={headers}
-        />
+        <Tab.Container defaultActiveKey="first">
+          <Row>
+            <Col sm={3}>
+              <Nav className="flex-column">
+                <Nav.Item>
+                  <Nav.Link eventKey="first">
+                    <SelectCard
+                      icon="fa fa-table fa-5x"
+                      button="Create New Table"
+                    />
+                  </Nav.Link>
+                </Nav.Item>
 
-        {/*<GeneralTimetable />
-        <ClassTimetable />*/}
-        {/*<CreateTimetable />*/}
+                <Nav.Item>
+                  <Nav.Link eventKey="second">
+                    <SelectCard
+                      icon="fa fa-file-o fa-5x"
+                      button="Open Existing
+                    Table"
+                    />
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="third">
+                    <SelectCard
+                      icon="fa fa-upload fa-5x "
+                      button="Upload Table"
+                    />
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="forth">
+                    <SelectCard
+                      icon="fa fa-book fa-5x"
+                      button="Quick Tutorial"
+                    />
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Col>
+            <Col sm={9}>
+              <Tab.Content>
+                <Tab.Pane eventKey="first">1</Tab.Pane>
+                <Tab.Pane eventKey="second">2</Tab.Pane>
+                <Tab.Pane eventKey="third">3</Tab.Pane>
+                <Tab.Pane eventKey="forth">4</Tab.Pane>
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Tab.Container>
       </div>
     );
   }

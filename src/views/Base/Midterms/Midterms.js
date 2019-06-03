@@ -11,7 +11,7 @@ import {
   Fade,
   Row
 } from "reactstrap";
-import OptionsBar from "../../Widgets/OptionsBar/OptionsBar";
+import OptionsBar1 from "../../Widgets/OptionsBars/OptionsBar1";
 
 class Midterms extends Component {
   constructor(props) {
@@ -94,7 +94,7 @@ class Midterms extends Component {
       ];
     return (
       <div className="animated fadeIn">
-        <OptionsBar
+        <OptionsBar1
           icons={icons}
           colors={colors}
           values={values}

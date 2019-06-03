@@ -1,9 +1,9 @@
 import React from "react";
 import { Component } from "react";
-import Widget04 from "../../Widgets/Widget04";
+import Widget04 from "../Widget04";
 import { Col, Row } from "reactstrap";
 
-class OptionsBar extends Component {
+class OptionsBar1 extends Component {
   constructor(props) {
     super(props);
   }
@@ -68,4 +68,4 @@ class OptionsBar extends Component {
   }
 }
 
-export default OptionsBar;
+export default OptionsBar1;
