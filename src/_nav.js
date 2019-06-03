@@ -30,11 +30,7 @@ export default {
       url: "/base/examinations",
       icon: "icon-note"
     },
-    {
-      name: "Mid Terms",
-      url: "/base/midterms",
-      icon: "icon-pencil"
-    },
+
     {
       title: true,
       name: "Resources",
@@ -79,11 +75,7 @@ export default {
       url: "/base",
       icon: "icon-graduation"
     },
-    {
-      name: "Faculties",
-      url: "/base",
-      icon: "icon-notebook"
-    },
+
     {
       name: "Departments",
       url: "/charts",
