@@ -31,15 +31,14 @@ class SelectCard extends Component {
     };
 
     const buttonStyle = {
-      width: "100%",
-      color: "dark"
+      width: "100%"
     };
 
     return (
       <div style={mainStyle}>
         <i className={this.props.icon} style={iStyle} />
         <Button size="md" style={buttonStyle}>
-          <font style={{ color: "white" }}>{this.props.button}</font>
+          {this.props.button}
         </Button>
       </div>
     );

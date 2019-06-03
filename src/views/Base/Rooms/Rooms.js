@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Tab, Nav } from "react-bootstrap";
 import {
   Button,
   Card,
@@ -22,8 +23,8 @@ import {
   Label
 } from "reactstrap";
 
-const JsonData = {
-  classroomGroup1: {
+const JsonData = [
+  {
     groupName: "Engineering Classrooms",
     rooms: [
       {
@@ -63,7 +64,7 @@ const JsonData = {
       }
     ]
   },
-  classroomGroup2: {
+  {
     groupName: "College of Science Classrooms",
     rooms: [
       {
@@ -102,8 +103,48 @@ const JsonData = {
         building: "COS"
       }
     ]
+  },
+  {
+    groupName: "College of Art",
+    rooms: [
+      {
+        id: 1,
+        name: "RM-120",
+        capacity: 120,
+        allowance: 20,
+        building: "COA"
+      },
+      {
+        id: 2,
+        name: "RM-120",
+        capacity: 120,
+        allowance: 20,
+        building: "COA"
+      },
+      {
+        id: 3,
+        name: "RM-120",
+        capacity: 120,
+        allowance: 20,
+        building: "COA"
+      },
+      {
+        id: 4,
+        name: "RM-120",
+        capacity: 120,
+        allowance: 20,
+        building: "COA"
+      },
+      {
+        id: 5,
+        name: "RM-120",
+        capacity: 120,
+        allowance: 20,
+        building: "COA"
+      }
+    ]
   }
-};
+];
 
 let currentId = 0;
 class RoomGroupList extends Component {
@@ -122,15 +163,22 @@ class RoomGroupList extends Component {
       float: "right"
     };
     let room_groups_group_names = this.props.items.map(groupName => (
-      <li
-        style={{ cursor: "pointer", animation: 0.5 }}
-        className="list-group-item list-group-item-action p-2"
-      >
-        <ListGroupItem key={groupName} className="list-group-item-info">
-          {groupName}
-          <i className="fa fa-arrow-right" style={styles} />
-        </ListGroupItem>
-      </li>
+      <Nav.Item>
+        <Nav.Link eventKey={groupName}>
+          <li
+            style={{ cursor: "pointer", animation: 0.5 }}
+            className="list-group-item list-group-item-action p-2"
+          >
+            <ListGroupItem
+              key={groupName}
+              className="list-group-item-info d-flex"
+            >
+              {groupName}
+              <i className="fa fa-arrow-right" style={styles} />
+            </ListGroupItem>
+          </li>
+        </Nav.Link>
+      </Nav.Item>
     ));
 
     return (
@@ -143,27 +191,9 @@ class RoomGroupList extends Component {
           <ListGroup>{room_groups_group_names}</ListGroup>
         </CardBody>
         <CardFooter>
-          <Pagination>
-            <PaginationItem disabled>
-              <PaginationLink previous tag="button">
-                Prev
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem active>
-              <PaginationLink tag="button">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink tag="button">2</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink next tag="button">
-                Next
-              </PaginationLink>
-            </PaginationItem>
-            <Button type="submit" size="sm" color="success">
-              <i className="fa fa-plus" /> New
-            </Button>
-          </Pagination>
+          <Button type="submit" size="sm" color="success">
+            <i className="fa fa-plus" /> New
+          </Button>
         </CardFooter>
       </Card>
     );
@@ -176,161 +206,124 @@ class Rooms extends Component {
 
     this.handle_add_room = this.handle_add_room.bind(this);
 
-    let classroomGroup1Components = JsonData.classroomGroup1.rooms.map(item => (
-      <tr id={item.id}>
-        <td>{item.name}</td>
-        <td>{item.capacity}</td>
-        <td>{item.allowance}</td>
-        <td>{item.building}</td>
-      </tr>
-    ));
-    let classroomGroup2Components = JsonData.classroomGroup2.rooms.map(item => (
-      <tr id={item.id}>
-        <td>{item.name}</td>
-        <td>{item.capacity}</td>
-        <td>{item.allowance}</td>
-        <td>{item.building}</td>
-      </tr>
-    ));
-
-    let room_components = [
-      classroomGroup1Components,
-      classroomGroup2Components
-    ];
-    let groupNames = [
-      JsonData.classroomGroup1.groupName,
-      JsonData.classroomGroup2.groupName
-    ];
-
     this.state = {
-      data: room_components,
-      tab: 1,
-      groupNames: groupNames,
+      data: JsonData,
+      classroomGroupComponents: this.classroomGroupComponents,
+      groupNames: [],
       addRoomBtnState: true,
       nextId: currentId + 1
     };
+
+    let groupNames = this.state.data.map(classGroup => classGroup.groupName);
+    this.state.groupNames = groupNames; //Initialising the groupNames
+    let classroomGroupComponents = this.state.data.map(classGroup => (
+      <Tab.Pane eventKey={classGroup.groupName}>
+        <Card>
+          <CardHeader>
+            <i className="fa fa-align-justify" />
+            {classGroup.groupName}
+          </CardHeader>
+          <CardBody>
+            <Table responsive striped contentEditable="true">
+              <thead contentEditable="false">
+                <tr>
+                  <th>Name</th>
+                  <th>Capacity</th>
+                  <th>Allowance</th>
+                  <th>Building</th>
+                </tr>
+              </thead>
+              <tbody>
+                {classGroup.rooms.map(classroom => (
+                  <tr id={classroom.id}>
+                    <td>{classroom.name}</td>
+                    <td>{classroom.capacity}</td>
+                    <td>{classroom.allowance}</td>
+                    <td>{classroom.building}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </CardBody>
+          <CardFooter>
+            <Button color="primary" size="sm" onClick={this.handle_add_room}>
+              Add Classroom
+            </Button>
+          </CardFooter>
+        </Card>
+      </Tab.Pane>
+    ));
+    this.state.classroomGroupComponents = classroomGroupComponents; //Initalizing the rooms components
   }
 
   handle_add_room = () => {
-    this.setState(prevstate => {
-      return {
-        data: (
-          <React.Fragment>
-            {prevstate.data}
-            <tr id={prevstate.nextId}>
-              <td />
-              <td />
-              <td />
-              <td />
-            </tr>
-          </React.Fragment>
-        ),
-
-        tab: 1
-      };
-    });
+    if (this.state.addRoomBtnState) {
+      this.setState(prevState => {
+        return {
+          data: prevState.data,
+          activeTab: 0,
+          groupNames: prevState.groupNames,
+          addRoomBtnState: false,
+          nextId: currentId + 1
+        };
+      });
+    }
   };
 
   render() {
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col xs="12" lg="9">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify" /> Classrooms
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped contentEditable="true">
-                  <thead contentEditable="false">
-                    <tr>
-                      <th>Name</th>
-                      <th>Capacity</th>
-                      <th>Allowance</th>
-                      <th>Building</th>
-                    </tr>
-                  </thead>
-                  <tbody>{this.state.data}</tbody>
-                </Table>
+        <Tab.Container defaultActiveKey={this.state.groupNames[0]}>
+          <Row>
+            <Col xs="12" lg="9">
+              <Tab.Content>{this.state.classroomGroupComponents}</Tab.Content>
+              {console.log(this.state)}
+            </Col>
+            <Col sm="12" xl="3">
+              <Nav className="flex-column">
+                <RoomGroupList items={this.state.groupNames} />
+              </Nav>
 
-                <Pagination>
-                  <PaginationItem disabled>
-                    <PaginationLink previous tag="button">
-                      Prev
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink tag="button">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">2</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">4</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink next tag="button">
-                      Next
-                    </PaginationLink>
-                  </PaginationItem>
+              <Card>
+                <CardHeader>
+                  <i className="fa fa-align-justify" />
+                  <strong>Upload Data From File</strong>
+                </CardHeader>
+                <CardBody>
+                  <Form action="" method="post">
+                    <FormGroup>
+                      <div className="badge badge-primary badge-info p-2 w-5 d-block badge-action">
+                        <i className="fa fa-upload fa-upload-sm gb-dark pl-10" />
+                        <span> Choose a file...</span>
+                        <input
+                          type="file"
+                          size="25"
+                          id="file1"
+                          style={{
+                            opacity: 0,
+                            cursor: "pointer",
+                            position: "relative",
+                            marginTop: 0,
+                            float: "left"
+                          }}
+                        />
+                      </div>
 
-                  <Button
-                    color="primary"
-                    size="sm"
-                    onClick={this.handle_add_room}
-                  >
-                    Add Classroom
+                      <FormText className="help-block pt-3">
+                        Accepted formats are .csv and .xlsx
+                      </FormText>
+                    </FormGroup>
+                  </Form>
+                </CardBody>
+                <CardFooter>
+                  <Button type="submit" size="sm" color="success">
+                    <i className="fa fa-upload" /> Upload
                   </Button>
-                </Pagination>
-              </CardBody>
-            </Card>
-          </Col>
-
-          <Col sm="12" xl="3">
-            <RoomGroupList items={this.state.groupNames} />
-
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify" />
-                <strong>Upload Data From File</strong>
-              </CardHeader>
-              <CardBody>
-                <Form action="" method="post">
-                  <FormGroup>
-                    <div className="badge badge-primary badge-info p-2 w-5 d-block badge-action">
-                      <i className="fa fa-upload fa-upload-sm gb-dark pl-10" />
-                      <span> Choose a file...</span>
-                      <input
-                        type="file"
-                        size="25"
-                        id="file1"
-                        style={{
-                          opacity: 0,
-                          cursor: "pointer",
-                          position: "relative",
-                          marginTop: 0,
-                          float: "left"
-                        }}
-                      />
-                    </div>
-
-                    <FormText className="help-block pt-3">
-                      Accepted formats are .csv and .xlsx
-                    </FormText>
-                  </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter>
-                <Button type="submit" size="sm" color="success">
-                  <i className="fa fa-upload" /> Upload
-                </Button>
-              </CardFooter>
-            </Card>
-          </Col>
-        </Row>
+                </CardFooter>
+              </Card>
+            </Col>
+          </Row>
+        </Tab.Container>
       </div>
     );
   }
