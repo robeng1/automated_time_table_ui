@@ -1,48 +1,195 @@
-import React, { Component } from 'react';
-import { Badge, Card, CardBody, CardFooter, CardHeader, Col, Row, Collapse, Fade,Pagination, PaginationItem, PaginationLink } from 'reactstrap';
-import { AppSwitch } from '@coreui/react'
-import { Button, Table, ListGroup, ListGroupItem } from 'reactstrap';
+import React, { Component } from "react";
 import {
-  Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-} from 'reactstrap';
+  Badge,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Col,
+  Row,
+  Collapse,
+  Fade,
+  Pagination,
+  PaginationItem,
+  PaginationLink
+} from "reactstrap";
+import { AppSwitch } from "@coreui/react";
+import { Button, Table, ListGroup, ListGroupItem } from "reactstrap";
+import { Form, FormGroup, FormText, Input, Label } from "reactstrap";
+import { Tab, Nav } from "react-bootstrap";
+import { TabContainer } from "react-bootstrap";
 
+const JsonData = [
+  {
+    groupName: "College of Engineering Lectures",
+    Lecturers: [
+      {
+        Id: 1,
+        Title: "Mr",
+        Name: "B. Kommey",
+        IdNumber: "156516",
+        Department: "Computer Eng",
+        Email: "bkommey@gmail.com",
+        OfficeNumber: "A205"
+      },
+      {
+        Id: 2,
+        Title: "Mr",
+        Name: "B. Kommey",
+        IdNumber: "156516",
+        Department: "Computer Eng",
+        Email: "bkommey@gmail.com",
+        OfficeNumber: "A205"
+      },
+      {
+        Id: 3,
+        Title: "Mr",
+        Name: "B. Kommey",
+        IdNumber: "156516",
+        Department: "Computer Eng",
+        Email: "bkommey@gmail.com",
+        OfficeNumber: "A205"
+      },
+      {
+        Id: 4,
+        Title: "Mr",
+        Name: "B. Kommey",
+        IdNumber: "156516",
+        Department: "Computer Eng",
+        Email: "bkommey@gmail.com",
+        OfficeNumber: "A205"
+      },
+      {
+        Id: 5,
+        Title: "Mr",
+        Name: "B. Kommey",
+        IdNumber: "156516",
+        Department: "Computer Eng",
+        Email: "bkommey@gmail.com",
+        OfficeNumber: "A205"
+      }
+    ]
+  },
+  {
+    groupName: "College of Medecine",
+    Lecturers: [
+      {
+        Id: 11,
+        Title: "Mis",
+        Name: "Nadine Azo",
+        IdNumber: "631547",
+        Department: "Human Anatomy",
+        Email: "nazo@gmail.com",
+        OfficeNumber: "B105"
+      },
+      {
+        Id: 12,
+        Title: "Mis",
+        Name: "Nadine Azo",
+        IdNumber: "631547",
+        Department: "Human Anatomy",
+        Email: "nazo@gmail.com",
+        OfficeNumber: "B105"
+      },
+      {
+        Id: 13,
+        Title: "Mis",
+        Name: "Nadine Azo",
+        IdNumber: "631547",
+        Department: "Human Anatomy",
+        Email: "nazo@gmail.com",
+        OfficeNumber: "B105"
+      },
+      {
+        Id: 14,
+        Title: "Mis",
+        Name: "Nadine Azo",
+        IdNumber: "631547",
+        Department: "Human Anatomy",
+        Email: "nazo@gmail.com",
+        OfficeNumber: "B105"
+      },
+      {
+        Id: 15,
+        Title: "Mis",
+        Name: "Nadine Azo",
+        IdNumber: "631547",
+        Department: "Human Anatomy",
+        Email: "nazo@gmail.com",
+        OfficeNumber: "B105"
+      }
+    ]
+  }
+];
+let activeGroupTab = 0;
 class Lecturers extends Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
-    this.toggleFade = this.toggleFade.bind(this);
     this.state = {
-      collapse: true,
-      fadeIn: true,
-      timeout: 300
+      data: JsonData
     };
+    this.handle_add_lecturers = this.handle_add_lecturers.bind(this);
+    this.handle_add_lecrurer = this.handle_add_lecturers.bind(this);
   }
 
-  toggle() {
-    this.setState({ collapse: !this.state.collapse });
+  handle_add_lecturers() {
+    let newGroupName = prompt("Please enter the na");
+    if (newGroupName) {
+      this.setState(prevState => {
+        return {
+          data: [
+            ...prevState.data,
+            {
+              groupName: newGroupName,
+              Lecturers: [
+                {
+                  Title: "Title here...",
+                  Name: "Name here...",
+                  IdNumber: "Id number...",
+                  Department: newGroupName,
+                  Email: "Email",
+                  OfficeNumber: "Office number..."
+                }
+              ]
+            }
+          ]
+        };
+      });
+    }
   }
+  handle_add_lecturer() {
+    this.setState(prevState => {
+      let activeGroup = prevState.data.filter(
+        l => l.groupName === activeGroupTab
+      );
 
-  toggleFade() {
-    this.setState((prevState) => { return { fadeIn: !prevState }});
+      return {
+        data: [
+          ...prevState.data[Array.indexOf(activeGroup[0].Lecturers)],
+          {
+            Title: "",
+            Name: "",
+            IdNumber: "",
+            Department: "",
+            Email: "",
+            OfficeNumber: ""
+          }
+        ]
+      };
+    });
   }
 
   render() {
-    return (
-      <div className="animated fadeIn">
-      <Row>
-        <Col xs="12" lg="9">
-          <Card>
-            <CardHeader>
-              <i className="fa fa-align-justify"></i> Lecturers
-            </CardHeader>
-            <CardBody>
-              <Table responsive striped>
-                <thead>
+    let lecturersListComponent = this.state.data.map(dataGroup => (
+      <Tab.Pane eventKey={dataGroup.groupName}>
+        <Card>
+          <CardHeader>
+            <i className="fa fa-align-justify" /> {dataGroup.groupName}
+          </CardHeader>
+          <CardBody>
+            <Table responsive striped contentEditable="true">
+              <thead contentEditable="false">
                 <tr>
                   <th>Title</th>
                   <th>Name</th>
@@ -51,224 +198,126 @@ class Lecturers extends Component {
                   <th>Email</th>
                   <th>Office Number</th>
                 </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
+              </thead>
+              <tbody>
+                {dataGroup.Lecturers.map(lecturer => (
+                  <tr key={lecturer.id}>
+                    <td>{lecturer.Title}</td>
+                    <td>{lecturer.Name}</td>
+                    <td>{lecturer.IdNumber}</td>
+                    <td>{lecturer.Department}</td>
+                    <td>{lecturer.Email}</td>
+                    <td>{lecturer.OfficeNumber}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </CardBody>
+          <CardFooter>
+            <Button
+              Onclick={this.handle_add_lecturer}
+              color="primary"
+              size="sm"
+            >
+              Add Lecturer
+            </Button>
+          </CardFooter>
+        </Card>
+      </Tab.Pane>
+    ));
+    let styles = {
+      margin: "0px",
+      marginLeft: "30%",
+      float: "right"
+    };
+    let lecturersGroupList = this.state.data.map(dataGroup => (
+      <Nav.Item>
+        <Nav.Link eventKey={dataGroup.groupName} key={dataGroup.groupName}>
+          <li
+            style={{ cursor: "pointer", animation: 0.5 }}
+            className="list-group-item list-group-item-action p-2"
+          >
+            <ListGroupItem className="list-group-item-info d-flex">
+              {dataGroup.groupName}
+              <i className="fa fa-arrow-right" style={styles} />
+            </ListGroupItem>
+          </li>
+        </Nav.Link>
+      </Nav.Item>
+    ));
 
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
+    return (
+      <div className="animated fadeIn">
+        <Tab.Container defaultActiveKey={this.state.data[0].groupName}>
+          <Row>
+            <Col xs="12" lg="9">
+              <Tab.Content>{lecturersListComponent}</Tab.Content>
+            </Col>
+            <Col sm="12" xl="3">
+              <Card>
+                <CardHeader>
+                  <i className="fa fa-align-justify" />
+                  <strong>Upload Data From File</strong>
+                </CardHeader>
+                <CardBody>
+                  <Form action="" method="post">
+                    <FormGroup>
+                      <div className="badge badge-primary badge-info p-2 w-5 d-block badge-action">
+                        <i className="fa fa-upload fa-upload-sm gb-dark pl-10" />
+                        <span> Choose a file...</span>
+                        <input
+                          type="file"
+                          size="25"
+                          id="file1"
+                          style={{
+                            opacity: 0,
+                            cursor: "pointer",
+                            position: "relative",
+                            marginTop: 0,
+                            float: "left"
+                          }}
+                        />
+                      </div>
 
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
+                      <FormText className="help-block pt-3">
+                        Accepted formats are .csv and .xlsx
+                      </FormText>
+                    </FormGroup>
+                  </Form>
+                </CardBody>
+                <CardFooter>
+                  <Button type="submit" size="sm" color="success">
+                    <i className="fa fa-upload" /> Upload
+                  </Button>
+                </CardFooter>
+              </Card>
 
-                <tr>
-                  <td>Mr.</td>
-                  <td>B . Kommey</td>
-                  <td>156516</td>
-                  <td>Computer Eng</td>
-                  <td>bkommey@gmail.com</td>
-                  <td>A205</td>
-                </tr>
-                
+              <Nav className="flex-column">
+                <Card>
+                  <CardHeader>
+                    <i className="fa fa-align-justify" />
+                    <strong>Lecturers Groups</strong>
+                    <div className="card-header-actions" />
+                  </CardHeader>
 
-                
-                </tbody>
-              </Table>
-              
-              <Pagination>
-                <PaginationItem disabled><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>
-                <PaginationItem active>
-                  <PaginationLink tag="button">1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem><PaginationLink tag="button">2</PaginationLink></PaginationItem>
-                <PaginationItem><PaginationLink tag="button">3</PaginationLink></PaginationItem>
-                <PaginationItem><PaginationLink tag="button">4</PaginationLink></PaginationItem>
-                <PaginationItem><PaginationLink next tag="button">Next</PaginationLink></PaginationItem>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                
-                
-                <Button color="primary" size="sm">Add Classroom</Button>
-              </Pagination>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col sm="12" xl="3">
-          <Card>
-            <CardHeader>
-              <i className="fa fa-align-justify"></i><strong>Classroom Groups</strong>
-              <div className="card-header-actions">
-                <a href="https://reactstrap.github.io/components/listgroup/" rel="noreferrer noopener" target="_blank" className="card-header-action">
-                  <small className="text-muted">docs</small>
-                </a>
-              </div>
-            </CardHeader>
-            <CardBody>
-              <ListGroup>
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                <ListGroupItem>Morbi leo risus</ListGroupItem>
-                <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-                <ListGroupItem>Vestibulum at eros</ListGroupItem>
-              </ListGroup>
-            </CardBody>
-          </Card>
+                  <CardBody>{lecturersGroupList}</CardBody>
 
-          <Card>
-            <CardHeader>
-              <strong>Create New Set of Classrooms</strong>
-            </CardHeader>
-            <CardBody>
-              <Form action="" method="post">
-                <FormGroup>
-                  <Label htmlFor="nf-email">Email</Label>
-                  <Input type="email" id="nf-email" name="nf-email" placeholder="Enter Email.." autoComplete="email"/>
-                  
-                </FormGroup>
-              </Form>
-            </CardBody>
-            <CardFooter>
-              <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-              <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader>
-              <strong>Upload From File</strong>
-            </CardHeader>
-            <CardBody>
-              <Form action="" method="post">
-                <FormGroup>
-                  <Label htmlFor="nf-email">Email</Label>
-                  <Input type="email" id="nf-email" name="nf-email" placeholder="Enter Email.." autoComplete="email"/>
-                  <FormText className="help-block">Please enter your email</FormText>
-                </FormGroup>
-              </Form>
-            </CardBody>
-            <CardFooter>
-              <Button type="submit" size="sm" color="primary"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-              <Button type="reset" size="sm" color="danger"><i className="fa fa-ban"></i> Reset</Button>
-            </CardFooter>
-          </Card>
-        </Col>
-        
-      </Row>
-    </div>
+                  <CardFooter>
+                    <Button
+                      onClick={this.handle_add_lecturers}
+                      type="submit"
+                      size="sm"
+                      color="success"
+                    >
+                      <i className="fa fa-plus" /> New
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Nav>
+            </Col>
+          </Row>
+        </Tab.Container>
+      </div>
     );
   }
 }
