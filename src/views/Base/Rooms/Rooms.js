@@ -114,8 +114,8 @@ class Rooms extends Component {
     super(props);
 
     this.state = {
-      data: JsonData,
-      activeGroupNav: JsonData[0].groupName
+      data: [],
+      activeGroupNav: ""
     };
     this.handle_add_rooms = this.handle_add_rooms.bind(this);
     this.handle_add_room = this.handle_add_room.bind(this);
@@ -124,17 +124,14 @@ class Rooms extends Component {
     this.handle_edit_room = this.handle_edit_room.bind(this);
   }
   componentDidMount() {
-     axios.get(BASE_URL + "/classroomgroup").then(
-         res => {
-           const data = res.data;
-           console.log(data);
-           // this.setState({data});
-           this.setState({
-               data:res.data.data,
-               activeGroupNav:res.data.data[0].groupName
-         })
-         }
-     )
+    axios.get(BASE_URL + "/classroomgroup")
+        .then(
+            res => {
+              const data = res.data.data;
+              const activeGroupNav = res.data.data[0].groupName
+              this.setState({ data, activeGroupNav})
+            }
+        )
   }
 
   handle_edit_room() {
@@ -265,121 +262,102 @@ class Rooms extends Component {
   }
 
   render() {
-    let roomsListComponent = this.state.data.map(dataGroup => (
-      <Tab.Pane eventKey={dataGroup.groupName}>
-        <Card>
-          <CardHeader>
-            <i className="fa fa-align-justify" /> {dataGroup.groupName}
-          </CardHeader>
-          <CardBody style={{ overflowY: "auto", height: "300px" }}>
-            <Table
-              id={`table-${dataGroup.groupName}`}
-              responsive
-              striped
-              contentEditable="false"
-            >
-              <thead contentEditable="false">
-                <tr>
-                  <th>Name</th>
-                  <th>Capacity</th>
-                  <th>location</th>
-                  <th>allowance</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dataGroup.rooms.map(room => (
-                  <tr key={room.name}>
-                    <td className={`room-${dataGroup.groupName}`}>
-                      {room.name}
-                    </td>
-                    <td className={`room-${dataGroup.groupName}`}>
-                      {room.capacity}
-                    </td>
-                    <td className={`room-${dataGroup.groupName}`}>
-                      {room.location}
-                    </td>
-                    <td className={`room-${dataGroup.groupName}`}>
-                      {room.allowance}
-                    </td>
-
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </CardBody>
-          <CardFooter>
-            <Button
-              onClick={this.handle_add_room}
-              color="primary"
-              size="sm"
-              className="mr-3"
-              className="d-none"
-              id={`addBtn-${dataGroup.groupName}`}
-            >
-              Add a room
-            </Button>
-            <Button
-              onClick={this.handle_edit_room}
-              color="info"
-              size="sm"
-              className="mr-3"
-              id={`editBtn-${dataGroup.groupName}`}
-            >
-              Edit
-            </Button>
-            <Button
-              onClick={this.handle_save_room}
-              color="success"
-              size="sm"
-              className="d-none"
-              id={`saveBtn-${dataGroup.groupName}`}
-            >
-              Save
-            </Button>
-          </CardFooter>
-        </Card>
-      </Tab.Pane>
-    ));
+    const {data, activeGroupNav} = this.state
     let styles = {
       margin: "0px",
       marginLeft: "30%",
       float: "right"
     };
-    let roomsGroupListComponent = this.state.data.map(dataGroup => (
-      <Nav.Item>
-        <Nav.Link
-          onClick={() => this.handle_active_nav(dataGroup.groupName)}
-          eventKey={dataGroup.groupName}
-          key={dataGroup.groupName}
-        >
-          <li className="list-group-item list-group-item-action p-2">
-            <ListGroupItem
-              className="list-group-item-info d-flex h-10"
-              style={{
-                cursor: "pointer",
-                animation: 0.5
-              }}
-            >
-              {dataGroup.groupName}
-              <i className="fa fa-arrow-right" style={styles} />
-            </ListGroupItem>
-          </li>
-        </Nav.Link>
-      </Nav.Item>
-    ));
+
 
     return (
       <div className="animated fadeIn">
         <Tab.Container
-          defaultActiveKey={this.state.activeGroupNav}
+          defaultActiveKey={activeGroupNav}
           id="tab-container"
         >
           <Row>
             <Col xs="12" lg="9">
-              <Tab.Content>{roomsListComponent}</Tab.Content>
+              <Tab.Content>
+                {data.map(dataGroup => (
+                <Tab.Pane eventKey={dataGroup.groupName}>
+                  <Card>
+                    <CardHeader>
+                      <i className="fa fa-align-justify" /> {dataGroup.groupName}
+                    </CardHeader>
+                    <CardBody style={{ overflowY: "auto", height: "300px" }}>
+                      <Table
+                          id={`table-${dataGroup.groupName}`}
+                          responsive
+                          striped
+                          contentEditable="false"
+                      >
+                        <thead contentEditable="false">
+                        <tr>
+                          <th>Name</th>
+                          <th>Capacity</th>
+                          <th>location</th>
+                          <th>allowance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {dataGroup.rooms.map(room => (
+                            <tr key={room.name}>
+                              <td className={`room-${dataGroup.groupName}`}>
+                                {room.name}
+                              </td>
+                              <td className={`room-${dataGroup.groupName}`}>
+                                {room.capacity}
+                              </td>
+                              <td className={`room-${dataGroup.groupName}`}>
+                                {room.location}
+                              </td>
+                              <td className={`room-${dataGroup.groupName}`}>
+                                {room.allowance}
+                              </td>
+
+                            </tr>
+                        ))}
+                        </tbody>
+                      </Table>
+                    </CardBody>
+                    <CardFooter>
+                      <Button
+                          onClick={this.handle_add_room}
+                          color="primary"
+                          size="sm"
+                          className="mr-3"
+                          className="d-none"
+                          id={`addBtn-${dataGroup.groupName}`}
+                      >
+                        Add a room
+                      </Button>
+                      <Button
+                          onClick={this.handle_edit_room}
+                          color="info"
+                          size="sm"
+                          className="mr-3"
+                          id={`editBtn-${dataGroup.groupName}`}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                          onClick={this.handle_save_room}
+                          color="success"
+                          size="sm"
+                          className="d-none"
+                          id={`saveBtn-${dataGroup.groupName}`}
+                      >
+                        Save
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </Tab.Pane>
+                ))}
+              </Tab.Content>
             </Col>
             <Col sm="12" xl="3">
-              <Nav className="flex-column">
+              <Nav activeKey={activeGroupNav} className="flex-column">
                 <Card>
                   <CardHeader>
                     <i className="fa fa-align-justify" />
@@ -393,7 +371,28 @@ class Rooms extends Component {
                       height: "150px"
                     }}
                   >
-                    {roomsGroupListComponent}
+                    {data.map(dataGroup => (
+                    <Nav.Item >
+                      <Nav.Link
+                          onClick={() => this.handle_active_nav(dataGroup.groupName)}
+                          eventKey={dataGroup.groupName}
+                          key={dataGroup.groupName}
+                      >
+                        <li className="list-group-item list-group-item-action p-2">
+                          <ListGroupItem
+                              className="list-group-item-info d-flex h-10"
+                              style={{
+                                cursor: "pointer",
+                                animation: 0.5
+                              }}
+                          >
+                            {dataGroup.groupName}
+                            <i className="fa fa-arrow-right" style={styles} />
+                          </ListGroupItem>
+                        </li>
+                      </Nav.Link>
+                    </Nav.Item>
+                    ))}
                   </CardBody>
 
                   <CardFooter>
