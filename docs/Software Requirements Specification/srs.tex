@@ -141,6 +141,35 @@ each reader type.$>$
  \item To develop a simple and intuitive user oriented system that requires as little user training as possible.
  \item To provide an solution for maintaining, publishing and sharing timetables to users.
 \end{itemize} 
+In order to achieve this,the software system must cover the following features and functions:
+An \textbf{administrative} section which includes the following:
+\begin{itemize}
+\item Manage student profiles
+\item manage lecturer's profiles
+\item Manage the username,password,and change password.
+\item Manage the add,or drop class
+\item Manage the add,edit and delete class
+\item Creation of Master Timetable
+\item Accept changes to made by lecturers and students.
+\end{itemize}
+A \textbf{lecturer's} section which includes the following:
+\begin{itemize}
+\item View and print their own timetable
+\item View and print the master timetable for one semester
+\item Query on the class availability
+\item Booking the class
+\item Creation of the lecturer's timetable
+\end{itemize}
+A \textbf{Student} Section which includes the following:
+\begin{itemize}
+\item View and print the timetable for a semester
+\item Change password
+\item Creation of student's timetable
+\item Request for change in timetable schedules
+\end {itemize}
+
+
+
    
  
 \begin{comment}
@@ -198,7 +227,7 @@ The timetable management system alongside its subsystems shall perform the follo
 \end{itemize}
 
 \begin{comment}
-The main purpose purpose of this software product is to schedule and generate time tables within a few seconds to minutes. This will be relatively faster than the manual processes used to generate time tables which is a herculean task for management like the case of universities where a lot of courses have to be given <bf>time slots within the lecture hours of such institutions  without encountering collisions and ensuring each schedule meets the constraints of management. Some of which include the classroom size must be able to accomadae the number of students allocated to it. It is inappropriate to allocate a small classroom to a large group of students as it doesn't  effective teaching and learning.
+The main purpose purpose of this software product is to schedule and generate time tables within a few seconds to minutes. This will be relatively faster than the manual processes used to generate time tables which is a herculean task for management like the case of universities where a lot of courses have to be given <bf>time slots within the lecture hours of such institutions  without encountering collisions and ensuring each schedule meets the constraints of management. Some of which include the classroom size must be able to accommodate the number of students allocated to it. It is inappropriate to allocate a small classroom to a large group of students as it doesn't  effective teaching and learning.
 Summarize the major functions the product must perform or must let the user 
 perform. Details will be provided in Section 3, so only a high level summary 
 (such as a bullet list) is needed here. Organize the functions to make them 
@@ -260,27 +289,86 @@ components or applications with which it must peacefully coexist.$>$
  
 \section{Design and Implementation Constraints}
 \textbf {Hardware requirements}
+In order to develop a good  application  program, it is very important to choose the correct
+hardware, software and technology. Below are some explanations of the hardware,
+software and technology chosen as development tools for the Timetable Management
+System 
+\begin{itemize}
+\item A processor of good processing speed $2.5MHz$ or more
+\item 128MB DDR RAM ,256 MB is recommended
+\item 10GB hard-disk space or higher
+\item 56 Kbps Modem
+\item Keyboard and mouse
+\end {itemize}
+\subsection {Programming / Scripting Language }
+\begin {itemize}
+\item \textbf{ Flask,a  Python Framework }
+Python was created in 1991 by  Guido Van Rossum
+ Flask is web development framework based on Python and it can  be
+interspersed within Hypertext Markup Language (HTML), which makes developing
+dynamic websites more accessible. Python Flask was selected to develop the Timetable Management System because it is a server side, cross-platform technology. Server-side actually refers to the fact that everything
+Python Flask does occurs on the server instead of the client’s site. Its cross-platform means that
+Python Flask runs on most operating systems, including Windows, UNIX, and Macintosh.  Besides that, when it comes to developing dynamic websites, Python Flask is better, faster and easier to learn than the alternatives. Of course, the main reason for
+Python Flask being chosen to develop the website is it comes at no cost.It is open sourced.
+\end {itemize}
+\subsection {Web development tool}
+\begin {itemize}
+\item \textbf{Visual Studio Code,Atom,Sublime Text }
+Visual Studio Code,Atom and Sublime Text were chosen as the text editors to develop the website as
+well since the researcher is more familiar with using the text editors to develop a
+websites
+\end {itemize}
+\subsection { Database and Technology}
+ \begin{itemize}
+\item \textbf{MySQL}
+MySQL is a database management system (DBMS) for relational databases (therefore,
+MySQL is an RDBMS), a database being a collection of interrelated data, be it text,
+numbers, or binary files, that are stored and kept organized by the DBMS 
+MySQL was selected to develop the database for this web based system because like Python Flask, MySQL offers excellent performance, portability and reliability, with moderate
+learning curve at little to no cost because MySQL is the world’s most popular open
+source database. Besides that, another reason for it being chosen is Python Flask  has good
+support for MySQL.
+\end{itemize}
  
-$<$Describe any items or issues that will limit the options available to the 
-developers. These might include: corporate or regulatory policies; hardware 
-limitations (timing requirements, memory requirements); interfaces to other 
-applications; specific technologies, tools, and databases to be used; parallel 
-operations; language requirements; communications protocols; security 
-considerations; design conventions or programming standards (for example, if the 
-customer’s organization will be responsible for maintaining the delivered 
-software).$>$
-
-
-$<$List any assumed factors (as opposed to known facts) that could affect the 
-requirements stated in the SRS. These could include third-party or commercial 
-components that you plan to use, issues around the development or operating 
-environment, or constraints. The project could be affected if these assumptions 
-are incorrect, are not shared, or change. Also identify any dependencies the 
-project has on external factors, such as software components that you intend to 
-reuse from another project, unless they are already documented elsewhere (for 
-example, in the vision and scope document or the project plan).$>$
-
-
+\subsection{System Development }
+The objective of the development phase is to convert the deliverables of the design
+phase into a complete system. Most activities in the development phase addresses the
+computer programs that make up the system, but this phase also puts in place the
+hardware, software, and communications environment for the system and other
+important elements of the overall system.
+The activities in the development phase translate the system design produced in the
+design phase into a working system. The development phase includes
+activities for developing the system, testing the system, and to ensure the system
+functions satisfy the functional process requirements. At the end of this phase, the
+system will be ready for the activities of the testing phase. 
+The Timetable Management System web base was developed after the system analysis
+and system design phases. After gathering data from the system analysis stage and
+designing the web base, the development is divided into three main sessions which a
+\subsection{Database  Development}
+The Timetable Management System used a relational database in its database
+implementation because it can support multiple tables that store each item only once,
+thus significantly reducing storage place. The database was created and using MySQL,
+which is a GUI Client that works alongside MySQL Database server. 
+\subsection{Testing}
+The objective of this testing phase is to prove that the developed system (Timetable
+Management System) satisfies the requirements defined earlier. Several types of tests
+will be conducted in this phase. Testing is an important phase of system development
+because it can ensure the system matches the specifications. Besides that, testing also
+ensures that the system functions in the correct and proper manner with the minimum
+amount of errors. 
+\subsection {Unit Testing}
+ Unit testing reveals syntax and semantic errors from the smallest programming unit. In
+this thesis, unit testing is used to test each individual web page. Errors that are found in a
+particular page of the website are thoroughly debugged and removed before starting to
+develop another web page. Due to the dynamic nature of testing, there is no proper
+testing documentation created. 
+\subsection{Link or Integration Testing}
+When each webpage of a particular Section in the Timetable Management System
+passed the unit testing, integration test was carried out to ensure that pages are linked in
+the correct flow and integrate properly into the entire website. Integration testing was
+mainly conducted in “Administrator Module” Section “Lecturer Module” and “Student
+Module” Section. All the buttons, hyperlinks and navigation bars were tested
+ 
 \chapter{External Interface Requirements}
 
 \section{User Interfaces}
@@ -288,26 +376,27 @@ The product presents to the user a friendly user interface. The GUI provides fie
 
  
 
-\section{Software Interfaces}
-$<$Describe the connections between this product and other specific software 
-components (name and version), including databases, operating systems, tools, 
-libraries, and integrated commercial components. Identify the data items or 
-messages coming into the system and going out and describe the purpose of each.  
-Describe the services needed and the nature of communications. Refer to 
-documents that describe detailed application programming interface protocols.  
-Identify data that will be shared across software components. If the data 
-sharing mechanism must be implemented in a specific way (for example, use of a 
-global data area in a multitasking operating system), specify this as an 
-implementation constraint.$>$
+\section{Software Interfaces} 
+\textbf{Developing end}
+\begin{itemize}  
+\item Python 3.6 -Python  is fast, secure, and reliable. 
+\item MySQL server -Database connectivity and management\\
+\textbf{Client End}\\
+\item OS -Window 7 or higher -Very friendly and common OS
+\item MySQL server -Database connectivity.
+\end{itemize}
 
 \section{Communications Interfaces}
-$<$Describe the requirements associated with any communications functions 
-required by this product, including e-mail, web browser, network server 
-communications protocols, electronic forms, and so on. Define any pertinent 
-message formatting. Identify any communication standards that will be used, such 
-as FTP or HTTP. Specify any communication security or encryption issues, data 
-transfer rates, and synchronization mechanisms.$>$
-
+\begin{itemize}
+ \item NIC (Network Interface Card) - It is a computer hardware component that allows a computer to
+connect to a network. NICs may be used for both wired and wireless connections.
+\item CAT 5 network cable- for high signal integrity
+\item  TCP/IP protocol- Internet service provider to access and share information over the
+Internet
+\item Ethernet Communications Interface- Ethernet is a frame-based computer network
+technology for local area networks (LANs)
+\item Ubiquitous, easy to set up and easy to use. Low cost and high data transmission rates.
+\end {itemize}
 
 \chapter{System Features}
 The Software product is made up of a number of UML's ,use case diagrams and a number of object classes.
@@ -323,7 +412,14 @@ ER diagram for the System Database Design
 \begin{center}
 \includegraphics[scale=0.6]{lecturer.png}
 Lecturer use case diagram
+
 \end{center}
+ Lecturer can log-in to Timetable Management System, using their usernames and
+passwords. System displays the main menu if log-in is successful. If the username and
+password are not accepted, system displays a message indicating that the username or
+password is invalid. Once the lecturer logs in, he or she can perform the processes (use
+cases) like view class, view timetable, view master timetable, inquiry class available,
+class booking and change password. 
 \begin{center}
 \includegraphics[scale=0.6]{department.png}
 Department use case diagram
@@ -332,10 +428,21 @@ Department use case diagram
 \includegraphics[scale=0.6]{admin.png}
 Administrator/Exam officer use case diagram
 \end{center}
+The administrator does not need to register, as his or her username and password is
+fixed in the database. The administrator needs to log in to Timetable Management
+System in order to manage the system. Besides logging in, the seven main use cases for
+the administrator are student registration, lecturer registration, add class, edit class,
+delete class, add courses , edit  and delete course.
  \begin{center}
 \includegraphics[scale=0.6]{student.png}
 Student use case diagram
 \end{center}
+Student can log-in to Timetable Management System, using their usernames and
+passwords. System displays the main menu if log-in is successful. If the username and
+password are not accepted, system displays a message indicating that the username or
+password is invalid. Once the student logs in, he or she can perform the processes (use
+cases) like add subjects, drop subject, view timetable, view registration slip and can
+change password
 
 \begin{table}[h!]
   \begin{center}
@@ -392,17 +499,12 @@ Logout&  It allows a administrator to logout of the system.\\
     \caption{ Department use case diagram description.}
     \label{tab:table1}
     \begin{tabular}{|c|c|} 
-\hline
-      \textbf{Use case} & \textbf{Description} \\
- 
-      \hline
+\hline \textbf{Use case} & \textbf{Description} \\
+ \hline
 Login &This facility allows the department admin to log into the system\\
 \hline
    Provisions of Courses,Programs and Lecturers in department& It allows the department  to add  the list of all courses and lecturers in the department.\\
-\hline
-      
-Logout&  It allows a administrator to logout of the system.\\
-\hline
+\hline Logout&  It allows a administrator to logout of the system.\\ \hline
   \end{tabular}
   \end{center}
 \end{table}
@@ -418,7 +520,7 @@ Logout&  It allows a administrator to logout of the system.\\
       \hline
      Login& Student cant login with username and password generated by the system \\
 \hline
-      View  &  It allows the student to to view  the lectures  timetable \\
+      View& It allows the student to to view  the lectures  timetable \\
 \hline
        Request for change& It allows the student to  to request for a change in course schedules\\
 \hline
@@ -428,10 +530,35 @@ Logout&  It allows a student to logout of the system.\\
   \end{tabular}
   \end{center}
 \end{table}
-\section{System Feature 1}
-$<$Don’t really say “System Feature 1.” State the feature name in just a few 
-words.$>$
+\subsection {Work Flow  modeling}
+Activity diagrams are used here to model the flow between the different components.
+An activity diagram is needed because the researcher wants to model the workflow of a
+use case, and it can show the paths within the use case as well as other use cases. With
+activity diagrams, the researcher will be able to illustrate where functionality exists in
+the system and how the functionality coordinates with the functionality of other pieces
+of the system. The researcher has developed ten activity diagrams for this system. A
+brief description will be given to each of the activity diagram in the following pages. 
+\begin{center}
+\includegraphics[scale=0.8]{login.png}
+Login activity diagram
 
+\end{center}
+The figure above shows the activity diagram for Log-in. First, the lecturers, students and
+administrator need to log in using the username and password that was created during
+registration. The system will validate the username and password. If the password or
+username is invalid, an error message will be displayed and the lecturer or student or
+administrator can try to log in again. If log in is successful, the system will identify the
+user as a lecturer, student or an administrator. If the person logs in as administrator, the
+administrator’s menu page will be displayed; else the lecturer or student menu’s page
+will be displayed. 
+\begin{center}
+\includegraphics[scale=0.8]{view.png}
+Activity diagram for View Class, Timetable or Master Timetable 
+\end{center}
+The figure above shows the activity diagram for View class, timetable and master
+timetable for lecturers. The lecturers can click on the view class or timetable or master
+timetable menus and the specific information will be loaded. If the lecturers want to
+print their timetable or their master timetable they can click on the button “PRINT”
 \subsection{Description and Priority}
 $<$Provide a short description of the feature and indicate whether it is of 
 High, Medium, or Low priority. You could also include specific priority 
@@ -466,77 +593,82 @@ associated with use cases.$>$
 \end {enumerate}
 \end {itemize}
 \end{enumerate}
-\textbf{Tools:}\\
-Server-side programming language-Python\\
-Scripting  and styling languages : HTML and CSS\\
-Client-side scripting : React \\
-Database: Sqlalchmey\\
-Development environment :Visual Studio Code,Atom
-\section{System Feature 2 (and so on)}
+ 
 
 
 \chapter{Other Nonfunctional Requirements}
 
 \section{Performance Requirements}
 
-$<$If there are performance requirements for the product under various 
-circumstances, state them here and explain their rationale, to help the 
-developers understand the intent and make suitable design choices. Specify the 
-timing relationships for real time systems. Make such requirements as specific 
-as possible. You may need to state performance requirements for individual 
-functional requirements or features.$>$
-
+ \begin{itemize}
+\item Response time-The system will give responses within 1 second after checking the patient
+information and other information.
+ \item  User interface- User interface screen will response within 5 seconds.
+ \item conformity –The system must conform to the Microsoft accessibility
+\end {itemize}
 \section{Safety Requirements}
-$<$Specify those requirements that are concerned with possible loss, damage, or 
-harm that could result from the use of the product. Define any safeguards or 
-actions that must be taken, as well as actions that must be prevented. Refer to 
-any external policies or regulations that state safety issues that affect the 
-product’s design or use. Define any safety certifications that must be 
-satisfied.$>$
+If there is extensive damage to a wide portion of the database due to catastrophic failure, such as a disk crash, the recovery method restores a past copy of the database that was backed up to archival storage (typically tape) and reconstructs a more current state by reapplying or redoing the operations of committed transactions from the backed up log, up to the time of failure.
 
 \section{Security Requirements}
-$<$Specify any requirements regarding security or privacy issues surrounding use 
-of the product or protection of the data used or created by the product. Define 
-any user identity authentication requirements. Refer to any external policies or 
-regulations containing security issues that affect the product. Define any 
-security or privacy certifications that must be satisfied.$>$
+All the administrative and data entry operators have unique logins so system can
+understand who is login in to system right now no intruders allowed except system
+administrative nobody cannot change record and valuable data.
 
 \section{Software Quality Attributes}
-$<$Specify any additional quality characteristics for the product that will be 
-important to either the customers or the developers. Some to consider are: 
-adaptability, availability, correctness, flexibility, interoperability, 
-maintainability, portability, reliability, reusability, robustness, testability, 
-and usability. Write these to be specific, quantitative, and verifiable when 
-possible. At the least, clarify the relative preferences for various attributes, 
-such as ease of use over ease of learning.$>$
-
+ \begin {itemize}
+\item\textbf{Availability} : The system shall be available all the time.
+\item \textbf{Correctness}: A bug free software which fulfill the correct need/requirements of the
+client
+\item \textbf{Maintainability}: The ability to maintain ,modify information and update fix
+problems of the system
+\item \textbf{ Usability}:  Software can be used again and again without distortion.
+\item \textbf{Accessibility}: Administrator and many other users can access the system but the
+access level is controlled for each user according to their work scope. 
+\item \textbf{Accuracy}:  The reliability on the information/output. Can depend/be sure of the
+outcome
+\item \textbf{ Stability} : The system outcome/output won’t change time to time. Same output will
+be given always for a given input.
+\end {itemize}
 \section{Business Rules}
-$<$List any operating principles about the product, such as which individuals or 
-roles can perform which functions under specific circumstances. These are not 
-functional requirements in themselves, but they may imply certain functional 
-requirements to enforce the rules.$>$
+\begin{itemize}
+ \item Want take the responsibility of failures due to hardware malfunctioning.
+\item  Warranty period of maintaining the software would be one year.
+\item Additional payments will be analysed and charged for further maintenance
+\item  If any error occur due to a user’s improper use. Warranty will not be allocated to it.
+\item  No money back returns for the software.
+\item Trust bond placement should be done before designing and coding. An advance or an
+agreement
 
+\end{itemize}
 
 \chapter{Other Requirements}
-$<$Define any other requirements not covered elsewhere in the SRS. This might 
-include database requirements, internationalization requirements, legal 
-requirements, reuse objectives for the project, and so on. Add any new sections 
-that are pertinent to the project.$>$
-
+ 
 \section{Appendix A: Glossary}
-%see https://en.wikibooks.org/wiki/LaTeX/Glossary
-$<$Define all the terms necessary to properly interpret the SRS, including 
-acronyms and abbreviations. You may wish to build a separate glossary that spans 
-multiple projects or the entire organization, and just include terms specific to 
-a single project in each SRS.$>$
+ No glossary terms available at this time.
 
 \section{Appendix B: Analysis Models}
-$<$Optionally, include any pertinent analysis models, such as data flow 
-diagrams, class diagrams, state-transition diagrams, or entity-relationship 
-diagrams.$>$
+ \begin{center}
+\includegraphics[scale=0.6]{er.png}
+\centering
+ER diagram for the System Database Design
+\end{center}
 
-\section{Appendix C: To Be Determined List}
-$<$Collect a numbered list of the TBD (to be determined) references that remain 
-in the SRS so they can be tracked to closure.$>$
+\begin{center}
+\includegraphics[scale=0.6]{lecturer.png}
+Lecturer use case diagram
+\end {center}
+\begin{center}
+\includegraphics[scale=0.6]{student.png}
+Student use case diagram
+\end{center}
+\begin{center}
+\includegraphics[scale=0.6]{department.png}
+Department use case diagram
+\end{center}
+\begin{center}
+\includegraphics[scale=0.6]{admin.png}
+Administrator/Exam officer use case diagram
+\end{center}
 
+ 
 \end{document}
