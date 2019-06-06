@@ -1,64 +1,390 @@
-import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
-import { directive } from '@babel/types';
-
-const items = [
+import React, { Component } from "react";
+import {
+  Badge,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Col,
+  Row,
+  Collapse,
+  Fade,
+  Pagination,
+  PaginationItem,
+  PaginationLink
+} from "reactstrap";
+import { AppSwitch } from "@coreui/react";
+import { Button, Table, ListGroup, ListGroupItem } from "reactstrap";
+import { Form, FormGroup, FormText, Input, Label } from "reactstrap";
+import { Tab, Nav } from "react-bootstrap";
+import { TabContainer } from "react-bootstrap";
+let JsonData = [
   {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1607923e7e2%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1607923e7e2%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.9296875%22%20y%3D%22217.75625%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 1',
-    caption: 'Slide 1',
-  },
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 2',
-    caption: 'Slide 2',
-  },
-  {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
-    altText: 'Slide 3',
-    caption: 'Slide 3',
-  },
+    groupName: "Computer Engineering 3 Courses",
+    Courses: [
+      {
+        id: 0,
+        Name: "Operating Systems",
+        CourseCode: "COE 354",
+        Credit: "4"
+      },
+      {
+        id: 1,
+        Name: "Introduction to Software Eng.",
+        CourseCode: "COE 356",
+        Credit: "3"
+      },
+      {
+        id: 2,
+        Name: "Embedded Systems",
+        CourseCode: "COE 358",
+        Credit: "3"
+      },
+      {
+        id: 3,
+        Name: "Database and Information Retrieval",
+        CourseCode: "COE 368",
+        Credit: "3"
+      },
+      {
+        id: 4,
+        Name: "Digital Computer Design",
+        CourseCode: "COE 382",
+        Credit: "3"
+      },
+      {
+        id: 5,
+        Name: "Autotronic LAB",
+        CourseCode: "COE 392",
+        Credit: "2"
+      }
+    ]
+  }
 ];
 
 class Colleges extends Component {
-
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0 };
-    this.next = this.next.bind(this);
-    this.previous = this.previous.bind(this);
-    this.goToIndex = this.goToIndex.bind(this);
-    this.onExiting = this.onExiting.bind(this);
-    this.onExited = this.onExited.bind(this);
+    this.state = {
+      data: JsonData,
+      activeGroupNav: JsonData[0].groupName
+    };
+    this.handle_add_courses = this.handle_add_courses.bind(this);
+    this.handle_add_course = this.handle_add_course.bind(this);
+    this.handle_save_course = this.handle_save_course.bind(this);
+    this.handle_active_nav = this.handle_active_nav.bind(this);
+    this.handle_edit_course = this.handle_edit_course.bind(this);
   }
 
-  onExiting() {
-    this.animating = true;
+  handle_edit_course() {
+    document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-success btn-sm mr-4";
+    document.getElementById(`addBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-info btn-sm mr-4";
+    document.getElementById(`editBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(
+      `table-${this.state.activeGroupNav}`
+    ).contentEditable = "true";
   }
 
-  onExited() {
-    this.animating = false;
-  }
+  handle_add_courses() {
+    let newGroupName = prompt("Please enter Department name");
 
-  next() {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
-    this.setState({ activeIndex: nextIndex });
+    if (newGroupName) {
+      this.setState(prevState => {
+        return {
+          data: [
+            ...prevState.data,
+            {
+              groupName: newGroupName,
+              Courses: [
+                {
+                  Id: 0,
+                  Name: "",
+                  CourseCode: "",
+                  Credit: ""
+                }
+              ]
+            }
+          ],
+          activeGroupNav: newGroupName
+        };
+      });
+      setTimeout(() => {
+        document.getElementById(`saveBtn-${newGroupName}`).className =
+          "btn btn-success btn-sm";
+        document.getElementById(`tab-container-tab-${newGroupName}`).click();
+        document.getElementById(`addBtn-${newGroupName}`).className =
+          "btn btn-info btn-sm mr-4";
+        document.getElementById(`table-${newGroupName}`).contentEditable =
+          "true";
+        document.getElementById(`editBtn-${newGroupName}`).className = "d-none";
+      }, 30);
+    }
   }
-
-  previous() {
-    if (this.animating) return;
-    const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
-    this.setState({ activeIndex: nextIndex });
+  handle_active_nav(groupName) {
+    this.setState(prevState => {
+      return {
+        data: prevState.data,
+        activeGroupNav: groupName
+      };
+    });
   }
+  handle_add_course() {
+    this.setState(prevState => {
+      return {
+        data: [...prevState.data].map(group => {
+          if (group.groupName === this.state.activeGroupNav) {
+            return {
+              groupName: group.groupName,
+              Courses: [
+                ...group.Courses,
+                {
+                  Id: 0,
+                  Name: "",
+                  CourseCode: "",
+                  Credit: ""
+                }
+              ]
+            };
+          } else return group;
+        }),
+        activeGroupNav: prevState.activeGroupNav
+      };
+    });
+  }
+  handle_save_course() {
+    let tr = [
+      ...document.getElementsByClassName(`course-${this.state.activeGroupNav}`)
+    ];
+    let allEntries = [],
+      tracker = {},
+      i = 0,
+      x = 0;
 
-  goToIndex(newIndex) {
-    if (this.animating) return;
-    this.setState({ activeIndex: newIndex });
+    while (i < tr.length) {
+      tracker.id = x;
+      tracker.Name = tr[i].innerHTML;
+      i++;
+      tracker.CourseCode = tr[i].innerHTML;
+      i++;
+      tracker.Credit = tr[i].innerHTML;
+      allEntries.push(Object.assign({}, tracker));
+      i++;
+      x++;
+    }
+    this.setState(prevState => {
+      return {
+        data: [...prevState.data].map(group => {
+          if (group.groupName === this.state.activeGroupNav) {
+            return {
+              groupName: group.groupName,
+              Courses: allEntries
+            };
+          } else return group;
+        }),
+        activeGroupNav: prevState.activeGroupNav
+      };
+    });
+    document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(`addBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(`editBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-info btn-sm mr-4";
+    document.getElementById(
+      `table-${this.state.activeGroupNav}`
+    ).contentEditable = "false";
   }
 
   render() {
-   return (<div></div>);
+    let CoursesListComponent = this.state.data.map(dataGroup => (
+      <Tab.Pane eventKey={dataGroup.groupName}>
+        <Card>
+          <CardHeader>
+            <i className="fa fa-align-justify" /> {dataGroup.groupName}
+          </CardHeader>
+          <CardBody style={{ overflowY: "auto", height: "300px" }}>
+            <Table
+              id={`table-${dataGroup.groupName}`}
+              responsive
+              striped
+              contentEditable="false"
+            >
+              <thead contentEditable="false">
+                <tr>
+                  <th>Name</th>
+                  <th>Course Code</th>
+                  <th>Credit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataGroup.Courses.map(course => (
+                  <tr key={course.id}>
+                    <td className={`course-${dataGroup.groupName}`}>
+                      {course.Name}
+                    </td>
+                    <td className={`course-${dataGroup.groupName}`}>
+                      {course.CourseCode}
+                    </td>
+                    <td className={`course-${dataGroup.groupName}`}>
+                      {course.Credit}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </CardBody>
+          <CardFooter>
+            <Button
+              onClick={this.handle_add_course}
+              color="primary"
+              size="sm"
+              className="mr-3"
+              className="d-none"
+              id={`addBtn-${dataGroup.groupName}`}
+            >
+              Add a Course
+            </Button>
+            <Button
+              onClick={this.handle_edit_course}
+              color="info"
+              size="sm"
+              className="mr-3"
+              id={`editBtn-${dataGroup.groupName}`}
+            >
+              Edit
+            </Button>
+            <Button
+              onClick={this.handle_save_course}
+              color="success"
+              size="sm"
+              className="d-none"
+              id={`saveBtn-${dataGroup.groupName}`}
+            >
+              Save
+            </Button>
+          </CardFooter>
+        </Card>
+      </Tab.Pane>
+    ));
+    let styles = {
+      margin: "0px",
+      marginLeft: "30%",
+      float: "right"
+    };
+    let coursesGroupListComponent = this.state.data.map(dataGroup => (
+      <Nav.Item>
+        <Nav.Link
+          onClick={() => this.handle_active_nav(dataGroup.groupName)}
+          eventKey={dataGroup.groupName}
+          key={dataGroup.groupName}
+        >
+          <li className="list-group-item list-group-item-action p-2">
+            <ListGroupItem
+              className="list-group-item-info d-flex h-10"
+              style={{
+                cursor: "pointer",
+                animation: 0.5
+              }}
+            >
+              {dataGroup.groupName}
+              <i className="fa fa-arrow-right" style={styles} />
+            </ListGroupItem>
+          </li>
+        </Nav.Link>
+      </Nav.Item>
+    ));
+
+    return (
+      <div className="animated fadeIn">
+        <Tab.Container
+          defaultActiveKey={this.state.activeGroupNav}
+          id="tab-container"
+        >
+          <Row>
+            <Col xs="12" lg="9">
+              <Tab.Content>{CoursesListComponent}</Tab.Content>
+            </Col>
+            <Col sm="12" xl="3">
+              <Nav className="flex-column">
+                <Card>
+                  <CardHeader>
+                    <i className="fa fa-align-justify" />
+                    <strong>Course Groups</strong>
+                    <div className="card-header-actions" />
+                  </CardHeader>
+
+                  <CardBody
+                    style={{
+                      overflowY: "auto",
+                      height: "150px"
+                    }}
+                  >
+                    {coursesGroupListComponent}
+                  </CardBody>
+
+                  <CardFooter>
+                    <Button
+                      onClick={this.handle_add_courses}
+                      type="submit"
+                      size="sm"
+                      color="success"
+                    >
+                      <i className="fa fa-plus" /> New
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Nav>
+              <Card>
+                <CardHeader>
+                  <i className="fa fa-align-justify" />
+                  <strong>Upload Data From File</strong>
+                </CardHeader>
+                <CardBody>
+                  <Form
+                    action=""
+                    method="post"
+                    style={{
+                      height: "30px"
+                    }}
+                  >
+                    <FormGroup>
+                      <div className="badge badge-primary badge-info p-2 w-5 d-block badge-action">
+                        <i className="fa fa-upload fa-upload-sm gb-dark pl-10" />
+                        <span> Choose a file...</span>
+                        <input
+                          type="file"
+                          size="25"
+                          id="file1"
+                          style={{
+                            opacity: 0,
+                            cursor: "pointer",
+                            position: "relative",
+                            marginTop: 0,
+                            float: "left"
+                          }}
+                        />
+                      </div>
+
+                      <FormText className="help-block pt-0">
+                        Accepted formats are .csv and .xlsx
+                      </FormText>
+                    </FormGroup>
+                  </Form>
+                </CardBody>
+                <CardFooter>
+                  <Button type="submit" size="sm" color="success">
+                    <i className="fa fa-upload" /> Upload
+                  </Button>
+                </CardFooter>
+              </Card>
+            </Col>
+          </Row>
+        </Tab.Container>
+      </div>
+    );
   }
 }
 

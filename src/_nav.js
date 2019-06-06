@@ -4,10 +4,6 @@ export default {
       name: "Dashboard",
       url: "/dashboard",
       icon: "icon-speedometer",
-      badge: {
-        variant: "info",
-        text: "NEW"
-      }
     },
     {
       title: true,
@@ -22,7 +18,7 @@ export default {
     /*Lecttures*/
     {
       name: "Lectures",
-      url: "/base/forms",
+      url: "/base/lectures",
       icon: "icon-book-open"
     },
     {
@@ -30,21 +26,7 @@ export default {
       url: "/base/examinations",
       icon: "icon-note"
     },
-    {
-      name: "Mid Terms",
-      url: "/base/collapses",
-      icon: "icon-pencil"
-    },
-    {
-      name: "Drafts",
-      url: "/base/colleges",
-      icon: "icon-doc"
-    },
-    {
-      name: "Trash",
-      url: "/base/colleges",
-      icon: "icon-trash"
-    },
+
     {
       title: true,
       name: "Resources",
@@ -65,7 +47,7 @@ export default {
 
     {
       name: "Lecturers",
-      url: "/base/cards",
+      url: "/base/lecturers",
       icon: "icon-people"
     },
     /*Courses*/
@@ -89,11 +71,7 @@ export default {
       url: "/base",
       icon: "icon-graduation"
     },
-    {
-      name: "Faculties",
-      url: "/buttons",
-      icon: "icon-notebook"
-    },
+
     {
       name: "Departments",
       url: "/charts",

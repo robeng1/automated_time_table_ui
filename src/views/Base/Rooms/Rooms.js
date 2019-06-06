@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Tab, Nav } from "react-bootstrap";
 import {
   Button,
   Card,
@@ -22,226 +23,419 @@ import {
   Label
 } from "reactstrap";
 
+const JsonData = [
+  {
+    groupName: "Engineering Classrooms",
+    rooms: [
+      {
+        id: 1,
+        name: "PB 020",
+        capacity: 120,
+        allowance: 20,
+        building: "Petroleum"
+      },
+      {
+        id: 2,
+        name: "PB 021",
+        capacity: 120,
+        allowance: 20,
+        building: "Petroleum"
+      },
+      {
+        id: 3,
+        name: "PB 022",
+        capacity: 120,
+        allowance: 20,
+        building: "Petroleum"
+      },
+      {
+        id: 4,
+        name: "PB 020",
+        capacity: 120,
+        allowance: 20,
+        building: "Petroleum"
+      },
+      {
+        id: 5,
+        name: "PB 020",
+        capacity: 120,
+        allowance: 20,
+        building: "Petroleum"
+      }
+    ]
+  }
+];
+// {
+//   groupName: "College of Science Classrooms",
+//   rooms: [
+//     {
+//       id: 1,
+//       name: "PB 020",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     },
+//     {
+//       id: 2,
+//       name: "PB 021",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     },
+//     {
+//       id: 3,
+//       name: "PB 022",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     },
+//     {
+//       id: 4,
+//       name: "PB 020",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     },
+//     {
+//       id: 5,
+//       name: "PB 020",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     }
+//   ]
+// }
+
 class Rooms extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: JsonData,
+      activeGroupNav: JsonData[0].groupName
+    };
+    this.handle_add_rooms = this.handle_add_rooms.bind(this);
+    this.handle_add_room = this.handle_add_room.bind(this);
+    this.handle_save_room = this.handle_save_room.bind(this);
+    this.handle_active_nav = this.handle_active_nav.bind(this);
+    this.handle_edit_room = this.handle_edit_room.bind(this);
+  }
+
+  handle_edit_room() {
+    document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-success btn-sm mr-4";
+    document.getElementById(`addBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-info btn-sm mr-4";
+    document.getElementById(`editBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(
+      `table-${this.state.activeGroupNav}`
+    ).contentEditable = "true";
+  }
+
+  handle_add_rooms() {
+    let newGroupName = prompt("Please enter Department name");
+
+    if (newGroupName) {
+      this.setState(prevState => {
+        return {
+          data: [
+            ...prevState.data,
+            {
+              groupName: newGroupName,
+              rooms: [
+                {
+                  id: 0, // the id is updated to the actual value when the save button is clicked
+                  name: "",
+                  capacity: "",
+                  allowance: "",
+                  building: ""
+                }
+              ]
+            }
+          ],
+          activeGroupNav: newGroupName
+        };
+      });
+      setTimeout(() => {
+        document.getElementById(`saveBtn-${newGroupName}`).className =
+          "btn btn-success btn-sm";
+        document.getElementById(`tab-container-tab-${newGroupName}`).click();
+        document.getElementById(`table-${newGroupName}`).contentEditable =
+          "true";
+        document.getElementById(`addBtn-${newGroupName}`).className =
+          "btn btn-info btn-sm mr-4";
+        document.getElementById(`editBtn-${newGroupName}`).className = "d-none";
+      }, 30);
+    }
+  }
+  handle_active_nav(groupName) {
+    this.setState(prevState => {
+      return {
+        data: prevState.data,
+        activeGroupNav: groupName
+      };
+    });
+  }
+  handle_add_room() {
+    this.setState(prevState => {
+      return {
+        data: [...prevState.data].map(group => {
+          if (group.groupName === this.state.activeGroupNav) {
+            return {
+              groupName: group.groupName,
+              rooms: [
+                ...group.rooms,
+                {
+                  id: 0, // the id is updated to the actual value when the save button is clicked
+                  name: "",
+                  capacity: "",
+                  allowance: "",
+                  building: ""
+                }
+              ]
+            };
+          } else return group;
+        }),
+        activeGroupNav: prevState.activeGroupNav
+      };
+    });
+  }
+  handle_save_room() {
+    let tr = [
+      ...document.getElementsByClassName(`room-${this.state.activeGroupNav}`)
+    ];
+    let allEntries = [],
+      tracker = {},
+      i = 0,
+      x = 0;
+
+    while (i < tr.length) {
+      tracker.id = x;
+      tracker.name = tr[i].innerHTML;
+      i++;
+      tracker.capacity = tr[i].innerHTML;
+      i++;
+      tracker.allowance = tr[i].innerHTML;
+      i++;
+      tracker.building = tr[i].innerHTML;
+      allEntries.push(Object.assign({}, tracker));
+      i++;
+      x++;
+    }
+    this.setState(prevState => {
+      return {
+        data: [...prevState.data].map(group => {
+          if (group.groupName === this.state.activeGroupNav) {
+            return {
+              groupName: group.groupName,
+              rooms: allEntries
+            };
+          } else return group;
+        }),
+        activeGroupNav: prevState.activeGroupNav
+      };
+    });
+    document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(`addBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(`editBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-info btn-sm mr-4";
+    document.getElementById(
+      `table-${this.state.activeGroupNav}`
+    ).contentEditable = "false";
+  }
+
   render() {
+    let roomsListComponent = this.state.data.map(dataGroup => (
+      <Tab.Pane eventKey={dataGroup.groupName}>
+        <Card>
+          <CardHeader>
+            <i className="fa fa-align-justify" /> {dataGroup.groupName}
+          </CardHeader>
+          <CardBody style={{ overflowY: "auto", height: "300px" }}>
+            <Table
+              id={`table-${dataGroup.groupName}`}
+              responsive
+              striped
+              contentEditable="false"
+            >
+              <thead contentEditable="false">
+                <tr>
+                  <th>Name</th>
+                  <th>Capacity</th>
+                  <th>allowance</th>
+                  <th>Building</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataGroup.rooms.map(room => (
+                  <tr key={room.id}>
+                    <td className={`room-${dataGroup.groupName}`}>
+                      {room.name}
+                    </td>
+                    <td className={`room-${dataGroup.groupName}`}>
+                      {room.capacity}
+                    </td>
+                    <td className={`room-${dataGroup.groupName}`}>
+                      {room.allowance}
+                    </td>
+                    <td className={`room-${dataGroup.groupName}`}>
+                      {room.building}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </CardBody>
+          <CardFooter>
+            <Button
+              onClick={this.handle_add_room}
+              color="primary"
+              size="sm"
+              className="mr-3"
+              className="d-none"
+              id={`addBtn-${dataGroup.groupName}`}
+            >
+              Add a room
+            </Button>
+            <Button
+              onClick={this.handle_edit_room}
+              color="info"
+              size="sm"
+              className="mr-3"
+              id={`editBtn-${dataGroup.groupName}`}
+            >
+              Edit
+            </Button>
+            <Button
+              onClick={this.handle_save_room}
+              color="success"
+              size="sm"
+              className="d-none"
+              id={`saveBtn-${dataGroup.groupName}`}
+            >
+              Save
+            </Button>
+          </CardFooter>
+        </Card>
+      </Tab.Pane>
+    ));
+    let styles = {
+      margin: "0px",
+      marginLeft: "30%",
+      float: "right"
+    };
+    let roomsGroupListComponent = this.state.data.map(dataGroup => (
+      <Nav.Item>
+        <Nav.Link
+          onClick={() => this.handle_active_nav(dataGroup.groupName)}
+          eventKey={dataGroup.groupName}
+          key={dataGroup.groupName}
+        >
+          <li className="list-group-item list-group-item-action p-2">
+            <ListGroupItem
+              className="list-group-item-info d-flex h-10"
+              style={{
+                cursor: "pointer",
+                animation: 0.5
+              }}
+            >
+              {dataGroup.groupName}
+              <i className="fa fa-arrow-right" style={styles} />
+            </ListGroupItem>
+          </li>
+        </Nav.Link>
+      </Nav.Item>
+    ));
+
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col xs="12" lg="9">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify" /> Classrooms
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Capacity</th>
-                      <th>Allowance</th>
-                      <th>Building</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>PB2001</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB020</td>
-                      <td>125</td>
-                      <td>15</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB212</td>
-                      <td>100</td>
-                      <td>15</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB014</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>A110</td>
-                      <td>115</td>
-                      <td>20</td>
-                      <td>Aeroplane Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB2001</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB020</td>
-                      <td>125</td>
-                      <td>15</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB212</td>
-                      <td>100</td>
-                      <td>15</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB014</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>A110</td>
-                      <td>115</td>
-                      <td>20</td>
-                      <td>Aeroplane Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB014</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>A110</td>
-                      <td>115</td>
-                      <td>20</td>
-                      <td>Aeroplane Building</td>
-                    </tr>
-                    <tr>
-                      <td>PB014</td>
-                      <td>120</td>
-                      <td>25</td>
-                      <td>Petrolium Building</td>
-                    </tr>
-                    <tr>
-                      <td>A110</td>
-                      <td>115</td>
-                      <td>20</td>
-                      <td>Aeroplane Building</td>
-                    </tr>
-                  </tbody>
-                </Table>
+        <Tab.Container
+          defaultActiveKey={this.state.activeGroupNav}
+          id="tab-container"
+        >
+          <Row>
+            <Col xs="12" lg="9">
+              <Tab.Content>{roomsListComponent}</Tab.Content>
+            </Col>
+            <Col sm="12" xl="3">
+              <Nav className="flex-column">
+                <Card>
+                  <CardHeader>
+                    <i className="fa fa-align-justify" />
+                    <strong>Rooms Group</strong>
+                    <div className="card-header-actions" />
+                  </CardHeader>
 
-                <Pagination>
-                  <PaginationItem disabled>
-                    <PaginationLink previous tag="button">
-                      Prev
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink tag="button">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">2</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">4</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink next tag="button">
-                      Next
-                    </PaginationLink>
-                  </PaginationItem>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <Button color="primary" size="sm">
-                    Add Classroom
+                  <CardBody
+                    style={{
+                      overflowY: "auto",
+                      height: "150px"
+                    }}
+                  >
+                    {roomsGroupListComponent}
+                  </CardBody>
+
+                  <CardFooter>
+                    <Button
+                      onClick={this.handle_add_rooms}
+                      type="submit"
+                      size="sm"
+                      color="success"
+                    >
+                      <i className="fa fa-plus" /> New
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Nav>
+              <Card>
+                <CardHeader>
+                  <i className="fa fa-align-justify" />
+                  <strong>Upload Data From File</strong>
+                </CardHeader>
+                <CardBody>
+                  <Form
+                    action=""
+                    method="post"
+                    style={{
+                      height: "30px"
+                    }}
+                  >
+                    <FormGroup>
+                      <div className="badge badge-primary badge-info p-2 w-5 d-block badge-action">
+                        <i className="fa fa-upload fa-upload-sm gb-dark pl-10" />
+                        <span> Choose a file...</span>
+                        <input
+                          type="file"
+                          size="25"
+                          id="file1"
+                          style={{
+                            opacity: 0,
+                            cursor: "pointer",
+                            position: "relative",
+                            marginTop: 0,
+                            float: "left"
+                          }}
+                        />
+                      </div>
+
+                      <FormText className="help-block pt-0">
+                        Accepted formats are .csv and .xlsx
+                      </FormText>
+                    </FormGroup>
+                  </Form>
+                </CardBody>
+                <CardFooter>
+                  <Button type="submit" size="sm" color="success">
+                    <i className="fa fa-upload" /> Upload
                   </Button>
-                </Pagination>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col sm="12" xl="3">
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify" />
-                <strong>Classroom Groups</strong>
-              </CardHeader>
-              <CardBody>
-                <ListGroup>
-                  <ListGroupItem>Cras justo odio</ListGroupItem>
-                  <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                  <ListGroupItem>Morbi leo risus</ListGroupItem>
-                  <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-                  <ListGroupItem>Vestibulum at eros</ListGroupItem>
-                </ListGroup>
-              </CardBody>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify" />
-                <strong>Create New Group Of Classrooms</strong>
-              </CardHeader>
-              <CardBody>
-                <Form action="" method="post">
-                  <FormGroup>
-                    <Input
-                      type="text"
-                      placeholder="Enter A Name For The Classroom GRoup"
-                    />
-                  </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter>
-                <Button type="submit" size="sm" color="primary">
-                  <i className="fa fa-dot-circle-o" /> Create
-                </Button>
-                <Button type="reset" size="sm" color="danger">
-                  <i className="fa fa-ban" /> Reset
-                </Button>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify" />
-                <strong>Upload Data From File</strong>
-              </CardHeader>
-              <CardBody>
-                <Form action="" method="post">
-                  <FormGroup>
-                    <Input type="file" size="60" />
-                    <FormText className="help-block">
-                      Accepted formats are .csv and .xlsx
-                    </FormText>
-                  </FormGroup>
-                </Form>
-              </CardBody>
-              <CardFooter>
-                <Button type="submit" size="sm" color="success">
-                  <i className="fa fa-upload" /> Upload
-                </Button>
-              </CardFooter>
-            </Card>
-          </Col>
-        </Row>
+                </CardFooter>
+              </Card>
+            </Col>
+          </Row>
+        </Tab.Container>
       </div>
     );
   }
