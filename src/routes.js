@@ -11,7 +11,7 @@ const Rooms = React.lazy(() => import("./views/Base/Rooms/Rooms"));
 const Dashboard = React.lazy(() => import("./views/Dashboard"));
 
 const routes = [
-  { path: "/", exact: true, name: "Home" },
+  { path: "/", exact: true, name: "Home", },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/base", exact: true, name: "Base", component: Lecturers },
   { path: "/base/lecturers", name: "Lecturers", component: Lecturers },
