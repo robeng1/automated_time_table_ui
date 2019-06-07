@@ -205,7 +205,7 @@ class Colleges extends Component {
           <CardHeader>
             <i className="fa fa-align-justify" /> {dataGroup.groupName}
           </CardHeader>
-          <CardBody style={{ overflowY: "auto", height: "300px" }}>
+          <CardBody style={{ overflowY: "auto", height: "400px" }}>
             <Table
               id={`table-${dataGroup.groupName}`}
               responsive
@@ -290,7 +290,6 @@ class Colleges extends Component {
               }}
             >
               {dataGroup.groupName}
-              <i className="fa fa-arrow-right" style={styles} />
             </ListGroupItem>
           </li>
         </Nav.Link>
@@ -319,7 +318,7 @@ class Colleges extends Component {
                   <CardBody
                     style={{
                       overflowY: "auto",
-                      height: "150px"
+                      height: "250px"
                     }}
                   >
                     {coursesGroupListComponent}

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Tab, Nav } from "react-bootstrap";
 import {
   Button,
@@ -24,8 +23,6 @@ import {
   Label
 } from "reactstrap";
 
-
-const BASE_URL = "http://localhost:5000"
 const JsonData = [
   {
     groupName: "Engineering Classrooms",
@@ -66,75 +63,62 @@ const JsonData = [
         building: "Petroleum"
       }
     ]
+  },
+  {
+    groupName: "College of Science Classrooms",
+    rooms: [
+      {
+        id: 1,
+        name: "PB 020",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      },
+      {
+        id: 2,
+        name: "PB 021",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      },
+      {
+        id: 3,
+        name: "PB 022",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      },
+      {
+        id: 4,
+        name: "PB 020",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      },
+      {
+        id: 5,
+        name: "PB 020",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      }
+    ]
   }
 ];
-// {
-//   groupName: "College of Science Classrooms",
-//   rooms: [
-//     {
-//       id: 1,
-//       name: "PB 020",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     },
-//     {
-//       id: 2,
-//       name: "PB 021",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     },
-//     {
-//       id: 3,
-//       name: "PB 022",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     },
-//     {
-//       id: 4,
-//       name: "PB 020",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     },
-//     {
-//       id: 5,
-//       name: "PB 020",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     }
-//   ]
-// }
 
 class Rooms extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: JsonData,
-      activeGroupNav: JsonData[0].groupName
+      data: [],
+      activeGroupNav: ""
     };
     this.handle_add_rooms = this.handle_add_rooms.bind(this);
     this.handle_add_room = this.handle_add_room.bind(this);
     this.handle_save_room = this.handle_save_room.bind(this);
     this.handle_active_nav = this.handle_active_nav.bind(this);
     this.handle_edit_room = this.handle_edit_room.bind(this);
-  }
-  componentDidMount() {
-     axios.get(BASE_URL + "/classroomgroup").then(
-         res => {
-           const data = res.data;
-           console.log(data);
-           // this.setState({data});
-           this.setState({
-               data:res.data.data,
-               activeGroupNav:res.data.data[0].groupName
-         })
-         }
-     )
   }
 
   handle_edit_room() {
@@ -164,8 +148,8 @@ class Rooms extends Component {
                   id: 0, // the id is updated to the actual value when the save button is clicked
                   name: "",
                   capacity: "",
-                  location:"",
-                  allowance: ""
+                  allowance: "",
+                  building: ""
                 }
               ]
             }
@@ -194,7 +178,6 @@ class Rooms extends Component {
     });
   }
   handle_add_room() {
-
     this.setState(prevState => {
       return {
         data: [...prevState.data].map(group => {
@@ -207,8 +190,8 @@ class Rooms extends Component {
                   id: 0, // the id is updated to the actual value when the save button is clicked
                   name: "",
                   capacity: "",
-                  location:"",
-                  allowance: ""
+                  allowance: "",
+                  building: ""
                 }
               ]
             };
@@ -228,18 +211,18 @@ class Rooms extends Component {
       x = 0;
 
     while (i < tr.length) {
+      tracker.id = x;
       tracker.name = tr[i].innerHTML;
       i++;
       tracker.capacity = tr[i].innerHTML;
       i++;
-      tracker.location = tr[i].innerHTML;
-      i++;
       tracker.allowance = tr[i].innerHTML;
+      i++;
+      tracker.building = tr[i].innerHTML;
       allEntries.push(Object.assign({}, tracker));
       i++;
       x++;
     }
-
     this.setState(prevState => {
       return {
         data: [...prevState.data].map(group => {
@@ -263,6 +246,17 @@ class Rooms extends Component {
       `table-${this.state.activeGroupNav}`
     ).contentEditable = "false";
   }
+  componentDidMount() {
+    this.setState({
+      data: JsonData,
+      activeGroupNav: JsonData[0].groupName
+    });
+    setTimeout(() => {
+      document
+        .getElementById(`tab-container-tab-Engineering Classrooms`)
+        .click();
+    }, 50);
+  }
 
   render() {
     let roomsListComponent = this.state.data.map(dataGroup => (
@@ -271,7 +265,7 @@ class Rooms extends Component {
           <CardHeader>
             <i className="fa fa-align-justify" /> {dataGroup.groupName}
           </CardHeader>
-          <CardBody style={{ overflowY: "auto", height: "300px" }}>
+          <CardBody style={{ overflowY: "auto", height: "400px" }}>
             <Table
               id={`table-${dataGroup.groupName}`}
               responsive
@@ -282,13 +276,13 @@ class Rooms extends Component {
                 <tr>
                   <th>Name</th>
                   <th>Capacity</th>
-                  <th>location</th>
                   <th>allowance</th>
+                  <th>Building</th>
                 </tr>
               </thead>
               <tbody>
                 {dataGroup.rooms.map(room => (
-                  <tr key={room.name}>
+                  <tr key={room.id}>
                     <td className={`room-${dataGroup.groupName}`}>
                       {room.name}
                     </td>
@@ -296,12 +290,11 @@ class Rooms extends Component {
                       {room.capacity}
                     </td>
                     <td className={`room-${dataGroup.groupName}`}>
-                      {room.location}
-                    </td>
-                    <td className={`room-${dataGroup.groupName}`}>
                       {room.allowance}
                     </td>
-
+                    <td className={`room-${dataGroup.groupName}`}>
+                      {room.building}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -340,11 +333,7 @@ class Rooms extends Component {
         </Card>
       </Tab.Pane>
     ));
-    let styles = {
-      margin: "0px",
-      marginLeft: "30%",
-      float: "right"
-    };
+
     let roomsGroupListComponent = this.state.data.map(dataGroup => (
       <Nav.Item>
         <Nav.Link
@@ -361,7 +350,6 @@ class Rooms extends Component {
               }}
             >
               {dataGroup.groupName}
-              <i className="fa fa-arrow-right" style={styles} />
             </ListGroupItem>
           </li>
         </Nav.Link>
@@ -390,7 +378,7 @@ class Rooms extends Component {
                   <CardBody
                     style={{
                       overflowY: "auto",
-                      height: "150px"
+                      height: "250px"
                     }}
                   >
                     {roomsGroupListComponent}

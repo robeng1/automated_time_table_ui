@@ -3,11 +3,11 @@ export default {
     {
       name: "Dashboard",
       url: "/dashboard",
-      icon: "icon-speedometer",
+      icon: "icon-speedometer"
     },
     {
       title: true,
-      name: "Rooms",
+      name: "Tables",
       wrapper: {
         // optional wrapper object
         element: "", // required valid HTML5 element tag
