@@ -25,8 +25,6 @@ import {
 class CourseAllocationTable extends React.Component{
 
     render(){
-        return(
-            
-        );
+        return
     }
 }
