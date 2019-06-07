@@ -400,7 +400,7 @@ class ExamsGeneral extends React.Component {
                         <div className="ribbon-icon">
                           <span className="fa fa-paste fa-md" />
                         </div>
-                        <div>past</div>
+                        <div>paste</div>
                       </button>
 
                       <button
@@ -469,7 +469,7 @@ class ExamsGeneral extends React.Component {
                         className="btn btn-default btn-line"
                       >
                         <div className="ribbon-icon">
-                          <span className="cui-file" />
+                          <span className="icons fa-md cui-bold" />
                         </div>
                         <div>bold</div>
                       </button>
@@ -479,7 +479,7 @@ class ExamsGeneral extends React.Component {
                         className="btn btn-default btn-line"
                       >
                         <div className="ribbon-icon">
-                          <span className="fa fa-send-o fa-md" />
+                          <span className="icons fa-md cui-italic" />
                         </div>
                         <div>italic</div>
                       </button>
@@ -488,7 +488,7 @@ class ExamsGeneral extends React.Component {
                         className="btn btn-default btn-line"
                       >
                         <div className="ribbon-icon">
-                          <span className="fa fa-download fa-md" />
+                          <span className="icons fa-md cui-brush" />
                         </div>
                         <div>color</div>
                       </button>
@@ -497,7 +497,7 @@ class ExamsGeneral extends React.Component {
                         className="btn btn-default btn-line"
                       >
                         <div className="ribbon-icon">
-                          <span className="cui-print" />
+                          <span className="icons fa-md cui-magnifying-glass" />
                         </div>
                         <div>size</div>
                       </button>

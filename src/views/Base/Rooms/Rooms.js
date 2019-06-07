@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Tab, Nav } from "react-bootstrap";
 import {
   Button,
@@ -23,9 +22,8 @@ import {
   Input,
   Label
 } from "reactstrap";
+import axios from "axios";
 
-
-const BASE_URL = "http://localhost:5000"
 const JsonData = [
   {
     groupName: "Engineering Classrooms",
@@ -66,48 +64,48 @@ const JsonData = [
         building: "Petroleum"
       }
     ]
+  },
+  {
+    groupName: "College of Science Classrooms",
+    rooms: [
+      {
+        id: 1,
+        name: "PB 020",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      },
+      {
+        id: 2,
+        name: "PB 021",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      },
+      {
+        id: 3,
+        name: "PB 022",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      },
+      {
+        id: 4,
+        name: "PB 020",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      },
+      {
+        id: 5,
+        name: "PB 020",
+        capacity: 120,
+        allowance: 20,
+        building: "COS"
+      }
+    ]
   }
 ];
-// {
-//   groupName: "College of Science Classrooms",
-//   rooms: [
-//     {
-//       id: 1,
-//       name: "PB 020",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     },
-//     {
-//       id: 2,
-//       name: "PB 021",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     },
-//     {
-//       id: 3,
-//       name: "PB 022",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     },
-//     {
-//       id: 4,
-//       name: "PB 020",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     },
-//     {
-//       id: 5,
-//       name: "PB 020",
-//       capacity: 120,
-//       allowance: 20,
-//       building: "COS"
-//     }
-//   ]
-// }
 
 class Rooms extends Component {
   constructor(props) {
@@ -124,14 +122,11 @@ class Rooms extends Component {
     this.handle_edit_room = this.handle_edit_room.bind(this);
   }
   componentDidMount() {
-    axios.get(BASE_URL + "/classroomgroup")
-        .then(
-            res => {
-              const data = res.data.data;
-              const activeGroupNav = res.data.data[0].groupName
-              this.setState({ data, activeGroupNav})
-            }
-        )
+    axios.get("http://localhost:5000/table").then(res => {
+      this.setState({
+        data: res.data
+      });
+    });
   }
 
   handle_edit_room() {
@@ -161,8 +156,8 @@ class Rooms extends Component {
                   id: 0, // the id is updated to the actual value when the save button is clicked
                   name: "",
                   capacity: "",
-                  location:"",
-                  allowance: ""
+                  allowance: "",
+                  building: ""
                 }
               ]
             }
@@ -191,7 +186,6 @@ class Rooms extends Component {
     });
   }
   handle_add_room() {
-
     this.setState(prevState => {
       return {
         data: [...prevState.data].map(group => {
@@ -204,8 +198,8 @@ class Rooms extends Component {
                   id: 0, // the id is updated to the actual value when the save button is clicked
                   name: "",
                   capacity: "",
-                  location:"",
-                  allowance: ""
+                  allowance: "",
+                  building: ""
                 }
               ]
             };
@@ -225,18 +219,18 @@ class Rooms extends Component {
       x = 0;
 
     while (i < tr.length) {
+      tracker.id = x;
       tracker.name = tr[i].innerHTML;
       i++;
       tracker.capacity = tr[i].innerHTML;
       i++;
-      tracker.location = tr[i].innerHTML;
-      i++;
       tracker.allowance = tr[i].innerHTML;
+      i++;
+      tracker.building = tr[i].innerHTML;
       allEntries.push(Object.assign({}, tracker));
       i++;
       x++;
     }
-
     this.setState(prevState => {
       return {
         data: [...prevState.data].map(group => {
@@ -262,97 +256,93 @@ class Rooms extends Component {
   }
 
   render() {
-    const {data, activeGroupNav} = this.state
+    const { data, activeGroupNav } = this.state;
     let styles = {
       margin: "0px",
       marginLeft: "30%",
       float: "right"
     };
 
-
     return (
       <div className="animated fadeIn">
-        <Tab.Container
-          defaultActiveKey={activeGroupNav}
-          id="tab-container"
-        >
+        <Tab.Container defaultActiveKey={activeGroupNav} id="tab-container">
           <Row>
             <Col xs="12" lg="9">
               <Tab.Content>
                 {data.map(dataGroup => (
-                <Tab.Pane eventKey={dataGroup.groupName}>
-                  <Card>
-                    <CardHeader>
-                      <i className="fa fa-align-justify" /> {dataGroup.groupName}
-                    </CardHeader>
-                    <CardBody style={{ overflowY: "auto", height: "300px" }}>
-                      <Table
+                  <Tab.Pane eventKey={dataGroup.groupName}>
+                    <Card>
+                      <CardHeader>
+                        <i className="fa fa-align-justify" />{" "}
+                        {dataGroup.groupName}
+                      </CardHeader>
+                      <CardBody style={{ overflowY: "auto", height: "300px" }}>
+                        <Table
                           id={`table-${dataGroup.groupName}`}
                           responsive
                           striped
                           contentEditable="false"
-                      >
-                        <thead contentEditable="false">
-                        <tr>
-                          <th>Name</th>
-                          <th>Capacity</th>
-                          <th>location</th>
-                          <th>allowance</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {dataGroup.rooms.map(room => (
-                            <tr key={room.name}>
-                              <td className={`room-${dataGroup.groupName}`}>
-                                {room.name}
-                              </td>
-                              <td className={`room-${dataGroup.groupName}`}>
-                                {room.capacity}
-                              </td>
-                              <td className={`room-${dataGroup.groupName}`}>
-                                {room.location}
-                              </td>
-                              <td className={`room-${dataGroup.groupName}`}>
-                                {room.allowance}
-                              </td>
-
+                        >
+                          <thead contentEditable="false">
+                            <tr>
+                              <th>Name</th>
+                              <th>Capacity</th>
+                              <th>location</th>
+                              <th>allowance</th>
                             </tr>
-                        ))}
-                        </tbody>
-                      </Table>
-                    </CardBody>
-                    <CardFooter>
-                      <Button
+                          </thead>
+                          <tbody>
+                            {dataGroup.rooms.map(room => (
+                              <tr key={room.name}>
+                                <td className={`room-${dataGroup.groupName}`}>
+                                  {room.name}
+                                </td>
+                                <td className={`room-${dataGroup.groupName}`}>
+                                  {room.capacity}
+                                </td>
+                                <td className={`room-${dataGroup.groupName}`}>
+                                  {room.location}
+                                </td>
+                                <td className={`room-${dataGroup.groupName}`}>
+                                  {room.allowance}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                      </CardBody>
+                      <CardFooter>
+                        <Button
                           onClick={this.handle_add_room}
                           color="primary"
                           size="sm"
                           className="mr-3"
                           className="d-none"
                           id={`addBtn-${dataGroup.groupName}`}
-                      >
-                        Add a room
-                      </Button>
-                      <Button
+                        >
+                          Add a room
+                        </Button>
+                        <Button
                           onClick={this.handle_edit_room}
                           color="info"
                           size="sm"
                           className="mr-3"
                           id={`editBtn-${dataGroup.groupName}`}
-                      >
-                        Edit
-                      </Button>
-                      <Button
+                        >
+                          Edit
+                        </Button>
+                        <Button
                           onClick={this.handle_save_room}
                           color="success"
                           size="sm"
                           className="d-none"
                           id={`saveBtn-${dataGroup.groupName}`}
-                      >
-                        Save
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </Tab.Pane>
+                        >
+                          Save
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </Tab.Pane>
                 ))}
               </Tab.Content>
             </Col>
@@ -368,30 +358,32 @@ class Rooms extends Component {
                   <CardBody
                     style={{
                       overflowY: "auto",
-                      height: "150px"
+                      height: "250px"
                     }}
                   >
                     {data.map(dataGroup => (
-                    <Nav.Item >
-                      <Nav.Link
-                          onClick={() => this.handle_active_nav(dataGroup.groupName)}
+                      <Nav.Item>
+                        <Nav.Link
+                          onClick={() =>
+                            this.handle_active_nav(dataGroup.groupName)
+                          }
                           eventKey={dataGroup.groupName}
                           key={dataGroup.groupName}
-                      >
-                        <li className="list-group-item list-group-item-action p-2">
-                          <ListGroupItem
+                        >
+                          <li className="list-group-item list-group-item-action p-2">
+                            <ListGroupItem
                               className="list-group-item-info d-flex h-10"
                               style={{
                                 cursor: "pointer",
                                 animation: 0.5
                               }}
-                          >
-                            {dataGroup.groupName}
-                            <i className="fa fa-arrow-right" style={styles} />
-                          </ListGroupItem>
-                        </li>
-                      </Nav.Link>
-                    </Nav.Item>
+                            >
+                              {dataGroup.groupName}
+                              <i className="fa fa-arrow-right" style={styles} />
+                            </ListGroupItem>
+                          </li>
+                        </Nav.Link>
+                      </Nav.Item>
                     ))}
                   </CardBody>
 

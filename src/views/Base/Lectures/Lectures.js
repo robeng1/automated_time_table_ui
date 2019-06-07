@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import GeneralTimetable from "./Timetables/GeneralTimetable/GeneralTimetable";
 import ClassTimetable from "./Timetables/ClassTimetable/ClassTimetable";
+import { RibbonButton } from "react-bootstrap-ribbon";
 import Widget04 from "../../Widgets/Widget04";
 import { relative } from "path";
 import CreateTimetable from "./Pages/CreateTimetable";
+import App from "../Ribbon/Ribbon";
+import GetCourses from "../../Forms/GetCourses";
+
+import Ribbon2 from "../../Base/Ribbon/Ribbon2";
 import {
   Card,
   Button,
@@ -34,98 +39,67 @@ class Lectures extends Component {
 
   render() {
     let styles = {
-      cursor: "pointer",
-      animation: 0.5,
       width: "100%"
     };
     return (
       <div className="animated fadeIn">
-        <Tab.Container defaultActiveKey="first">
+        <Tab.Container defaultActiveKey="1">
+          <Row style={styles}>
+            <Nav style={styles}>
+              <Card style={styles}>
+                <CardHeader className="container d-flex">
+                  <Nav.Item style={styles}>
+                    <Nav.Link eventKey="1">
+                      <RibbonButton>
+                        <div className="ribbon-icon ">
+                          <span className="fa fa-table margin-bottom" />
+                        </div>
+                        <div>New Table</div>
+                      </RibbonButton>
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item style={styles}>
+                    <Nav.Link eventKey="2">
+                      <RibbonButton>
+                        <div className="ribbon-icon">
+                          <span className="fa fa-file-o" />
+                        </div>
+                        <div>Open Existing</div>
+                      </RibbonButton>
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item style={styles}>
+                    <Nav.Link eventKey="3">
+                      <RibbonButton>
+                        <div className="ribbon-icon">
+                          <span className="fa fa-book" />
+                        </div>
+                        <div>Quick Tutorial</div>
+                      </RibbonButton>
+                    </Nav.Link>
+                  </Nav.Item>
+                </CardHeader>
+              </Card>
+            </Nav>
+          </Row>
+
           <Row>
-            <Col sm={9}>
-              <Tab.Content>
-                <Tab.Pane eventKey="first">
-                  <GeneralTimetable />
-                </Tab.Pane>
-                <Tab.Pane eventKey="second">
-                  <GeneralTimetable />
-                </Tab.Pane>
-                <Tab.Pane eventKey="third">
-                  <GeneralTimetable />
-                </Tab.Pane>
-                <Tab.Pane eventKey="forth">
-                  <ClassTimetable />
-                </Tab.Pane>
-              </Tab.Content>
-            </Col>
-            <Col sm={3}>
-              <Nav className="flex-column">
-                <Card>
-                  <CardHeader>
-                    <i className="fa fa-align-justify" />
-                    <strong>Option Panel</strong>
-                    <div className="card-header-actions" />
-                  </CardHeader>
-
-                  <CardBody>
-                    <Nav.Item>
-                      <Nav.Link eventKey="first">
-                        <li className="list-group-item list-group-item-action p-2">
-                          <ListGroupItem
-                            className="list-group-item-info d-flex h-10"
-                            style={styles}
-                          >
-                            <i className="fa fa-table fa-2x mr-3" />
-                            Create New Table
-                          </ListGroupItem>
-                        </li>
-                      </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="second">
-                        <li className="list-group-item list-group-item-action p-2">
-                          <ListGroupItem
-                            className="list-group-item-info d-flex h-10"
-                            style={styles}
-                          >
-                            <i className="fa fa-file-o fa-2x mr-3" />
-                            Open Existing
-                          </ListGroupItem>
-                        </li>
-                      </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="third">
-                        <li className="list-group-item list-group-item-action p-2">
-                          <ListGroupItem
-                            className="list-group-item-info d-flex h-10"
-                            style={styles}
-                          >
-                            <i className="fa fa-upload fa-2x mr-3 " />
-                            Uplaod Table
-                          </ListGroupItem>
-                        </li>
-                      </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="forth">
-                        <li className="list-group-item list-group-item-action p-2">
-                          <ListGroupItem
-                            className="list-group-item-info d-flex h-10"
-                            style={styles}
-                          >
-                            <i className="fa fa-book fa-2x mr-3" />
-                            Quick Tutorial
-                          </ListGroupItem>
-                        </li>
-                      </Nav.Link>
-                    </Nav.Item>
-                  </CardBody>
-
-                  <CardFooter />
-                </Card>
-              </Nav>
-            </Col>
+            <Tab.Content style={styles}>
+              <Tab.Pane eventKey="1">
+                <GetCourses />
+              </Tab.Pane>
+              <Tab.Pane eventKey="2">
+                <Tab.Container>
+                  <Ribbon2 />
+                  <Tab.Content>
+                    <GeneralTimetable />
+                  </Tab.Content>
+                </Tab.Container>
+              </Tab.Pane>
+              <Tab.Pane eventKey="3">
+                <GeneralTimetable />
+              </Tab.Pane>
+            </Tab.Content>
           </Row>
         </Tab.Container>
       </div>

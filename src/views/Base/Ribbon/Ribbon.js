@@ -1,58 +1,85 @@
-import React, { Component } from 'react';
-import {Ribbon, RibbonGroup, RibbonGroupItem, RibbonButton} from "react-bootstrap-ribbon";
+import React, { Component } from "react";
+import {
+  Ribbon,
+  RibbonGroup,
+  RibbonGroupItem,
+  RibbonButton
+} from "react-bootstrap-ribbon";
+import { Card, CardBody, CardHeader, CardFooter } from "reactstrap";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-ribbon/dist/react-bootstrap-ribbon.css";
+import { Tab, Row, Nav } from "react-bootstrap";
 
 class App extends Component {
-    render() {
-        return (
-            <div className="App">
-                <div className="container">
-                    <h1 className="page-header">Hello World</h1>
+  render() {
+    return (
+      <div className="App">
+        <div>
+          <Tab.Container defaultEventKey="1">
+            <Row>
+              <Nav>
+                <Card>
+                  <CardHeader className="container d-flex">
+                    <Nav.Item>
+                      <Nav.Link eventKey="1">
+                        <RibbonButton>
+                          <div className="ribbon-icon ">
+                            <span className="fa fa-table margin-bottom" />
+                          </div>
+                          <div>New Table</div>
+                        </RibbonButton>
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="2">
+                        <RibbonButton>
+                          <div className="ribbon-icon">
+                            <span className="fa fa-file-o" />
+                          </div>
+                          <div>Open Existing</div>
+                        </RibbonButton>
+                      </Nav.Link>
+                    </Nav.Item>
 
-                    <Ribbon>
-                        <RibbonGroup title="Clipboard" colClass="col-xs-3">
-                            <RibbonGroupItem colClass="col-xs-4">
-                                <RibbonButton>
-                                    <div className="ribbon-icon">
-                                        <span className="glyphicon glyphicon-pushpin"/>
-                                    </div>
-                                    <div>Pin</div>
-                                </RibbonButton>
-                            </RibbonGroupItem>
-                        </RibbonGroup>
+                    <Nav.Item>
+                      <Nav.Link eventKey="3">
+                        <RibbonButton>
+                          <div className="ribbon-icon">
+                            <span className="fa fa-upload" />
+                          </div>
+                          <div>Upload Table</div>
+                        </RibbonButton>
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="4">
+                        <RibbonButton>
+                          <div className="ribbon-icon">
+                            <span className="fa fa-book" />
+                          </div>
+                          <div>Quick Tutorial</div>
+                        </RibbonButton>
+                      </Nav.Link>
+                    </Nav.Item>
+                  </CardHeader>
+                </Card>
+              </Nav>
+            </Row>
 
-                        <RibbonGroup title="New" colClass="col-xs-3">
-                            <RibbonGroupItem colClass="col-xs-4">
-                                <RibbonButton>
-                                    <div className="ribbon-icon">
-                                        <span className="glyphicon glyphicon-folder-open"/>
-                                    </div>
-                                    <div>New folder</div>
-                                </RibbonButton>
-                            </RibbonGroupItem>
-                            <RibbonGroupItem colClass="col-xs-8">
-                                <div className="row row-2px">
-                                    <RibbonGroupItem colClass="col-xs-12">
-                                        <RibbonButton>
-                                            <span className="glyphicon glyphicon-file"/> New file
-                                        </RibbonButton>
-                                    </RibbonGroupItem>
-
-                                    <RibbonGroupItem colClass="col-xs-12">
-                                        <RibbonButton>
-                                            <span className="glyphicon glyphicon-inbox"/> Easy access
-                                        </RibbonButton>
-                                    </RibbonGroupItem>
-                                </div>
-                            </RibbonGroupItem>
-                        </RibbonGroup>
-                    </Ribbon>
-                </div>
-            </div>
-        );
-    }
+            <Row>
+              <Tab.Content>
+                <Tab.Pane eventKey="1">1</Tab.Pane>
+                <Tab.Pane eventKey="2">2</Tab.Pane>
+                <Tab.Pane eventKey="3">3</Tab.Pane>
+                <Tab.Pane eventKey="4">4</Tab.Pane>
+              </Tab.Content>
+            </Row>
+          </Tab.Container>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
