@@ -89,8 +89,12 @@ class Lectures extends Component {
                 <GetCourses />
               </Tab.Pane>
               <Tab.Pane eventKey="2">
-                <Ribbon2 />
-                <GeneralTimetable />
+                <Tab.Container>
+                  <Ribbon2 />
+                  <Tab.Content>
+                    <GeneralTimetable />
+                  </Tab.Content>
+                </Tab.Container>
               </Tab.Pane>
               <Tab.Pane eventKey="3">
                 <GeneralTimetable />

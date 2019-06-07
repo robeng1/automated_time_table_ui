@@ -22,6 +22,7 @@ import {
   Input,
   Label
 } from "reactstrap";
+import axios from "axios";
 
 const JsonData = [
   {
@@ -120,19 +121,13 @@ class Rooms extends Component {
     this.handle_active_nav = this.handle_active_nav.bind(this);
     this.handle_edit_room = this.handle_edit_room.bind(this);
   }
-<<<<<<< HEAD
-=======
   componentDidMount() {
-    axios.get(BASE_URL + "/classroomgroup")
-        .then(
-            res => {
-              const data = res.data.data;
-              const activeGroupNav = res.data.data[0].groupName
-              this.setState({ data, activeGroupNav})
-            }
-        )
+    axios.get("http://localhost:5000/table").then(res => {
+      this.setState({
+        data: res.data
+      });
+    });
   }
->>>>>>> 16e33e7a9aad0b358a3944b1d90988a21005dbe1
 
   handle_edit_room() {
     document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
@@ -259,209 +254,95 @@ class Rooms extends Component {
       `table-${this.state.activeGroupNav}`
     ).contentEditable = "false";
   }
-  componentDidMount() {
-    this.setState({
-      data: JsonData,
-      activeGroupNav: JsonData[0].groupName
-    });
-    setTimeout(() => {
-      document
-        .getElementById(`tab-container-tab-Engineering Classrooms`)
-        .click();
-    }, 50);
-  }
 
   render() {
-<<<<<<< HEAD
-    let roomsListComponent = this.state.data.map(dataGroup => (
-      <Tab.Pane eventKey={dataGroup.groupName}>
-        <Card>
-          <CardHeader>
-            <i className="fa fa-align-justify" /> {dataGroup.groupName}
-          </CardHeader>
-          <CardBody style={{ overflowY: "auto", height: "400px" }}>
-            <Table
-              id={`table-${dataGroup.groupName}`}
-              responsive
-              striped
-              contentEditable="false"
-            >
-              <thead contentEditable="false">
-                <tr>
-                  <th>Name</th>
-                  <th>Capacity</th>
-                  <th>allowance</th>
-                  <th>Building</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dataGroup.rooms.map(room => (
-                  <tr key={room.id}>
-                    <td className={`room-${dataGroup.groupName}`}>
-                      {room.name}
-                    </td>
-                    <td className={`room-${dataGroup.groupName}`}>
-                      {room.capacity}
-                    </td>
-                    <td className={`room-${dataGroup.groupName}`}>
-                      {room.allowance}
-                    </td>
-                    <td className={`room-${dataGroup.groupName}`}>
-                      {room.building}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </CardBody>
-          <CardFooter>
-            <Button
-              onClick={this.handle_add_room}
-              color="primary"
-              size="sm"
-              className="mr-3"
-              className="d-none"
-              id={`addBtn-${dataGroup.groupName}`}
-            >
-              Add a room
-            </Button>
-            <Button
-              onClick={this.handle_edit_room}
-              color="info"
-              size="sm"
-              className="mr-3"
-              id={`editBtn-${dataGroup.groupName}`}
-            >
-              Edit
-            </Button>
-            <Button
-              onClick={this.handle_save_room}
-              color="success"
-              size="sm"
-              className="d-none"
-              id={`saveBtn-${dataGroup.groupName}`}
-            >
-              Save
-            </Button>
-          </CardFooter>
-        </Card>
-      </Tab.Pane>
-    ));
-
-    let roomsGroupListComponent = this.state.data.map(dataGroup => (
-      <Nav.Item>
-        <Nav.Link
-          onClick={() => this.handle_active_nav(dataGroup.groupName)}
-          eventKey={dataGroup.groupName}
-          key={dataGroup.groupName}
-        >
-          <li className="list-group-item list-group-item-action p-2">
-            <ListGroupItem
-              className="list-group-item-info d-flex h-10"
-              style={{
-                cursor: "pointer",
-                animation: 0.5
-              }}
-            >
-              {dataGroup.groupName}
-            </ListGroupItem>
-          </li>
-        </Nav.Link>
-      </Nav.Item>
-    ));
-=======
-    const {data, activeGroupNav} = this.state
+    const { data, activeGroupNav } = this.state;
     let styles = {
       margin: "0px",
       marginLeft: "30%",
       float: "right"
     };
 
->>>>>>> 16e33e7a9aad0b358a3944b1d90988a21005dbe1
-
     return (
       <div className="animated fadeIn">
-        <Tab.Container
-          defaultActiveKey={activeGroupNav}
-          id="tab-container"
-        >
+        <Tab.Container defaultActiveKey={activeGroupNav} id="tab-container">
           <Row>
             <Col xs="12" lg="9">
               <Tab.Content>
                 {data.map(dataGroup => (
-                <Tab.Pane eventKey={dataGroup.groupName}>
-                  <Card>
-                    <CardHeader>
-                      <i className="fa fa-align-justify" /> {dataGroup.groupName}
-                    </CardHeader>
-                    <CardBody style={{ overflowY: "auto", height: "300px" }}>
-                      <Table
+                  <Tab.Pane eventKey={dataGroup.groupName}>
+                    <Card>
+                      <CardHeader>
+                        <i className="fa fa-align-justify" />{" "}
+                        {dataGroup.groupName}
+                      </CardHeader>
+                      <CardBody style={{ overflowY: "auto", height: "300px" }}>
+                        <Table
                           id={`table-${dataGroup.groupName}`}
                           responsive
                           striped
                           contentEditable="false"
-                      >
-                        <thead contentEditable="false">
-                        <tr>
-                          <th>Name</th>
-                          <th>Capacity</th>
-                          <th>location</th>
-                          <th>allowance</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {dataGroup.rooms.map(room => (
-                            <tr key={room.name}>
-                              <td className={`room-${dataGroup.groupName}`}>
-                                {room.name}
-                              </td>
-                              <td className={`room-${dataGroup.groupName}`}>
-                                {room.capacity}
-                              </td>
-                              <td className={`room-${dataGroup.groupName}`}>
-                                {room.location}
-                              </td>
-                              <td className={`room-${dataGroup.groupName}`}>
-                                {room.allowance}
-                              </td>
-
+                        >
+                          <thead contentEditable="false">
+                            <tr>
+                              <th>Name</th>
+                              <th>Capacity</th>
+                              <th>location</th>
+                              <th>allowance</th>
                             </tr>
-                        ))}
-                        </tbody>
-                      </Table>
-                    </CardBody>
-                    <CardFooter>
-                      <Button
+                          </thead>
+                          <tbody>
+                            {dataGroup.rooms.map(room => (
+                              <tr key={room.name}>
+                                <td className={`room-${dataGroup.groupName}`}>
+                                  {room.name}
+                                </td>
+                                <td className={`room-${dataGroup.groupName}`}>
+                                  {room.capacity}
+                                </td>
+                                <td className={`room-${dataGroup.groupName}`}>
+                                  {room.location}
+                                </td>
+                                <td className={`room-${dataGroup.groupName}`}>
+                                  {room.allowance}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                      </CardBody>
+                      <CardFooter>
+                        <Button
                           onClick={this.handle_add_room}
                           color="primary"
                           size="sm"
                           className="mr-3"
                           className="d-none"
                           id={`addBtn-${dataGroup.groupName}`}
-                      >
-                        Add a room
-                      </Button>
-                      <Button
+                        >
+                          Add a room
+                        </Button>
+                        <Button
                           onClick={this.handle_edit_room}
                           color="info"
                           size="sm"
                           className="mr-3"
                           id={`editBtn-${dataGroup.groupName}`}
-                      >
-                        Edit
-                      </Button>
-                      <Button
+                        >
+                          Edit
+                        </Button>
+                        <Button
                           onClick={this.handle_save_room}
                           color="success"
                           size="sm"
                           className="d-none"
                           id={`saveBtn-${dataGroup.groupName}`}
-                      >
-                        Save
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </Tab.Pane>
+                        >
+                          Save
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </Tab.Pane>
                 ))}
               </Tab.Content>
             </Col>
@@ -481,26 +362,28 @@ class Rooms extends Component {
                     }}
                   >
                     {data.map(dataGroup => (
-                    <Nav.Item >
-                      <Nav.Link
-                          onClick={() => this.handle_active_nav(dataGroup.groupName)}
+                      <Nav.Item>
+                        <Nav.Link
+                          onClick={() =>
+                            this.handle_active_nav(dataGroup.groupName)
+                          }
                           eventKey={dataGroup.groupName}
                           key={dataGroup.groupName}
-                      >
-                        <li className="list-group-item list-group-item-action p-2">
-                          <ListGroupItem
+                        >
+                          <li className="list-group-item list-group-item-action p-2">
+                            <ListGroupItem
                               className="list-group-item-info d-flex h-10"
                               style={{
                                 cursor: "pointer",
                                 animation: 0.5
                               }}
-                          >
-                            {dataGroup.groupName}
-                            <i className="fa fa-arrow-right" style={styles} />
-                          </ListGroupItem>
-                        </li>
-                      </Nav.Link>
-                    </Nav.Item>
+                            >
+                              {dataGroup.groupName}
+                              <i className="fa fa-arrow-right" style={styles} />
+                            </ListGroupItem>
+                          </li>
+                        </Nav.Link>
+                      </Nav.Item>
                     ))}
                   </CardBody>
 
