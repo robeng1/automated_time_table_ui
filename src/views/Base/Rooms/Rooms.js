@@ -63,110 +63,78 @@ const JsonData = [
         building: "Petroleum"
       }
     ]
-  },
-  {
-    groupName: "College of Science Classrooms",
-    rooms: [
-      {
-        id: 1,
-        name: "PB 020",
-        capacity: 120,
-        allowance: 20,
-        building: "COS"
-      },
-      {
-        id: 2,
-        name: "PB 021",
-        capacity: 120,
-        allowance: 20,
-        building: "COS"
-      },
-      {
-        id: 3,
-        name: "PB 022",
-        capacity: 120,
-        allowance: 20,
-        building: "COS"
-      },
-      {
-        id: 4,
-        name: "PB 020",
-        capacity: 120,
-        allowance: 20,
-        building: "COS"
-      },
-      {
-        id: 5,
-        name: "PB 020",
-        capacity: 120,
-        allowance: 20,
-        building: "COS"
-      }
-    ]
   }
 ];
-
-let currentId = 0;
-let activeGroupId = JsonData[0].groupName;
+// {
+//   groupName: "College of Science Classrooms",
+//   rooms: [
+//     {
+//       id: 1,
+//       name: "PB 020",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     },
+//     {
+//       id: 2,
+//       name: "PB 021",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     },
+//     {
+//       id: 3,
+//       name: "PB 022",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     },
+//     {
+//       id: 4,
+//       name: "PB 020",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     },
+//     {
+//       id: 5,
+//       name: "PB 020",
+//       capacity: 120,
+//       allowance: 20,
+//       building: "COS"
+//     }
+//   ]
+// }
 
 class Rooms extends Component {
   constructor(props) {
     super(props);
 
-    this.handle_add_room = this.handle_add_room.bind(this);
-
     this.state = {
       data: JsonData,
-      classroomGroupComponents: this.classroomGroupComponents,
-      groupNames: [],
-      activeGroupId: JsonData[0].groupName,
-      addRoomBtnState: true,
-      nextId: currentId + 1
+      activeGroupNav: JsonData[0].groupName
     };
-
-    let groupNames = this.state.data.map(classGroup => classGroup.groupName);
-    this.state.groupNames = groupNames; //Initialising the groupNames
-    let classroomGroupComponents = this.state.data.map(classGroup => (
-      <Tab.Pane eventKey={classGroup.groupName}>
-        <Card>
-          <CardHeader>
-            <i className="fa fa-align-justify" />
-            {classGroup.groupName}
-          </CardHeader>
-          <CardBody>
-            <Table responsive striped contentEditable="true">
-              <thead contentEditable="false">
-                <tr>
-                  <th>Name</th>
-                  <th>Capacity</th>
-                  <th>Allowance</th>
-                  <th>Building</th>
-                </tr>
-              </thead>
-              <tbody>
-                {classGroup.rooms.map(classroom => (
-                  <tr id={classroom.id}>
-                    <td>{classroom.name}</td>
-                    <td>{classroom.capacity}</td>
-                    <td>{classroom.allowance}</td>
-                    <td>{classroom.building}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </CardBody>
-          <CardFooter>
-            <Button color="primary" size="sm" onClick={this.handle_add_room}>
-              Add Classroom
-            </Button>
-          </CardFooter>
-        </Card>
-      </Tab.Pane>
-    ));
-    this.state.classroomGroupComponents = classroomGroupComponents; //Initalizing the rooms components
+    this.handle_add_rooms = this.handle_add_rooms.bind(this);
+    this.handle_add_room = this.handle_add_room.bind(this);
+    this.handle_save_room = this.handle_save_room.bind(this);
+    this.handle_active_nav = this.handle_active_nav.bind(this);
+    this.handle_edit_room = this.handle_edit_room.bind(this);
   }
-  handle_add_group = () => {
-    let newGroupName = prompt("Please enter the group name");
+
+  handle_edit_room() {
+    document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-success btn-sm mr-4";
+    document.getElementById(`addBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-info btn-sm mr-4";
+    document.getElementById(`editBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(
+      `table-${this.state.activeGroupNav}`
+    ).contentEditable = "true";
+  }
+
+  handle_add_rooms() {
+    let newGroupName = prompt("Please enter Department name");
 
     if (newGroupName) {
       this.setState(prevState => {
@@ -177,139 +145,204 @@ class Rooms extends Component {
               groupName: newGroupName,
               rooms: [
                 {
-                  id: 0,
-                  name: "Class Name here",
-                  capacity: 0,
-                  allowance: 0,
-                  building: "Building Name"
+                  id: 0, // the id is updated to the actual value when the save button is clicked
+                  name: "",
+                  capacity: "",
+                  allowance: "",
+                  building: ""
                 }
               ]
             }
           ],
-          classroomGroupComponents: [
-            ...prevState.classroomGroupComponents,
-            <Tab.Pane eventKey={newGroupName}>
-              <Card>
-                <CardHeader>
-                  <i className="fa fa-align-justify" />
-                  {newGroupName}
-                </CardHeader>
-                <CardBody>
-                  <Table responsive striped contentEditable="true">
-                    <thead contentEditable="false">
-                      <tr>
-                        <th>Name</th>
-                        <th>Capacity</th>
-                        <th>Allowance</th>
-                        <th>Building</th>
-                      </tr>
-                    </thead>
-                    <tbody />
-                  </Table>
-                </CardBody>
-                <CardFooter>
-                  <Button
-                    color="primary"
-                    size="sm"
-                    onClick={this.handle_add_room}
-                  >
-                    Add Classroom
-                  </Button>
-                </CardFooter>
-              </Card>
-            </Tab.Pane>
-          ],
-          groupNames: [...prevState.groupNames, newGroupName],
-          activeGroupId: newGroupName,
-          addRoomBtnState: true,
-          nextId: currentId + 1
+          activeGroupNav: newGroupName
         };
       });
+      setTimeout(() => {
+        document.getElementById(`saveBtn-${newGroupName}`).className =
+          "btn btn-success btn-sm";
+        document.getElementById(`tab-container-tab-${newGroupName}`).click();
+        document.getElementById(`table-${newGroupName}`).contentEditable =
+          "true";
+        document.getElementById(`addBtn-${newGroupName}`).className =
+          "btn btn-info btn-sm mr-4";
+        document.getElementById(`editBtn-${newGroupName}`).className = "d-none";
+      }, 30);
     }
-  };
-
-  handle_add_room = () => {
+  }
+  handle_active_nav(groupName) {
     this.setState(prevState => {
       return {
         data: prevState.data,
-        classroomGroupComponents: prevState.data.map(classGroup => (
-          <Tab.Pane eventKey={classGroup.groupName}>
-            <Card>
-              <CardHeader>
-                <i className="fa fa-align-justify" />
-                {classGroup.groupName}
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped contentEditable="true">
-                  <thead contentEditable="false">
-                    <tr>
-                      <th>Name</th>
-                      <th>Capacity</th>
-                      <th>Allowance</th>
-                      <th>Building</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {classGroup.rooms.map(classroom => (
-                      <tr id={classroom.id}>
-                        <td>{classroom.name}</td>
-                        <td>{classroom.capacity}</td>
-                        <td>{classroom.allowance}</td>
-                        <td>{classroom.building}</td>
-                      </tr>
-                    ))}
-
-                    <tr>
-                      <td />
-                      <td />
-                      <td />
-                      <td />
-                    </tr>
-                  </tbody>
-                </Table>
-              </CardBody>
-              <CardFooter>
-                <Button
-                  color="primary"
-                  size="sm"
-                  onClick={this.handle_add_room}
-                >
-                  Add Classroom
-                </Button>
-              </CardFooter>
-            </Card>
-          </Tab.Pane>
-        )),
-        groupNames: prevState.groupNames,
-        addRoomBtnState: true,
-        nextId: currentId + 1
+        activeGroupNav: groupName
       };
     });
-  };
+  }
+  handle_add_room() {
+    this.setState(prevState => {
+      return {
+        data: [...prevState.data].map(group => {
+          if (group.groupName === this.state.activeGroupNav) {
+            return {
+              groupName: group.groupName,
+              rooms: [
+                ...group.rooms,
+                {
+                  id: 0, // the id is updated to the actual value when the save button is clicked
+                  name: "",
+                  capacity: "",
+                  allowance: "",
+                  building: ""
+                }
+              ]
+            };
+          } else return group;
+        }),
+        activeGroupNav: prevState.activeGroupNav
+      };
+    });
+  }
+  handle_save_room() {
+    let tr = [
+      ...document.getElementsByClassName(`room-${this.state.activeGroupNav}`)
+    ];
+    let allEntries = [],
+      tracker = {},
+      i = 0,
+      x = 0;
 
-  RoomGroupList = () => {
+    while (i < tr.length) {
+      tracker.id = x;
+      tracker.name = tr[i].innerHTML;
+      i++;
+      tracker.capacity = tr[i].innerHTML;
+      i++;
+      tracker.allowance = tr[i].innerHTML;
+      i++;
+      tracker.building = tr[i].innerHTML;
+      allEntries.push(Object.assign({}, tracker));
+      i++;
+      x++;
+    }
+    this.setState(prevState => {
+      return {
+        data: [...prevState.data].map(group => {
+          if (group.groupName === this.state.activeGroupNav) {
+            return {
+              groupName: group.groupName,
+              rooms: allEntries
+            };
+          } else return group;
+        }),
+        activeGroupNav: prevState.activeGroupNav
+      };
+    });
+    document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(`addBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(`editBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-info btn-sm mr-4";
+    document.getElementById(
+      `table-${this.state.activeGroupNav}`
+    ).contentEditable = "false";
+  }
+
+  render() {
+    let roomsListComponent = this.state.data.map(dataGroup => (
+      <Tab.Pane eventKey={dataGroup.groupName}>
+        <Card>
+          <CardHeader>
+            <i className="fa fa-align-justify" /> {dataGroup.groupName}
+          </CardHeader>
+          <CardBody style={{ overflowY: "auto", height: "300px" }}>
+            <Table
+              id={`table-${dataGroup.groupName}`}
+              responsive
+              striped
+              contentEditable="false"
+            >
+              <thead contentEditable="false">
+                <tr>
+                  <th>Name</th>
+                  <th>Capacity</th>
+                  <th>allowance</th>
+                  <th>Building</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataGroup.rooms.map(room => (
+                  <tr key={room.id}>
+                    <td className={`room-${dataGroup.groupName}`}>
+                      {room.name}
+                    </td>
+                    <td className={`room-${dataGroup.groupName}`}>
+                      {room.capacity}
+                    </td>
+                    <td className={`room-${dataGroup.groupName}`}>
+                      {room.allowance}
+                    </td>
+                    <td className={`room-${dataGroup.groupName}`}>
+                      {room.building}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </CardBody>
+          <CardFooter>
+            <Button
+              onClick={this.handle_add_room}
+              color="primary"
+              size="sm"
+              className="mr-3"
+              className="d-none"
+              id={`addBtn-${dataGroup.groupName}`}
+            >
+              Add a room
+            </Button>
+            <Button
+              onClick={this.handle_edit_room}
+              color="info"
+              size="sm"
+              className="mr-3"
+              id={`editBtn-${dataGroup.groupName}`}
+            >
+              Edit
+            </Button>
+            <Button
+              onClick={this.handle_save_room}
+              color="success"
+              size="sm"
+              className="d-none"
+              id={`saveBtn-${dataGroup.groupName}`}
+            >
+              Save
+            </Button>
+          </CardFooter>
+        </Card>
+      </Tab.Pane>
+    ));
     let styles = {
       margin: "0px",
       marginLeft: "30%",
       float: "right"
     };
-    let room_groups_group_names = this.state.groupNames.map(groupName => (
-      <Nav.Item
-        onClick={e => {
-          activeGroupId = e.target.id;
-        }}
-        id={groupName}
-      >
-        <Nav.Link eventKey={groupName}>
-          <li
-            style={{ cursor: "pointer", animation: 0.5 }}
-            className="list-group-item list-group-item-action p-2"
-          >
+    let roomsGroupListComponent = this.state.data.map(dataGroup => (
+      <Nav.Item>
+        <Nav.Link
+          onClick={() => this.handle_active_nav(dataGroup.groupName)}
+          eventKey={dataGroup.groupName}
+          key={dataGroup.groupName}
+        >
+          <li className="list-group-item list-group-item-action p-2">
             <ListGroupItem
-              key={groupName}
-              className="list-group-item-info d-flex"
+              className="list-group-item-info d-flex h-10"
+              style={{
+                cursor: "pointer",
+                animation: 0.5
+              }}
             >
-              {groupName}
+              {dataGroup.groupName}
               <i className="fa fa-arrow-right" style={styles} />
             </ListGroupItem>
           </li>
@@ -318,44 +351,58 @@ class Rooms extends Component {
     ));
 
     return (
-      <Card>
-        <CardHeader>
-          <i className="fa fa-align-justify" />
-          <strong>Classroom Groups</strong>
-        </CardHeader>
-        <CardBody>
-          <ListGroup>{room_groups_group_names}</ListGroup>
-        </CardBody>
-        <CardFooter>
-          <Button
-            onClick={this.handle_add_group}
-            type="submit"
-            size="sm"
-            color="success"
-          >
-            <i className="fa fa-plus" /> New
-          </Button>
-        </CardFooter>
-      </Card>
-    );
-  };
-
-  render() {
-    return (
       <div className="animated fadeIn">
-        <Tab.Container defaultActiveKey={this.state.groupNames[0]}>
+        <Tab.Container
+          defaultActiveKey={this.state.activeGroupNav}
+          id="tab-container"
+        >
           <Row>
             <Col xs="12" lg="9">
-              <Tab.Content>{this.state.classroomGroupComponents}</Tab.Content>
+              <Tab.Content>{roomsListComponent}</Tab.Content>
             </Col>
             <Col sm="12" xl="3">
+              <Nav className="flex-column">
+                <Card>
+                  <CardHeader>
+                    <i className="fa fa-align-justify" />
+                    <strong>Rooms Group</strong>
+                    <div className="card-header-actions" />
+                  </CardHeader>
+
+                  <CardBody
+                    style={{
+                      overflowY: "auto",
+                      height: "150px"
+                    }}
+                  >
+                    {roomsGroupListComponent}
+                  </CardBody>
+
+                  <CardFooter>
+                    <Button
+                      onClick={this.handle_add_rooms}
+                      type="submit"
+                      size="sm"
+                      color="success"
+                    >
+                      <i className="fa fa-plus" /> New
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Nav>
               <Card>
                 <CardHeader>
                   <i className="fa fa-align-justify" />
                   <strong>Upload Data From File</strong>
                 </CardHeader>
                 <CardBody>
-                  <Form action="" method="post">
+                  <Form
+                    action=""
+                    method="post"
+                    style={{
+                      height: "30px"
+                    }}
+                  >
                     <FormGroup>
                       <div className="badge badge-primary badge-info p-2 w-5 d-block badge-action">
                         <i className="fa fa-upload fa-upload-sm gb-dark pl-10" />
@@ -374,7 +421,7 @@ class Rooms extends Component {
                         />
                       </div>
 
-                      <FormText className="help-block pt-3">
+                      <FormText className="help-block pt-0">
                         Accepted formats are .csv and .xlsx
                       </FormText>
                     </FormGroup>
@@ -386,8 +433,6 @@ class Rooms extends Component {
                   </Button>
                 </CardFooter>
               </Card>
-
-              <Nav className="flex-column">{this.RoomGroupList()}</Nav>
             </Col>
           </Row>
         </Tab.Container>

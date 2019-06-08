@@ -69,72 +69,89 @@ const JsonData = [
         OfficeNumber: "A205"
       }
     ]
-  },
-  {
-    groupName: "College of Medecine",
-    Lecturers: [
-      {
-        Id: 11,
-        Title: "Mis",
-        Name: "Nadine Azo",
-        IdNumber: "631547",
-        Department: "Human Anatomy",
-        Email: "nazo@gmail.com",
-        OfficeNumber: "B105"
-      },
-      {
-        Id: 12,
-        Title: "Mis",
-        Name: "Nadine Azo",
-        IdNumber: "631547",
-        Department: "Human Anatomy",
-        Email: "nazo@gmail.com",
-        OfficeNumber: "B105"
-      },
-      {
-        Id: 13,
-        Title: "Mis",
-        Name: "Nadine Azo",
-        IdNumber: "631547",
-        Department: "Human Anatomy",
-        Email: "nazo@gmail.com",
-        OfficeNumber: "B105"
-      },
-      {
-        Id: 14,
-        Title: "Mis",
-        Name: "Nadine Azo",
-        IdNumber: "631547",
-        Department: "Human Anatomy",
-        Email: "nazo@gmail.com",
-        OfficeNumber: "B105"
-      },
-      {
-        Id: 15,
-        Title: "Mis",
-        Name: "Nadine Azo",
-        IdNumber: "631547",
-        Department: "Human Anatomy",
-        Email: "nazo@gmail.com",
-        OfficeNumber: "B105"
-      }
-    ]
   }
 ];
-let activeGroupTab = 0;
+
+// {
+//   groupName: "College of Medecine",
+//   Lecturers: [
+//     {
+//       Id: 11,
+//       Title: "Mis",
+//       Name: "Nadine Azo",
+//       IdNumber: "631547",
+//       Department: "Human Anatomy",
+//       Email: "nazo@gmail.com",
+//       OfficeNumber: "B105"
+//     },
+//     {
+//       Id: 12,
+//       Title: "Mis",
+//       Name: "Nadine Azo",
+//       IdNumber: "631547",
+//       Department: "Human Anatomy",
+//       Email: "nazo@gmail.com",
+//       OfficeNumber: "B105"
+//     },
+//     {
+//       Id: 13,
+//       Title: "Mis",
+//       Name: "Nadine Azo",
+//       IdNumber: "631547",
+//       Department: "Human Anatomy",
+//       Email: "nazo@gmail.com",
+//       OfficeNumber: "B105"
+//     },
+//     {
+//       Id: 14,
+//       Title: "Mis",
+//       Name: "Nadine Azo",
+//       IdNumber: "631547",
+//       Department: "Human Anatomy",
+//       Email: "nazo@gmail.com",
+//       OfficeNumber: "B105"
+//     },
+//     {
+//       Id: 15,
+//       Title: "Mis",
+//       Name: "Nadine Azo",
+//       IdNumber: "631547",
+//       Department: "Human Anatomy",
+//       Email: "nazo@gmail.com",
+//       OfficeNumber: "B105"
+//     }
+//   ]
+// }
 class Lecturers extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: JsonData
+      data: JsonData,
+      activeGroupNav: JsonData[0].groupName
     };
     this.handle_add_lecturers = this.handle_add_lecturers.bind(this);
-    this.handle_add_lecrurer = this.handle_add_lecturers.bind(this);
+    this.handle_add_lecturer = this.handle_add_lecturer.bind(this);
+    this.handle_save_lecturer = this.handle_save_lecturer.bind(this);
+    this.handle_active_nav = this.handle_active_nav.bind(this);
+    this.handle_edit_lecturer = this.handle_edit_lecturer.bind(this);
+  }
+
+  handle_edit_lecturer() {
+    document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-success btn-sm mr-4";
+    document.getElementById(`addBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-info btn-sm mr-4";
+    document.getElementById(`editBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(
+      `table-${this.state.activeGroupNav}`
+    ).contentEditable = "true";
   }
 
   handle_add_lecturers() {
-    let newGroupName = prompt("Please enter the na");
+    let newGroupName = prompt("Please enter Department name");
+
     if (newGroupName) {
       this.setState(prevState => {
         return {
@@ -144,40 +161,116 @@ class Lecturers extends Component {
               groupName: newGroupName,
               Lecturers: [
                 {
-                  Title: "Title here...",
-                  Name: "Name here...",
-                  IdNumber: "Id number...",
-                  Department: newGroupName,
-                  Email: "Email",
-                  OfficeNumber: "Office number..."
+                  Id: 0,
+                  Title: "",
+                  Name: "",
+                  IdNumber: "",
+                  Department: "",
+                  Email: "",
+                  OfficeNumber: ""
                 }
               ]
             }
-          ]
+          ],
+          activeGroupNav: newGroupName
         };
       });
+      setTimeout(() => {
+        document.getElementById(`saveBtn-${newGroupName}`).className =
+          "btn btn-success btn-sm";
+        document.getElementById(`tab-container-tab-${newGroupName}`).click();
+        document.getElementById(`table-${newGroupName}`).contentEditable =
+          "true";
+        document.getElementById(`addBtn-${newGroupName}`).className =
+          "btn btn-info btn-sm mr-4";
+        document.getElementById(`editBtn-${newGroupName}`).className = "d-none";
+      }, 30);
     }
+  }
+  handle_active_nav(groupName) {
+    this.setState(prevState => {
+      return {
+        data: prevState.data,
+        activeGroupNav: groupName
+      };
+    });
   }
   handle_add_lecturer() {
     this.setState(prevState => {
-      let activeGroup = prevState.data.filter(
-        l => l.groupName === activeGroupTab
-      );
-
       return {
-        data: [
-          ...prevState.data[Array.indexOf(activeGroup[0].Lecturers)],
-          {
-            Title: "",
-            Name: "",
-            IdNumber: "",
-            Department: "",
-            Email: "",
-            OfficeNumber: ""
-          }
-        ]
+        data: [...prevState.data].map(group => {
+          if (group.groupName === this.state.activeGroupNav) {
+            return {
+              groupName: group.groupName,
+              Lecturers: [
+                ...group.Lecturers,
+                {
+                  Id: 0,
+                  Title: "",
+                  Name: "",
+                  IdNumber: "",
+                  Department: "",
+                  Email: "",
+                  OfficeNumber: ""
+                }
+              ]
+            };
+          } else return group;
+        }),
+        activeGroupNav: prevState.activeGroupNav
       };
     });
+  }
+  handle_save_lecturer() {
+    let tr = [
+      ...document.getElementsByClassName(
+        `lecturer-${this.state.activeGroupNav}`
+      )
+    ];
+    let allEntries = [],
+      tracker = {},
+      i = 0,
+      x = 0;
+
+    while (i < tr.length) {
+      tracker.id = x;
+      tracker.Title = tr[i].innerHTML;
+      i++;
+      tracker.Name = tr[i].innerHTML;
+      i++;
+      tracker.IdNumber = tr[i].innerHTML;
+      i++;
+      tracker.Department = tr[i].innerHTML;
+      i++;
+      tracker.Email = tr[i].innerHTML;
+      i++;
+      tracker.OfficeNumber = tr[i].innerHTML;
+      allEntries.push(Object.assign({}, tracker));
+      i++;
+      x++;
+    }
+    this.setState(prevState => {
+      return {
+        data: [...prevState.data].map(group => {
+          if (group.groupName === this.state.activeGroupNav) {
+            return {
+              groupName: group.groupName,
+              Lecturers: allEntries
+            };
+          } else return group;
+        }),
+        activeGroupNav: prevState.activeGroupNav
+      };
+    });
+    document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(`addBtn-${this.state.activeGroupNav}`).className =
+      "d-none";
+    document.getElementById(`editBtn-${this.state.activeGroupNav}`).className =
+      "btn btn-info btn-sm mr-4";
+    document.getElementById(
+      `table-${this.state.activeGroupNav}`
+    ).contentEditable = "false";
   }
 
   render() {
@@ -187,8 +280,13 @@ class Lecturers extends Component {
           <CardHeader>
             <i className="fa fa-align-justify" /> {dataGroup.groupName}
           </CardHeader>
-          <CardBody>
-            <Table responsive striped contentEditable="true">
+          <CardBody style={{ overflowY: "auto", height: "300px" }}>
+            <Table
+              id={`table-${dataGroup.groupName}`}
+              responsive
+              striped
+              contentEditable="false"
+            >
               <thead contentEditable="false">
                 <tr>
                   <th>Title</th>
@@ -202,12 +300,24 @@ class Lecturers extends Component {
               <tbody>
                 {dataGroup.Lecturers.map(lecturer => (
                   <tr key={lecturer.id}>
-                    <td>{lecturer.Title}</td>
-                    <td>{lecturer.Name}</td>
-                    <td>{lecturer.IdNumber}</td>
-                    <td>{lecturer.Department}</td>
-                    <td>{lecturer.Email}</td>
-                    <td>{lecturer.OfficeNumber}</td>
+                    <td className={`lecturer-${dataGroup.groupName}`}>
+                      {lecturer.Title}
+                    </td>
+                    <td className={`lecturer-${dataGroup.groupName}`}>
+                      {lecturer.Name}
+                    </td>
+                    <td className={`lecturer-${dataGroup.groupName}`}>
+                      {lecturer.IdNumber}
+                    </td>
+                    <td className={`lecturer-${dataGroup.groupName}`}>
+                      {lecturer.Department}
+                    </td>
+                    <td className={`lecturer-${dataGroup.groupName}`}>
+                      {lecturer.Email}
+                    </td>
+                    <td className={`lecturer-${dataGroup.groupName}`}>
+                      {lecturer.OfficeNumber}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -215,11 +325,32 @@ class Lecturers extends Component {
           </CardBody>
           <CardFooter>
             <Button
-              Onclick={this.handle_add_lecturer}
+              onClick={this.handle_add_lecturer}
               color="primary"
               size="sm"
+              className="mr-3"
+              className="d-none"
+              id={`addBtn-${dataGroup.groupName}`}
             >
               Add Lecturer
+            </Button>
+            <Button
+              onClick={this.handle_edit_lecturer}
+              color="info"
+              size="sm"
+              className="mr-3"
+              id={`editBtn-${dataGroup.groupName}`}
+            >
+              Edit
+            </Button>
+            <Button
+              onClick={this.handle_save_lecturer}
+              color="success"
+              size="sm"
+              className="d-none"
+              id={`saveBtn-${dataGroup.groupName}`}
+            >
+              Save
             </Button>
           </CardFooter>
         </Card>
@@ -230,14 +361,21 @@ class Lecturers extends Component {
       marginLeft: "30%",
       float: "right"
     };
-    let lecturersGroupList = this.state.data.map(dataGroup => (
+    let lecturersGroupListComponent = this.state.data.map(dataGroup => (
       <Nav.Item>
-        <Nav.Link eventKey={dataGroup.groupName} key={dataGroup.groupName}>
-          <li
-            style={{ cursor: "pointer", animation: 0.5 }}
-            className="list-group-item list-group-item-action p-2"
-          >
-            <ListGroupItem className="list-group-item-info d-flex">
+        <Nav.Link
+          onClick={() => this.handle_active_nav(dataGroup.groupName)}
+          eventKey={dataGroup.groupName}
+          key={dataGroup.groupName}
+        >
+          <li className="list-group-item list-group-item-action p-2">
+            <ListGroupItem
+              className="list-group-item-info d-flex h-10"
+              style={{
+                cursor: "pointer",
+                animation: 0.5
+              }}
+            >
               {dataGroup.groupName}
               <i className="fa fa-arrow-right" style={styles} />
             </ListGroupItem>
@@ -248,19 +386,57 @@ class Lecturers extends Component {
 
     return (
       <div className="animated fadeIn">
-        <Tab.Container defaultActiveKey={this.state.data[0].groupName}>
+        <Tab.Container
+          defaultActiveKey={this.state.activeGroupNav}
+          id="tab-container"
+        >
           <Row>
             <Col xs="12" lg="9">
               <Tab.Content>{lecturersListComponent}</Tab.Content>
             </Col>
             <Col sm="12" xl="3">
+              <Nav className="flex-column">
+                <Card>
+                  <CardHeader>
+                    <i className="fa fa-align-justify" />
+                    <strong>Lecturers Groups</strong>
+                    <div className="card-header-actions" />
+                  </CardHeader>
+
+                  <CardBody
+                    style={{
+                      overflowY: "auto",
+                      height: "150px"
+                    }}
+                  >
+                    {lecturersGroupListComponent}
+                  </CardBody>
+
+                  <CardFooter>
+                    <Button
+                      onClick={this.handle_add_lecturers}
+                      type="submit"
+                      size="sm"
+                      color="success"
+                    >
+                      <i className="fa fa-plus" /> New
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Nav>
               <Card>
                 <CardHeader>
                   <i className="fa fa-align-justify" />
                   <strong>Upload Data From File</strong>
                 </CardHeader>
                 <CardBody>
-                  <Form action="" method="post">
+                  <Form
+                    action=""
+                    method="post"
+                    style={{
+                      height: "30px"
+                    }}
+                  >
                     <FormGroup>
                       <div className="badge badge-primary badge-info p-2 w-5 d-block badge-action">
                         <i className="fa fa-upload fa-upload-sm gb-dark pl-10" />
@@ -279,7 +455,7 @@ class Lecturers extends Component {
                         />
                       </div>
 
-                      <FormText className="help-block pt-3">
+                      <FormText className="help-block pt-0">
                         Accepted formats are .csv and .xlsx
                       </FormText>
                     </FormGroup>
@@ -291,29 +467,6 @@ class Lecturers extends Component {
                   </Button>
                 </CardFooter>
               </Card>
-
-              <Nav className="flex-column">
-                <Card>
-                  <CardHeader>
-                    <i className="fa fa-align-justify" />
-                    <strong>Lecturers Groups</strong>
-                    <div className="card-header-actions" />
-                  </CardHeader>
-
-                  <CardBody>{lecturersGroupList}</CardBody>
-
-                  <CardFooter>
-                    <Button
-                      onClick={this.handle_add_lecturers}
-                      type="submit"
-                      size="sm"
-                      color="success"
-                    >
-                      <i className="fa fa-plus" /> New
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </Nav>
             </Col>
           </Row>
         </Tab.Container>
