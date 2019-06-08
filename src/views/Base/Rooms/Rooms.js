@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Tab, Nav } from "react-bootstrap";
 import {
   Button,
@@ -23,6 +24,8 @@ import {
   Label
 } from "reactstrap";
 
+
+const BASE_URL = "http://localhost:5000"
 const JsonData = [
   {
     groupName: "Engineering Classrooms",
@@ -120,6 +123,19 @@ class Rooms extends Component {
     this.handle_active_nav = this.handle_active_nav.bind(this);
     this.handle_edit_room = this.handle_edit_room.bind(this);
   }
+  componentDidMount() {
+     axios.get(BASE_URL + "/classroomgroup").then(
+         res => {
+           const data = res.data;
+           console.log(data);
+           // this.setState({data});
+           this.setState({
+               data:res.data.data,
+               activeGroupNav:res.data.data[0].groupName
+         })
+         }
+     )
+  }
 
   handle_edit_room() {
     document.getElementById(`saveBtn-${this.state.activeGroupNav}`).className =
@@ -148,8 +164,8 @@ class Rooms extends Component {
                   id: 0, // the id is updated to the actual value when the save button is clicked
                   name: "",
                   capacity: "",
-                  allowance: "",
-                  building: ""
+                  location:"",
+                  allowance: ""
                 }
               ]
             }
@@ -178,6 +194,7 @@ class Rooms extends Component {
     });
   }
   handle_add_room() {
+
     this.setState(prevState => {
       return {
         data: [...prevState.data].map(group => {
@@ -190,8 +207,8 @@ class Rooms extends Component {
                   id: 0, // the id is updated to the actual value when the save button is clicked
                   name: "",
                   capacity: "",
-                  allowance: "",
-                  building: ""
+                  location:"",
+                  allowance: ""
                 }
               ]
             };
@@ -211,18 +228,18 @@ class Rooms extends Component {
       x = 0;
 
     while (i < tr.length) {
-      tracker.id = x;
       tracker.name = tr[i].innerHTML;
       i++;
       tracker.capacity = tr[i].innerHTML;
       i++;
-      tracker.allowance = tr[i].innerHTML;
+      tracker.location = tr[i].innerHTML;
       i++;
-      tracker.building = tr[i].innerHTML;
+      tracker.allowance = tr[i].innerHTML;
       allEntries.push(Object.assign({}, tracker));
       i++;
       x++;
     }
+
     this.setState(prevState => {
       return {
         data: [...prevState.data].map(group => {
@@ -265,13 +282,13 @@ class Rooms extends Component {
                 <tr>
                   <th>Name</th>
                   <th>Capacity</th>
+                  <th>location</th>
                   <th>allowance</th>
-                  <th>Building</th>
                 </tr>
               </thead>
               <tbody>
                 {dataGroup.rooms.map(room => (
-                  <tr key={room.id}>
+                  <tr key={room.name}>
                     <td className={`room-${dataGroup.groupName}`}>
                       {room.name}
                     </td>
@@ -279,11 +296,12 @@ class Rooms extends Component {
                       {room.capacity}
                     </td>
                     <td className={`room-${dataGroup.groupName}`}>
-                      {room.allowance}
+                      {room.location}
                     </td>
                     <td className={`room-${dataGroup.groupName}`}>
-                      {room.building}
+                      {room.allowance}
                     </td>
+
                   </tr>
                 ))}
               </tbody>
