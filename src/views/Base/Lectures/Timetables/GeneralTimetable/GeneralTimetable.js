@@ -94,7 +94,8 @@ class GeneralTimetable extends Component {
   constructor() {
     super();
     this.state = {
-      data: JSONData
+      data: JSONData,
+      rooms: [],
     };
   }
   componentDidMount() {
@@ -103,51 +104,75 @@ class GeneralTimetable extends Component {
         data: res.data
       });
     });
+
+    axios.get("http://localhost:5000/rooms").then(
+        res => {
+          this.setState({
+                rooms: res.data
+              }
+          )
+    },
+    )
   }
-
   render() {
-    let days = [];
-    let timeSlote = [];
-    let roomsTest = [];
-    let newlist = this.state.data.map(item => {
-      if (!days.includes(item.day)) {
-        days = [...days, item.day];
-      }
-    });
-    let timeSl = this.state.data.map(time => {
-      if (!timeSlote.includes(time.time)) {
-        timeSlote = [...timeSlote, time.time];
-      }
-    });
-    let rooms = this.state.data.map(room => {
-      if (!roomsTest.includes(room.room)) {
-        roomsTest = [...roomsTest, room.room];
-      }
-    });
+    // let days = [];
+    // let timeSlote = [];
+    // let roomsTest = [];
+    // let newlist = this.state.data.map(item => {
+    //   if (!days.includes(item.day)) {
+    //     days = [...days, item.day];
+    //   }
+    // });
+    // let timeSl = this.state.data.map(time => {
+    //   if (!timeSlote.includes(time.time)) {
+    //     timeSlote = [...timeSlote, time.time];
+    //   }
+    // });
+    // let rooms = this.state.data.map(room => {
+    //   if (!roomsTest.includes(room.room)) {
+    //     roomsTest = [...roomsTest, room.room];
+    //   }
+    // });
 
-    console.log(days);
-    console.log(timeSlote);
-    console.log(roomsTest);
-    let tableHeads = timeSlote.map(time => <th>{time}</th>);
-    let tableBody = roomsTest.map(room => {
-      let mylist = timeSlote.map(tSlote => {
-        let d = this.state.data.map(item => {
-          if (item.day == day && item.time == tSlote && item.room == room)
-            return <td>{`${item.course} ${item.section} ${item.Lecturer}`}</td>;
-          else return <td />;
-        });
-
-        return (
-          <React.Fragment>
-            <td>{room}</td>
-            <td>{d}</td>
-          </React.Fragment>
-        );
-      });
-      return mylist;
-    });
-
+    // console.log(days);
+    // console.log(timeSlote);
+    // console.log(roomsTest);
+    // let tableHeads = timeSlote.map(time => <th>{time}</th>);
+    // let tableBody = roomsTest.map(room => {
+    //   let mylist = timeSlote.map(tSlote => {
+    //     let d = this.state.data.map(item => {
+    //       if (item.day == day && item.time == tSlote && item.room == room)
+    //         return <td>{`${item.course} ${item.section} ${item.Lecturer}`}</td>;
+    //       else return <td />;
+    //     });
+    //
+    //     return (
+    //       <React.Fragment>
+    //         <td>{room}</td>
+    //         <td>{d}</td>
+    //       </React.Fragment>
+    //     );
+    //   });
+    //   return mylist;
+    // });
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+    const {data, rooms} = this.state
     let daytables = days.map(day => {
+
+      let entries =  rooms.map(room => {
+        return (<tr>
+          <th scope='row'>{room.name}</th>
+           <td>{data.pop()}</td>
+           <td>{data.pop()}</td>
+           <td>{data.pop()}</td>
+           <td>{data.pop()}</td>
+           <td>{data.pop()}</td>
+           {/*<td>{data.pop()}</td>*/}
+           {/*<td>{data.pop()}</td>*/}
+         </tr>)
+      })
+
+
       return (
         <Row>
           <Col xs="12">
@@ -164,10 +189,14 @@ class GeneralTimetable extends Component {
                   <thead>
                     <tr>
                       <th>Period</th>
-                      {tableHeads}
+                      <th>8:00 - 10:00</th>
+                      <th>10:00 - 12:00</th>
+                      <th>12:00 - 14:00</th>
+                      <th>14:00 - 16:00</th>
+                      <th>16:00 - 18:00</th>
                     </tr>
                   </thead>
-                  <tbody>{tableBody}</tbody>
+                  <tbody>{entries}</tbody>
                 </Table>
               </CardBody>
               <CardFooter />
